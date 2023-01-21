@@ -1,0 +1,77 @@
+/* ----------- quitar opacida a las flechas de orden de las tablas ---------- */
+.gridjs-sort{
+    opacity: 1 !important;
+   width: 15px !important;
+
+}
+/* -------------------- titulos de las tablas de consulta ------------------- */
+.titulo_tabla{
+    color: var(--color-letra);
+    text-shadow: var(--sombra);
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+    cursor: default;
+    font-style: italic;
+    margin-bottom: 15px;
+    
+    
+}
+
+/* ---------------- ajutar contenedor de la tabla de usuarios --------------- */
+.container_usuarios{
+    margin: auto;
+    width: 65%;
+}
+
+
+
+/* ---------------------- modal con datos de estudianes --------------------- */
+
+.datos_estudiantes_modal_container{
+    grid-template-columns: 1fr 1fr;
+}
+.datos_estudiantes_modal_campos{
+    grid-column: span 3;
+}
+
+/* ----------------------------- icono de editar ---------------------------- */
+
+.editar-repre,
+.editar-estu,
+.editar-profe,
+.editar-usuario,
+.constancias,
+.eliminar-usuario{
+
+    cursor: pointer;
+    font-size: larger;
+    text-shadow: none;
+    
+}
+
+.editar-repre,
+.constancias,
+.certificados{
+    color: rgb(52, 73, 94  );
+}
+.editar-estu,
+.editar-profe,
+.editar-usuario,
+.eliminar-usuario{
+    font-size: large;
+    color: rgb(41, 182, 246 );
+    
+}
+
+
+
+/* ---------------------------------- hover --------------------------------- */
+
+.grid-tr:hover .grid-td {
+    
+    background: rgb(227, 242, 253 )!important;
+   cursor: default;
+   
+  transition: 0.2s;
+}

@@ -1,0 +1,29 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.linea_1,
+.linea_2,
+.linea_3,
+.linea_5,
+.linea_7,
+.linea_8{
+    text-align: center;
+}
+
+.linea_4,
+.linea_6,
+.linea_7{
+    text-align: justify;
+    text-indent: 10px;
+    
+    
+}
+.linea_bottom{
+    border-bottom: 2px solid black;
+}
+
+.linea_1 img{
+    margin-left: 20px;
+}

@@ -1,0 +1,473 @@
+/*-----------------  valores formularios  --------------------------*/
+/* contenedor de inscripcion, tiene 3 formularios */
+.contenedor_principal {
+    display: grid;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.container_campos {
+
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    margin: 8px;
+    margin-bottom: 10px;
+    top: 15px;
+
+}
+
+/* fondos y sombras de contenedores de formularios */
+.contenedor_estudiante_grid,
+.contenedor_representante_grid,
+.contenedor_inscripcion,
+.contenedor_regular,
+.contenedor_profesor,
+.contenedor_usuario,
+.contenedor_asignacion {
+
+    box-shadow: var(--sombra-formulario);
+    border-radius: 8px;
+    background: var(--fondo-formulario);
+}
+
+
+/* --------------------------- iconos del formulario--------------------------- */
+.container_campos i {
+  color: var(--color-icono);
+    text-shadow: var(--sombra);
+    padding-right: 8px;
+    position: absolute;
+    top: 22px;
+    right: 20px;
+    transition: .4s;
+}
+
+
+/* ------------------- titulos de formularios y subtitulos ------------------ */
+.titulo_formulario p,
+.titulo_ubicacion {
+
+    padding: 5px;
+    font-weight: 800;
+    font-size: 25px;
+    font-style: italic;
+    text-shadow: var(--sombra);
+    color: var(--color-letra);
+    margin-left: 20px;
+    box-sizing: border-box;
+
+}
+
+.titulo_ubicacion {
+
+    font-weight: 600;
+    font-size: 20px;
+    color: white;
+    text-shadow: var(--sombra);
+}
+
+
+/*-----------------  valores input y label  --------------------------*/
+
+.label,
+.label_select {
+    position: absolute;
+    color: var(--color-letra);
+    font-size: large;
+    text-shadow: var(--sombra);
+    font-weight: 900;
+    left: 20px;
+    transform: translateY(9px);
+    transition: .4s all;
+    box-sizing: border-box;
+}
+
+.label_select {
+
+    position: relative;
+    left: 5px;
+    bottom: 5px;
+}
+
+
+.input,
+select {
+
+    width: 99%;
+    padding: 7px 5px;
+    font-size: larger ;
+    border: none;
+    background: var(--fondo-input);
+    color: var(--color-letra-oscuro);
+    font-weight: 600;
+    outline-style: none;
+    border-radius: 5px;
+    border-bottom: 3px solid transparent;
+    box-sizing: border-box;
+    transition: .3s;
+
+}
+
+
+.input:disabled,
+.select:disabled{
+   
+    background-color: rgb(97, 97, 97);
+  
+}
+.select:focus{
+    background: rgb(224, 224, 224);
+}
+/* input dentro del modal al crear periodo en el index */
+.crearPeriodo{
+
+background:rgb(230, 230, 230);
+border-bottom: 3px solid var(--color-primario);
+
+}
+
+
+
+
+
+/*-----------------  animaciones input  --------------------------*/
+
+.input:focus,
+.select {
+
+    transition: .4s;
+    border-bottom: 3px solid var(--color-primario);
+
+}
+
+.input:focus+.label,
+.input:not(:placeholder-shown)~.label {
+
+
+    transition: .4s;
+    transform: translateY(-25px);
+    transform-origin: 2% 1%;
+    text-shadow: 0px 0px 0px;
+    color: var(--color-primario);
+}
+
+
+/*-----------------  animaciones input error  --------------------------*/
+.select_error {
+
+    border-bottom: 3px solid red;
+}
+
+.input_error:focus {
+
+    
+    border-bottom: 3px solid red;
+
+}
+
+.input:focus+.label_error,
+.input:not(:placeholder-shown)~.label_error {
+    transition: .3s;
+    color: red;
+}
+
+/*-----------------  animacion de iconos  --------------------------*/
+
+.input:focus~i {
+
+    transform: translateX(-33px);
+    text-shadow: 0px 0px 0px;
+    color: var(--color-primario-oscuro);
+}
+
+/*-----------------  valores botones  --------------------------*/
+.contenedor_boton {
+
+    display: flex;
+    transform: translateY(20px);
+}
+
+.boton {
+  
+    width: 500px;
+    height: 50px;
+    margin: auto;
+    border: none;
+    border-radius: 4px;
+    font-size: large;
+    color: var(--color-letra);
+    background-color: var(--color-primario);
+    transition: .2s;
+    text-shadow: var(--sombra);
+    cursor: pointer;
+
+}
+
+.boton:hover {
+
+    box-shadow: 1px 1px 10px  var(--color-primario);
+}
+
+
+/*-----------------  formularios estudiante   --------------------------*/
+
+.contenedor_estudiante_grid {
+    
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 24% 22%;
+    padding: 20px;
+    box-sizing: border-box;
+
+}
+
+.contenedor_estudiante_grid .titulo_formulario_grid {
+    grid-column: span 3;
+  
+
+}
+
+.container_ci_estu {
+    grid-column: span 2;
+    width: 50%;
+    margin: auto;
+}
+
+
+.campos_estudiante_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-right: 30px;
+}
+
+.genero {
+    margin-top: -16px;
+
+}
+
+.select_ci{
+    font-weight: 600;
+    width: 45px;
+    position: absolute;
+    left: -40px;
+    padding-left: 0;
+}
+
+/* boton editiar formulario estudiante */
+
+.boton_editar{
+
+    grid-column: span 3;
+    margin-top: 20px;
+}
+
+
+
+
+
+/*-----------------  formulario representante  --------------------------*/
+
+.contenedor_representante_grid {
+
+    background-color: var(--fondo-formulario);
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: 1fr 30% ;
+    padding: 20px;
+    box-sizing: border-box;
+
+}
+.contenedor_representante_grid .titulo_formulario_grid{
+
+grid-column: span 2;
+
+}
+
+
+.campos_representante_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+
+}
+
+.container_ci_repre {
+    grid-column: span 2;
+    width: 60%;
+    margin: auto;
+}
+
+.contenedor_representante .contenedor_ubicacion {
+
+    margin-left: -145px;
+}
+
+/* margin abajo de titulo ubicacion */
+#formulario>div>div.contenedor_representante.contenedor_representante_grid>div.contenedor_ubicacion>div.contenedor_titulo_ubicacion {
+
+    margin-bottom: -25px;
+}
+
+.checked-repre{
+    margin-left: 20%;
+    font-size: 14px;
+}
+
+
+/* -----------------  formulario inscripcion  --------------------------*/
+
+.contenedor_inscripcion {
+
+    display: block;
+    width: 700px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 50px;
+
+}
+
+#formulario>div>div.contenedor_inscripcion>div.titulo_formulario>p {
+
+    text-align: center;
+}
+
+
+/*-----------------  formulario regular  --------------------------*/
+
+.contenedor_regular {
+   
+   width: 40%;
+    margin: auto;
+    padding: 40px;
+
+}
+
+.campos_regular .container_campos {
+
+    padding: 10px;
+
+}
+
+
+
+
+
+/*-----------------  formulario profesor  --------------------------*/
+.contenedor_profesor {
+
+    width: 40%;
+    margin: auto;
+    padding: 40px;
+    margin-bottom: 20px;
+}
+
+.campos_profesor .campos_ubicacion .container_campos input[name=sector] {
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.espacio_sector {
+   margin-top: 10px;
+}
+
+
+
+/*-----------------  formulario usuario y del index  --------------------------*/
+.contenedor_usuario {
+    
+  
+    padding: 30px;
+    position: relative;
+    max-width: 550px ;
+   margin-top: 25px;
+}
+.formulario_index{
+    margin: auto;
+}
+
+.contenedor_usuario_formulario{
+    width: 40%;
+}
+
+/* posicion del logo */
+.contenedor_logo_index{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+   
+  
+   margin-bottom: -33px;
+  
+}
+
+.logo{
+    width:100px;
+}
+.titulo_sistema{
+    
+    text-align: center;
+    
+}
+
+#pass{
+    cursor: pointer;
+}
+/* //boton crear periodo */
+.periodo{
+width: 160px;
+height: 35px;
+font-size: 15px;
+font-weight: 500;
+margin-top: -10px;
+margin-bottom: 10px;
+}
+
+
+
+/*-----------------  formulario de asignacion  --------------------------*/
+.contenedor_asignacion {
+
+    display: block;
+    width: 40%;
+    margin: auto;
+    padding: 40px;
+
+}
+/* select con ayudas */
+.ayuda_profe {
+
+    width: 27%;
+    position: relative;
+    bottom: 510px;
+    margin: 5px;
+    padding: 20px;
+
+}
+.container_asignados{
+    margin-top: 100px;
+}
+
+.ayuda_profe select {
+    color: var(--color-letra);
+    background-color: var(--fondo-formulario);
+    font-size: 15px;
+    font-weight: 500;
+    text-shadow: var(--sombra);
+}
+
+.usuario{
+bottom: 470px;
+}
+
+
+.fieldset{
+    border: none;
+}

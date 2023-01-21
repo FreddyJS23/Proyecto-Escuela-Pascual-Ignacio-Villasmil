@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap-5.1.3-dist/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fontawesome-free-6.1.1-web/css/all.css">
+    <title>Login</title>
+</head>
+
+<body>
+
+
+
+
+    <form action="comprobacion.php" method="post" id="form_login">
+
+
+        <div class="container contenedor_usuario formulario_index">
+            <div class="titulo_sistema">Sistema automatizado de registro y control de notas</div>
+            <div class="contenedor_logo_index">
+                <img class="logo" src="css/imagenes/logo.png"  alt="logo">
+            </div>
+            <!-- <p class="titulo_formulario">Login</p> -->
+
+            <div class="campos_usuarios">
+
+                <div class="container_campos">
+                    <input class="input" type="text" name="usuario" id="usuario" placeholder=" " required
+                        autocomplete="off">
+                    <label class="label" for="usuario">Nombre de usuario</label>
+                    <i class="fa-solid fa-user"></i>
+
+
+                </div>
+
+                <div class="container_campos">
+                    <input class="input" type="password" name="contraseña" id="password" placeholder=" ">
+                    <label class="label" for="password">Contraseña </label>
+                    <div> <i class="fa-solid fa-eye-slash" id="pass"></i></div>
+                </div>
+
+                <div class=" container_campos">
+                    <label class="label_select" for="periodo">Periodo </label>
+                    <select class="select" name="periodo" id="periodo">
+
+                        <option value="0">Selecione un periodo</option>
+                    </select>
+                    <div class="contenedor_boton">
+                        <input type="button" class="boton periodo" id="crearPeriodo" value="Crear periodo">
+                    </div>
+                </div>
+
+
+
+                <div class="contenedor_boton">
+
+                    <input class="boton" type="submit" value="Entrar">
+                </div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+        </div>
+
+
+    </form>
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="js/axios.js"></script>
+    <script type="module" src="ajax/ajax.js"></script>
+    <script src="js/formulario.js"></script>
+
+    
+
+</body>

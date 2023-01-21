@@ -1,0 +1,115 @@
+<!-- Datos  representante -->
+
+<div class="container contenedor_representante contenedor_representante_grid">
+
+    <div class="titulo_formulario titulo_formulario_grid">
+        <p><i class="fa-solid fa-person-breastfeeding"></i>Datos del representante</p>
+
+
+    </div>
+    <div class="campos_representante campos_representante_grid">
+        <!-- ------------------------ check de representan ------------------------- -->
+        <label for="" class="label checked-repre"><input type="checkbox" name="check" id="check_inscrito"> Representante
+            inscrito</label>
+
+        <div class="container_campos container_ci_repre">
+
+            <input class="input" required type="text" name="ci_repre" id="ci_repre" placeholder=" " autocomplete="off"
+                maxlength="8">
+            <label class="label" id="label_ci_repre" for="ci_repre">Cedula </label>
+
+        </div>
+
+
+
+        <div class="container_campos">
+            <input class="input" required type="text" name="nombre_repre" id="nombre_repre" placeholder=" "
+                autocomplete="off" maxlength="30">
+            <label class="label" id="label_nombre_repre" for="nombre_repre">Nombre completo </label>
+        </div>
+        <div class="container_campos">
+            <input class="input" required type="text" name="apellido_repre" id="apellido_repre" placeholder=" "
+                autocomplete="off" maxlength="30">
+            <label class="label" id="label_apellido_repre" for="apellido_repre">Apellido completo </label>
+        </div>
+        <div class="container_campos">
+            <input class="input" required type="date" name="fn_repre" id="fn_repre">
+            <label class="label" for="fn_repre">Fecha nacimiento </label>
+        </div>
+        <div class="container_campos genero">
+            <label class="label_select" for="sx_repre">Genero</label>
+            <select class="select" name="sx_repre" id="sx_repre">
+                <option value="0">Seleccione un genero</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+            </select>
+        </div>
+        <div class="container_campos">
+            <input class="input" required type="text" name="tlf_repre" id="tlf_repre" placeholder=" " autocomplete="off"
+                maxlength="12" pattern="[0-9]{4,4}-[0-9]{7,7}" title="Formato 0xxx-xxxxxxx">
+            <label class="label" id="label_tlf_repre" for="tlf_repre">Telefono contacto</label>
+        </div>
+        <div class="container_campos">
+            <input class="input" required type="text" name="parentesco" id="parentesco" placeholder=" "
+                autocomplete="off" maxlength="15">
+            <label class="label" id="label_parentesco" for="parentesco">Parentesco con el estudiante</label>
+        </div>
+    </div>
+    <!-- ubicacion -->
+    <div class="contenedor_ubicacion">
+        <div class="contenedor_titulo_ubicacion">
+            <p class="titulo_ubicacion">Donde recide actualemte</p>
+        </div>
+        <div class="campos_ubicacion">
+            <div class="container_campos">
+                <label class="label_select" for="estado">Estado</label>
+                <select class="select" name="estado_repre" id="estado_repre">
+                    <option value="0">Seleccione un estado</option>
+                    <option value="1 ">Amazonas </option>
+                    <option value="2 ">Anzoátegui </option>
+                    <option value="3 ">Apure </option>
+                    <option value="4 ">Aragua </option>
+                    <option value="5 ">Barinas </option>
+                    <option value="6 ">Bolívar </option>
+                    <option value="7 ">Carabobo </option>
+                    <option value="8 ">Cojedes </option>
+                    <option value="9 ">Delta Amacuro </option>
+                    <option value="10">Falcón </option>
+                    <option value="11">Guárico </option>
+                    <option value="12">Lara </option>
+                    <option value="13">Mérida </option>
+                    <option value="14">Miranda </option>
+                    <option value="15">Monagas </option>
+                    <option value="16">Nueva Esparta </option>
+                    <option value="17">Portuguesa </option>
+                    <option value="18">Sucre </option>
+                    <option value="19">Táchira </option>
+                    <option value="20">Trujillo </option>
+                    <option value="21">La Guaira </option>
+                    <option value="22">Yaracuy </option>
+                    <option value="23">Zulia </option>
+                    <option value="24">Distrito Capital </option>
+                    <option value="25">Dependencias Federales</option>
+                </select>
+            </div>
+            <div class="container_campos">
+                <label class="label_select" for="estado">Municipio</label>
+                <select class="select" name="municipio_repre" id="municipio_repre" disabled>
+
+                    <option value="0">Seleccione un municipio</option>
+                </select>
+            </div>
+            <div class="container_campos">
+                <label class="label_select" for="parroquia">Parrquia</label>
+                <select class="select" name="parroquia_repre" id="parroquia_repre" disabled>
+                    <option value="0">Seleccione un parroquia</option>
+                </select>
+            </div>
+            <div class="container_campos" for="sector">
+                <input class="input" required type="text" name="sector_repre" placeholder=" " autocomplete="off"
+                    id="sector_repre" maxlength="30">
+                <label class="label" id="label_sector_repre" for="sector_repre">Sector</label>
+            </div>
+        </div>
+    </div>
+</div>

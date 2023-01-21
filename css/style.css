@@ -1,0 +1,560 @@
+@import url("style_principal.css");
+@import url("style_formulario.css");
+@import url("style_consultas.css");
+@import url("sweetalert2.min.css");
+@import url("mermaid.min.css");
+
+
+
+@font-face {
+    font-family:"Mukta" ;
+    src: url("fonts/Mukta-Medium.ttf");
+}
+@font-face {
+    font-family:"Quicksand" ;
+    src: url("fonts/Quicksand-Medium.ttf");
+}
+
+
+:root{
+    
+    /* --color-primario:rgb(88, 43, 192); */
+    --color-primario:rgb(51, 0, 204 );
+    --color-primario-claro:rgba(51, 0, 204, 0.200);
+    --color-primario-oscuro:rgb(10, 33, 218);
+    --sombra: 0px 0px 4px black;
+    --seleccion:rgba(0, 0, 0, 0.300);
+    --color-icono:white;
+    --color-letra:white;
+    --color-letra-oscuro:rgba(0, 0, 0, 0.700);
+    --sombra-contenedor_estadistica:2px 2px 20px 1px var(--color-primario);
+    --sombra-formulario:2px 2px 25px  rgba(117, 117, 117, 0.950);
+    --fondo-formulario:rgba(117, 117, 117, 0.950);
+    --fondo-tabla:rgb(210, 210, 210);
+   --fondo-input:rgba(158, 158, 158 );
+}
+
+
+*{
+
+    font-family:'Quicksand' ;
+    font-size:15px ;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+   
+  
+    
+}
+/* --------------------------------- iconos --------------------------------- */
+ i{
+
+     padding-right: 8px;
+    text-shadow: var(--sombra);
+    
+}
+
+
+body {  
+     background:linear-gradient(rgba(0, 0, 0, 0.700),rgba(0, 0, 0, 0.700) ), url(imagenes/fondo.jpg) ;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    
+    }
+/* ---------------------- botones  de seccion y notas --------------------- */
+
+.nota-seccion{
+
+cursor: pointer;
+width: 20px;
+border-radius: 5px;
+margin-left: 5px;
+box-sizing: border-box;
+font-weight: 800;
+border: none;
+background-color: var(--fondo-tabla);
+}
+
+.nota-seccion:hover{
+
+    background-color: rgba(58, 43, 192, 0.500);
+}
+
+
+/* efecto blur para los hijos de la ventana modal,ya que los hijos de la ventana modal toman esta clase */
+body.swal2-shown > [aria-hidden="true"] {
+    filter: blur(5px);
+    transition: 0.1s filter;
+    
+  }
+
+/* ----------------------- media querys o respoinsive ----------------------- */
+
+/* index */
+@media screen and (max-width:650px){
+    .titulo_sistema{
+        font-size: 20px;
+    }
+    
+.logo{
+    width: 70px;
+}
+.input,
+select,
+.label,
+.label_select{
+    font-size: medium;
+    
+}
+
+.boton{
+    height: 40px;
+}
+}
+
+
+
+@media screen and (max-width:288px){
+    .titulo_sistema{
+        font-size:17px;
+    }
+    
+.logo{
+    width: 60px;
+}
+.input,
+select,
+.label,
+.label_select{
+    font-size: medium;
+    
+}
+#form_login > div > div.campos_usuarios > div:nth-child(1) > i{
+    display: none;
+}
+}
+
+
+
+
+@media screen and (max-width:248px){
+    .titulo_sistema{
+        font-size: 16px;
+    }
+    
+.logo{
+    width: 65px;
+}
+.input,
+select,
+.label,
+.label_select{
+    font-size: small;
+    
+} 
+.boton{
+    height: 30px;
+    font-size: small;
+}
+
+}
+
+@media screen and (max-width:210px){
+    .titulo_sistema{
+        font-size: 14px;
+    }
+    
+.logo{
+    width: 57px;
+}
+.input,
+select,
+.label,
+.label_select{
+    font-size: small;
+    
+} 
+
+}
+
+
+/* Paginas principal */
+
+/* nav */
+@media screen and (max-width:1232px){
+    .titulo-nav{
+        font-size: 20px;
+        margin-left: -8px;
+        margin-right: 2px;
+    }
+   
+.logo-nav{
+    width: 48px;
+}  
+.menu-nav{
+    transform: translateY(11.5px);
+}
+
+}
+
+@media screen and (max-width:1165px){
+    .titulo-nav{
+        font-size: 18px;
+       
+    }
+
+    
+}
+
+@media screen and (max-width:1146px){
+    .titulo-nav{
+        font-size: 17px;
+        margin-left: -9px;
+        margin-right: 2px;
+    }
+    .pestaña,
+    a>i,
+    .nav_li>a{
+        font-size: 13px;
+    }
+.logo-nav{
+    width: 46px;
+}    
+
+}
+
+@media screen and (max-width:1055px){
+    .titulo-nav{
+        font-size: 15px;
+        margin-left: -11px;
+        margin-right: 2px;
+    }
+    .pestaña,
+    a>i{
+        font-size: 12px;
+    }
+    .menu-nav{
+        transform: translateY(10px);
+    }
+    
+   
+.logo-nav{
+    width: 40px;
+    top: -12px;
+}    
+
+}
+
+@media screen and (max-width:992px){
+    .titulo-nav{
+        font-size: 21px;
+        margin-left: 5px;
+       
+    }
+    .pestaña,
+    a>i,
+    .nav_li>a{
+        font-size: 15px;
+    }
+    .menu-nav{
+        background-color: transparent;
+        border: none;
+        transform:none;
+    }
+
+    .nav_li a:hover{
+    background: rgba(0, 0, 0, 0.300);
+    }
+   
+   
+  .container-log-nav,.logo-nav{
+    display: none;
+  }
+  .contenedor_estadisticas1 p,
+  .contenedor_estadisticas2 p {
+  
+      font-size: 20px;
+  }
+  
+}
+/* ------------------------------- formularios ------------------------------ */
+/* formulario estudiante */
+@media screen and (max-width:1100px){
+
+
+.campos_estudiante .container_campos .input,
+.campos_estudiante .container_campos select{
+  font-size: medium;
+}
+.campos_estudiante .container_campos .label,
+.campos_estudiante .container_campos  .label_select{
+    font-size: small;
+}
+.campos_estudiante .container_campos .label{
+    bottom: 35px;
+}
+#label_ci_estu{
+    bottom: 28px;
+}
+.titulo_formulario p,
+.titulo_ubicacion{
+    font-size: 20px;
+}
+
+}
+
+@media screen and (max-width:930px){
+    
+    .contenedor_estudiante_grid{
+        grid-template-columns: 1fr 1fr;
+    }
+    .campos_estudiante_grid{
+        color: initial;
+    grid-column: span 3;
+       
+    }
+
+.campos_estudiante .container_campos .input,
+.campos_estudiante .container_campos select{
+  font-size: large;
+}
+.campos_estudiante .container_campos .label,
+.campos_estudiante .container_campos .label_select{
+    font-size:large;
+}
+.campos_estudiante .container_campos .label,#label_ci_estu{
+    bottom: initial;
+}
+    .contenedor_titulo_ubicacion{
+        margin-bottom: -37px;
+        margin-top: 50px;
+    }
+
+ }
+
+ @media screen and (max-width:750px){
+
+.campos_estudiante_grid,.contenedor_estudiante_grid,.contenedor_ubicacion_grid{
+    
+   display: flex;
+   flex-direction: column;
+   
+ 
+}
+.campos_estudiante .container_campos .input,
+.campos_estudiante .container_campos select{
+  font-size: medium;
+}
+.campos_estudiante .container_campos .label,
+.campos_estudiante .container_campos .label_select{
+    font-size:medium;
+}
+ }
+
+
+
+
+/* formulario representante */
+ @media screen and (max-width:930px){
+
+.contenedor_representante_grid{
+   
+    grid-template-columns: 1fr;
+}
+
+.campos_representante_grid {
+
+ 
+    grid-column: span 2;
+    width: 100%;
+
+}
+
+
+.campos_representante .container_campos .input,
+.campos_representante .container_campos select{
+  font-size: large;
+}
+.campos_representante .container_campos .label,
+.campos_representante .container_campos .label_select{
+    font-size:large;
+}
+.contenedor_representante .contenedor_ubicacion {
+
+    margin-left: 50px;
+    margin: auto;
+    width: 70%;
+   
+}
+.contenedor_representante .contenedor_ubicacion .contenedor_titulo_ubicacion{
+
+    margin-left: 15px;
+}
+
+
+.checked-repre{
+    transform: translate(40px,-6px);
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+}
+
+@media screen and (max-width:750px){
+
+    .campos_representante_grid,.contenedor_representante_grid,.contenedor_ubicacion_grid{
+        
+       display: flex;
+       flex-direction: column;
+       
+     
+    }
+    .campos_representante .container_campos .input,
+    .campos_representante .container_campos select,
+    .contenedor_regular .contenedor_boton input{
+      font-size: medium;
+    }
+    .campos_representante .container_campos .label,
+    .campos_representante .container_campos .label_select{
+        font-size:medium;
+    }
+     }
+    
+
+     /* formulario regular / profesor */
+@media screen and (max-width:988px){
+    .contenedor_regular,
+    .contenedor_profesor{
+        width: 55%;
+    }
+
+    .contenedor_regular .container_campos .input,
+    .contenedor_regular .container_campos select,
+    .contenedor_regular .contenedor_boton input,
+    .campos_profesor .container_campos .input,
+    .campos_profesor .container_campos select,
+    .campos_profesor .contenedor_boton input{
+      font-size: medium;
+    }
+    .contenedor_regular .container_campos .label,
+    .contenedor_regular .container_campos .label_select,
+    .campos_profesor .container_campos .label,
+    .campos_profesor .container_campos .label_select{
+        font-size:medium;
+    }
+     
+
+}
+
+@media screen and (max-width:670px){
+
+    .contenedor_regular,
+    .contenedor_profesor{
+        width: auto;
+    }
+    .contenedor_regular .container_campos .label,
+    .contenedor_regular .container_campos .label_select,
+    .campos_profesor .container_campos .label,
+    .campos_profesor .container_campos .label_select{
+        font-size:small;
+    }
+}
+
+
+/* -------------------- formuladrio asginacion de maestro/usuario ------------------- */
+@media screen and (max-width:900px){
+.contenedor_asignacion,
+.contenedor_usuario_formulario{
+    width: 50%;
+    
+}
+.ayuda_profe{
+    margin-left: -15px;
+   
+}
+.campos_asignacion .container_campos .input,
+.campos_asignacion .container_campos select,
+.campos_asignacion .contenedor_boton input,
+.contenedor_usuario_formulario .container_campos .input,
+.contenedor_usuario_formulario .container_campos select,
+.contenedor_usuario_formulario .contenedor_boton input{
+      font-size: medium;
+    }
+
+.campos_asignacion .container_campos .label,
+.campos_asignacion .container_campos .label_select,
+.contenedor_usuario_formulario  .container_campos .label,
+.contenedor_usuario_formulario  .container_campos .label_select{
+        font-size:medium;
+        
+    }
+.container_ayuda_selector .titulo_formulario p,
+.container_asignados     .titulo_formulario p{
+
+    font-size: 17px;
+}
+
+}
+@media screen and (max-width:680px){
+    .contenedor_asignacion,
+    .contenedor_usuario_formulario{
+        width: 65%;
+        
+    }
+    
+    
+    .ayuda_profe{
+        bottom: 0;
+        width: 40%;
+        margin: auto;
+    }
+   
+}
+@media screen and (max-width:530px){
+    .contenedor_asignacion,
+    .contenedor_usuario_formulario{
+        width: auto;
+        
+    }
+    
+    
+    .ayuda_profe{
+        bottom: 0;
+        width: 70%;
+        margin: auto;
+      
+    }
+ 
+  
+}
+
+/* --------------------------- tablas de consultas -------------------------- */
+/* usuarios */
+@media screen and (max-width:1100px){
+    .container_usuarios{
+        
+        width: 70%;
+    }
+}
+@media screen and (max-width:1034px){
+    .container_usuarios{
+        
+        width: 80%;
+    }
+}
+@media screen and (max-width:900px){
+    .container_usuarios{
+        
+        width: 90%;
+    }
+}
+@media screen and (max-width:800px){
+    .container_usuarios{
+        
+        width: auto;
+    }
+}

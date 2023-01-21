@@ -1,0 +1,192 @@
+/*-----------------  estilo letras  --------------------------*/
+.menu,
+.nav_li a,
+.titulo_principal,
+.pestaña a,
+.contenedor_mensaje  a,
+.link-directo-nav,
+.icono-navbar  {
+    color: var(--color-letra);
+    text-shadow: var(--sombra);
+    text-decoration: none;
+    cursor: pointer;
+   
+}
+
+
+
+/* links de formularios en ventana modal de reportes */
+.link_reporte{
+    text-decoration: none;
+    font-weight: 600;
+    color: black;
+   
+    transition: .3s;
+    box-sizing: border-box;
+   
+}
+.link_reporte:hover{
+    color: var(--color-primario);
+}
+/*-----------------  titulo --------------------------*/
+.titulo_principal,.titulo_sistema {
+
+  
+    font-weight: 800;
+    font-size: 25px;
+    font-style: italic;
+    text-decoration: none;
+    color: var(--color-letra);
+    text-shadow: var(--sombra);
+    cursor: default;
+}
+
+
+/*-----------------  color de la barra navegacion  --------------------------*/
+nav {
+
+    background: var(--color-primario);
+    
+}
+
+
+
+/*----------------- pestañas  --------------------------*/
+.pestaña {
+
+    color: var(--color-letra);
+    text-shadow: var(--sombra);
+    cursor: pointer;
+    margin-left: 15px;
+    text-decoration: none;
+    transition: .3s;
+  
+}
+
+.container-logo-nav{
+    position: relative;
+    width: 60px;
+    margin:0px 5px
+}
+
+
+.logo-nav{
+    width: 52px;
+    position: absolute;
+    cursor: pointer;
+    top: -22px;
+    left: 10px;
+    transition: .3s;
+}
+
+.logo-nav:hover{
+    transform: translateY(5px);
+}
+
+
+
+/* --------------------------------- menu desplegables --------------------------------- */
+ .menu-nav{
+    
+   
+    background: rgba(0, 0, 0, 0.400);
+    transform: translateY(17.5px);
+    
+ }
+
+
+ /*-----------------  animacion de cada pestaña  --------------------------*/
+.pestaña:hover {
+    
+
+    color:rgba(255, 255, 255, 0.700);
+    text-shadow: var(--sombra);
+   
+
+}
+
+.pestaña_logo:hover {
+   transform: translateY(5px);
+
+
+}
+
+
+/*-----------------  pocision de elementos dentro de barra desplegable  --------------------------*/
+.nav_li a {
+    display: block;
+    padding: 10px 10px 10px 18px;
+    transition: 0.2s;
+
+}
+
+/*-----------------  animacion deelementos dentro de barra desplegable --------------------------*/
+
+.nav_li a:hover {
+
+    padding: 10px 10px 10px 25px;
+    background: var(--color-primario-claro);
+}
+
+
+
+/* ------------------------------ icono navbar de pantalla pequeñas ------------------------------ */
+.icono-navbar{
+    font-size: 18px;
+}
+
+.icono-navbar:hover{
+    color:rgba(255, 255, 255, 0.700);
+}
+/*-----------------  estadisticas  --------------------------*/
+
+.contenedor_estadisticas1,
+.contenedor_estadisticas2 {
+
+   
+    background-color: var(--fondo-formulario);
+    max-width: 700px;
+    padding: 40px;
+    margin: auto;
+    margin-left: 50px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 25px;
+    color: var(--color-letra);
+    text-shadow: var(--sombra);
+    box-shadow: var(--sombra-contenedor_estadistica);
+
+}
+
+.contenedor_estadisticas1 {
+
+    margin-top: 200px;
+}
+
+.contenedor_estadisticas2 {
+
+
+    margin-top: 70px;
+}
+
+
+/*-----------------  texto  estadistica  --------------------------*/
+
+.contenedor_estadisticas1 p,
+.contenedor_estadisticas2 p {
+
+    font-size: 25px;
+}
+
+
+/*-----------------  numero estadistica  --------------------------*/
+.contenedor_numero {
+
+   
+    background: var(--color-primario);
+    text-align: center;
+  
+    padding: 5px;
+  
+
+}

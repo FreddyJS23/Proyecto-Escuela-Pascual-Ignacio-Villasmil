@@ -1,0 +1,28 @@
+<!--inscripcion  -->
+
+<div class="container contenedor_inscripcion">
+    <div class="titulo_formulario">
+        <p><i class="fa-solid fa-address-card"></i>Inscripcion</p>
+    </div>
+    <div class="campos_inscripcion">
+        <div class="container_campos">
+            <label class="label_select" for="grado">Grado en que el que se inscribira</label>
+            <select class="select" name="grado" id="grado">
+                <option value="0">Seleccione un grado</option>
+                <option value="1">1°</option>
+                <option value="2">2°</option>
+                <option value="3">3°</option>
+                <option value="4">4°</option>
+                <option value="5">5°</option>
+                <option value="6">6°</option>
+            </select>
+        </div>
+        <div class="container_campos">
+            <input class="input"  type="text"  value="<?php echo $_SESSION['periodo'] ?>" disabled > 
+            <label class="label" id="label_periodo" for="periodo">Periodo en el que se va a inscrbir</label>
+        </div>
+        <div class="contenedor_boton">
+            <input class="boton" type="submit" value="Inscribir estudiante">
+        </div>
+    </div>
+</div>
