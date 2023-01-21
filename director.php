@@ -151,7 +151,7 @@ if (!empty($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
             <div class="row">
 
                 <div class="col-10">
-                    <p>Tota de profesores inscritos actualmente:</p>
+                    <p>Total de profesores inscritos actualmente:</p>
                 </div>
 
 
