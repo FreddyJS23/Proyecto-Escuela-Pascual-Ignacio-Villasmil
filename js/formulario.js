@@ -65,9 +65,10 @@ let select_ci = document.getElementById("select_ci");
 //ver contraseña o ocultar
 let pass = document.getElementById("pass")
 
-
 //input ci repre
 let ci_repreExiste = document.getElementById("check_inscrito")
+
+
 
 /* ---------------------------- formulario index o lign ---------------------------- */
 if (login != null) {
@@ -441,10 +442,8 @@ let comprobarInputSelect = () => {
     select.forEach(select => {
 
 
-
-
-
-        if (select.value == 0 || select_error.length >= 1) {
+        if (select.value == 0 || select_error.length >= 1 ) {
+           
             ok = false
             Swal.fire({
                 title: "Rellene todos los campos",
@@ -492,17 +491,27 @@ if (ci_repreExiste != undefined) {
             document.getElementById("tlf_repre").setAttribute("disabled", "true")
             document.getElementById("sx_repre").setAttribute("disabled", "true")
             document.getElementById("estado_repre").setAttribute("disabled", "true")
+            document.getElementById("municipio_repre").setAttribute("disabled", "true")
+            document.getElementById("parroquia_repre").setAttribute("disabled", "true")
             document.getElementById("sector_repre").setAttribute("disabled", "true")
 
+            //quitar clases de error con checked on
             document.getElementById("nombre_repre").classList.remove("input_error")
             document.getElementById("apellido_repre").classList.remove("input_error")
-            document.getElementById("fn_repre").classList.remove("input_error")
             document.getElementById("tlf_repre").classList.remove("input_error")
-            document.getElementById("sx_repre").classList.remove("input_error")
-            document.getElementById("estado_repre").classList.remove("input_error")
             document.getElementById("sector_repre").classList.remove("input_error")
+            
+            document.getElementById("label_nombre_repre").classList.remove("label_error")
+            document.getElementById("label_apellido_repre").classList.remove("label_error")
+            document.getElementById("label_tlf_repre").classList.remove("label_error")
+            document.getElementById("label_sector_repre").classList.remove("label_error")
 
-
+            //cambiar valores de select para evitar bug de campos vacios
+            document.getElementById("sx_repre").options[0].value=99
+            document.getElementById("estado_repre").options[0].value=99
+            document.getElementById("municipio_repre").options[0].value=99
+            document.getElementById("parroquia_repre").options[0].value=99
+            
 
 
         } else {
@@ -587,6 +596,16 @@ if (formulario != undefined) {
                         Swal.fire({
                             icon: 'error',
                             title: 'El representante ya esta inscrito',
+                            background: fondo,
+                            confirmButtonColor: color_boton,
+
+                        })
+                    }
+                    else if (res.data['respuesta'] == "repreNoExiste") {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'El representante no esta inscrito',
                             background: fondo,
                             confirmButtonColor: color_boton,
 

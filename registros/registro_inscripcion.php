@@ -35,6 +35,17 @@ if (empty($ci_repreExiste)) {
       exit;
     }
   }
+}else{
+  $consultar_repre = "SELECT `ci_repre` FROM `representante` WHERE ci_repre=$ci_repre";
+  $ejecutar_contulta_repre = mysqli_query($conexion, $consultar_repre);
+  $representante = mysqli_num_rows($ejecutar_contulta_repre);
+  if ($representante == 0) {
+
+    $resultado = ["respuesta" => "repreNoExiste"];
+    echo json_encode($resultado);
+    exit;
+  }
+
 }
 
 if (!empty($ci_estu) && !empty($ci_repre)) {
