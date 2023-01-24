@@ -702,7 +702,7 @@ if (formulario != undefined) {
                             iconColor: icono_confirmar
 
                         }).then(res => {
-                            formulario.reset()
+                           location.href="formulario_regular.php"
                         })
                     }
                 })
@@ -781,9 +781,11 @@ if (formulario != undefined) {
                             confirmButtonColor: color_boton,
                             iconColor: icono_confirmar
 
-                        }).then(res => {
-
-                            setTimeout(history.back(), 900)
+                        }).then(ress => {
+                            
+                            let ci_repre=res.data['ci_repre'];
+                            let url=`formulario_regular.php?id=${ci_repre}`
+                            setTimeout(location.href=url, 900) 
                         })
                     } else if (res.data['resultado'] == "existeRepresentante") {
                         Swal.fire({
@@ -797,7 +799,7 @@ if (formulario != undefined) {
                     else if (res.data['resultado'] == "errorRepresentante") {
                         Swal.fire({
                             icon: 'error',
-                            title: 'No se ha completado la inscripcion',
+                            title: 'No se ha completado la inscripcion' ,
                             background: fondo,
                             confirmButtonColor: color_boton,
                             footer: 'Asegurese que todos los campos esten correctos'

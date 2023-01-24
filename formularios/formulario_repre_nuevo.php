@@ -21,9 +21,9 @@ $ci_repre = $_GET['ci_repre'];
 
     <form action="../registros/editar_repre.php" method="post" id="formulario">
 
-        
-        <div class="contenedor_representante contenedor_representante_grid">
-            <div class="titulo_formulario titulo_formulario_grip">
+
+        <div class="container contenedor_representante contenedor_representante_grid">
+            <div class="titulo_formulario titulo_formulario_grid">
                 <p><i class="fa-solid fa-person-breastfeeding"></i>Datos del representante</p>
             </div>
             <div class="campos_representante campos_representante_grid">
@@ -117,9 +117,9 @@ $ci_repre = $_GET['ci_repre'];
                         <label class="label" id="label_sector_repre" for="sector_repre">Sector</label>
                     </div>
                 </div>
-
+                <input class="boton boton_editar bton_repre_nuevo" type="submit" value="Inscribir">
             </div>
-            <input class="boton boton_editar" type="submit" value="Inscribir">
+           
             <input type="hidden" id="repre_nuevo">
         </div>
 

@@ -23,18 +23,18 @@ $consultar_estu = mysqli_query($conexion, $verificar_estu);
 $total_estu = mysqli_num_rows($consultar_estu);
 
 
-
-if ($total_repre == 0) {
-
-   $resultado = ["resultado" => "noRepre"];
-   echo json_encode($resultado);
-   exit;
-} else if ($total_estu == 0) {
+if ($total_estu == 0) {
 
    $resultado = ["resultado" => "noEstu"];
    echo json_encode($resultado);
    exit;
-}
+
+}else if ($total_repre == 0) {
+
+   $resultado = ["resultado" => "noRepre"];
+   echo json_encode($resultado);
+   exit;
+} 
 
 /* --------------------------- inscripcion regular -------------------------- */
 

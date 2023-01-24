@@ -443,7 +443,7 @@ if (!empty($ajax_principioPeriodo)) {
 }
 /* ---------------------- datos tabla finales de periodo ---------------------- */
 if (!empty($ajax_finalPeriodo)) {
-    if ($_SESSION['id_periodo'] == "todos" || $_SESSION['cargo']==1) {
+    if ($_SESSION['id_periodo'] == "todos" ) {
       
         $consultar_finalPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
         INNER JOIN periodo
@@ -454,6 +454,19 @@ if (!empty($ajax_finalPeriodo)) {
         ON inscripcion.id_seccion=seccion.id_seccion
         INNER JOIN estudiante
         ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu ";
+    
+}  else if ( $_SESSION['cargo']==1) {
+      
+        $consultar_finalPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
+        INNER JOIN periodo
+        ON inscripcion.id_periodo=periodo.id_periodo
+        INNER JOIN grado
+        ON inscripcion.id_grado=grado.id_grado
+        INNER JOIN seccion
+        ON inscripcion.id_seccion=seccion.id_seccion
+        INNER JOIN estudiante
+        ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu 
+        WHERE inscripcion.id_periodo=$id_periodo";
     } else {
         
        

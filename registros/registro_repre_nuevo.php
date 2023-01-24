@@ -62,7 +62,8 @@ if ($insertar_representante) {
     $insertar_parentesco = mysqli_query($conexion, $parentesco);
 
     if ($insertar_parentesco) {
-        $resultado = ['resultado' => 'exito'];
+        $resultado = ['resultado' => 'exito',
+                      'ci_repre'=>"$ci_repre"];
         echo json_encode($resultado);
     }
 } else {

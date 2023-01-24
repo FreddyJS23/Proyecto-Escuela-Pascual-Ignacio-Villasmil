@@ -30,7 +30,7 @@ if (isset($_SESSION['usuario'])) {  ?>
 
 
                         <div class="container_campos">
-                            <input class="input" type="text" name="ci_repre" id="ci_repre" placeholder=" " autocomplete="off" required maxlength="8">
+                            <input class="input" type="text" name="ci_repre" id="ci_repre" placeholder=" " autocomplete="off" value="<?php if ($_GET) echo $_GET['id'] ?>" required maxlength="8">
                             <label class="label" id="label_ci_repre" for="ci_repre">Cedula representante</label>
 
 
