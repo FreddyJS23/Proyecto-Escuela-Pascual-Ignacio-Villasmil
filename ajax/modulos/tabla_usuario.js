@@ -1,4 +1,4 @@
-let tablaUsuario=(diseno,espanol,hover,divUsuarios,url)=>{
+let tablaUsuario=(diseno,espanol,hover,divUsuarios,url, fondo,color_boton,icono_pregunta,icono_confirmar)=>{
 
     let grid = new gridjs.Grid({
         columns: [
@@ -27,7 +27,7 @@ let tablaUsuario=(diseno,espanol,hover,divUsuarios,url)=>{
           
             html[0]=gridjs.h('i',{
               className:'fa-solid fa-user-xmark eliminar-usuario',
-              onClick:()=>eliminarUsuario(`${row.cells[0].data}`,url,grid)
+              onClick:()=>eliminarUsuario(`${row.cells[0].data}`,url,grid, fondo,color_boton,icono_pregunta,icono_confirmar)
               
             })
             return html
@@ -73,19 +73,41 @@ let tablaUsuario=(diseno,espanol,hover,divUsuarios,url)=>{
 
       //boton eliminar usuario
 
-      let eliminarUsuario=(usuario,url,grid)=>{
+      let eliminarUsuario=(usuario,url,grid, fondo,color_boton,icono_pregunta)=>{
        
-      axios("../editar/eliminar_usuario.php",{
-        params:{
-          id:usuario
-        }
-      }
-       ).then(res=>{
-        if(res.data.resultado=="exito"){
-          consultarUsuarios(url,grid);
-        
-        }
-       })
+        Swal.fire({
+          title: 'Esta seguro?',
+          text: "Desea eliminar este usuario?",
+          icon: 'question',
+          showCancelButton: true,
+          background: fondo,
+          confirmButtonColor: color_boton,
+          iconColor: icono_pregunta,
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'Cancelar',
+          confirmButtonText: 'Confirmar'
+        }).then((result)=>{
+          if(result.isConfirmed){
+            axios("../editar/eliminar_usuario.php",{
+              params:{
+                id:usuario
+              }
+            }
+             ).then(res=>{
+              if(res.data.resultado=="exito"){
+                consultarUsuarios(url,grid);
+              
+              }
+             })
+
+          }
+
+        })
+     
+     
+     
+     
+       
 
       }
     

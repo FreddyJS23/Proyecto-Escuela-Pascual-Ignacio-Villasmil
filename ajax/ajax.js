@@ -52,15 +52,14 @@ let divUsuarios = document.querySelector(".container_usuarios");
 
 
 /* ---------------------- botones y selects especiales ---------------------- */
-//boton en el login para
+//boton en el login para crear periodo
 let crearPeriodo = document.getElementById("crearPeriodo");
 
 //control para evitar inscripciones en caso de vista de todos los periodos
 let fieldset = document.querySelector(".fieldset");
 
-//boton li en el header para
+//boton li en el header para cerrar periodo
 let cerrarPeriodo = document.getElementById("cerrar-periodo");
-
 
 
 //ayudas para ver profesores con y sin usuarios al registrar usuarios
@@ -71,8 +70,11 @@ let profeConUsuario = document.getElementById("profeConUsuario");
 let asignados = document.getElementById("asignados")
 let noAsignados = document.getElementById("no-asignados")
 
-//crear y restaurar base de datos
+//secciones dinamicas con grado en asignaciones de profes
+let grado=document.getElementById("grado")
+let seccion=document.getElementById("seccion")
 
+//crear y restaurar base de datos
 let crearDb = document.getElementById("crearDb")
 let restaurarDb = document.getElementById("restaurarDb")
 
@@ -337,7 +339,7 @@ if (divUsuarios != undefined) {
 
   import("./modulos/tabla_usuario.js").then(module => {
 
-    module.tablaUsuario(diseno, espanol, hover, divUsuarios, url)
+    module.tablaUsuario(diseno, espanol, hover, divUsuarios, url,  fondo,color_boton,icono_pregunta,icono_confirmar)
   })
 
 }
@@ -492,6 +494,25 @@ if (restaurarDb != undefined) {
 
 }
 
+/* --------- secciones dinamicas con grados en formulario asignacion --------- */
+
+if(grado != undefined){
+let html='<option value="">Seleccione una seccion</option>'
+ 
+grado.addEventListener("change",()=>{
+ seccion.removeAttribute("disabled")
+    axios(url,{
+      params:{asignacion_grado:grado.value}
+    }).then(res=>res.data.forEach(seccion=>{
+
+      html+=`<option value="${seccion['id_seccion']}">${seccion['seccion']}</option>`
+      
+      seccion.innerHTML=html
+    })
+
+    )
+  })
+}
 
 /* ----------------------------- estrucura modal ---------------------------- */
 

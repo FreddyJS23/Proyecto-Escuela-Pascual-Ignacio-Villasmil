@@ -76,7 +76,7 @@ if (!empty($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
                             <a class=" dropdown-toggle pestaña" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-calendar-days"></i>Periodos</a>
                             <ul class="dropdown-menu menu-nav">
                                 <!--  <?php if ($_SESSION['id_periodo'] != 'todos') { ?> <li class="nav_li"> <a class="opcion" href="consultas/consultar_principio_periodo.php">Principios del periodo</a> </li><?php } ?> -->
-                                <?php if ($_SESSION['id_periodo'] != 'todos') { ?> <li class="nav_li"> <a class="opcion" href="editar/editar_nota.php">Vaciar notas</a> </li> <?php } ?>
+                            
                                 <li class="nav_li"> <a class="opcion" href="consultas/consultar_final_periodo.php">Finales del periodo</a> </li>
                                 <?php if ($_SESSION['id_periodo'] != "todos") { ?> <li class="nav_li" id="cerrar-periodo"> <a class="opcion">Cerrar periodo</a> </li> <?php } ?>
                             </ul>

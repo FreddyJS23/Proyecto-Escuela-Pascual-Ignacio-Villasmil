@@ -93,6 +93,11 @@ $ajax_usuarios = @$_GET['ajax_usuarios'];
 
 
 
+/* ---------- secciones dinamicas con grado en asginacion de profes --------- */
+//solicitar grado
+$grado_asignacion=@$_GET['asignacion_grado'];
+
+
 
 /* -------- consulta profes con y sin usuario para registrar usuario -------- */
 //profe sin usuario
@@ -453,7 +458,7 @@ if (!empty($ajax_finalPeriodo)) {
         INNER JOIN seccion
         ON inscripcion.id_seccion=seccion.id_seccion
         INNER JOIN estudiante
-        ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu ";
+        ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu  WHERE periodo.status != 'ON'";
     
 }  else if ( $_SESSION['cargo']==1) {
       
@@ -542,6 +547,15 @@ if(!empty($ajax_profeNoUsuario)) {
 
     echo json_encode($profeConUsuario);
 }
+
+
+/* ------------- grado con secciones dinamicas asginacion profe ------------- */
+if(!empty($grado_asignacion)){
+
+   /*  SELECT `id_asignacion`, `ci_profe_asignacion`, `id_periodo`, `id_grado`, `seccion` 
+    FROM asignacion RIGHT JOIN seccion ON asignacion.id_seccion=seccion.id_seccion WHERE id_periodo=23 && id_grado=2 or id_grado is null; */
+}
+
 
 /* ----------------- comprobar si un admin esta registrad3o ----------------- */
 if(!empty($comprobarAdmin)){
