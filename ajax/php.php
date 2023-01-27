@@ -98,6 +98,8 @@ $ajax_usuarios = @$_GET['ajax_usuarios'];
 $grado_asignacion=@$_GET['asignacion_grado'];
 
 
+/* ----------------- grados disponibles para activar seccion ---------------- */
+$grados_disponible=@$_GET['gradoDisponible'];
 
 /* -------- consulta profes con y sin usuario para registrar usuario -------- */
 //profe sin usuario
@@ -555,9 +557,22 @@ if(!empty($grado_asignacion)){
    /*  SELECT `id_asignacion`, `ci_profe_asignacion`, `id_periodo`, `id_grado`, `seccion` 
     FROM asignacion RIGHT JOIN seccion ON asignacion.id_seccion=seccion.id_seccion WHERE id_periodo=23 && id_grado=2 or id_grado is null; */
 }
+/* ----------------- consultar grados con secciones activas ----------------- */
+if($grados_disponible){
+
+    $select_grados_conSecciones_activas="SELECT  secciones_activas.id_grado,grado  FROM `secciones_activas` 
+    INNER JOIN grado
+    ON secciones_activas.id_grado=grado.id_grado WHERE id_periodo=$id_periodo";
+    $sql=mysqli_query($conexion,$select_grados_conSecciones_activas);
+
+    $resultado=mysqli_fetch_all($sql,MYSQLI_ASSOC);
+
+    echo json_encode($resultado);
+
+}
 
 
-/* ----------------- comprobar si un admin esta registrad3o ----------------- */
+/* ----------------- comprobar si un admin esta registrado ----------------- */
 if(!empty($comprobarAdmin)){
 
     $sql="SELECT  `id_cargo`  FROM `usuario` WHERE id_cargo=1;";

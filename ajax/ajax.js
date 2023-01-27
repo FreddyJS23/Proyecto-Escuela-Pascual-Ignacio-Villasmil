@@ -1,4 +1,9 @@
 /* -------------------------------- variables ------------------------------- */
+
+
+
+
+
 //ruta de las consultas
 let url = "../ajax/php.php";
 
@@ -70,9 +75,8 @@ let profeConUsuario = document.getElementById("profeConUsuario");
 let asignados = document.getElementById("asignados")
 let noAsignados = document.getElementById("no-asignados")
 
-//secciones dinamicas con grado en asignaciones de profes
-let grado=document.getElementById("grado")
-let seccion=document.getElementById("seccion")
+//ver grados con secciones inasctivas 
+let activar_secciones = document.getElementById("activar_secciones")
 
 //crear y restaurar base de datos
 let crearDb = document.getElementById("crearDb")
@@ -339,7 +343,7 @@ if (divUsuarios != undefined) {
 
   import("./modulos/tabla_usuario.js").then(module => {
 
-    module.tablaUsuario(diseno, espanol, hover, divUsuarios, url,  fondo,color_boton,icono_pregunta,icono_confirmar)
+    module.tablaUsuario(diseno, espanol, hover, divUsuarios, url, fondo, color_boton, icono_pregunta, icono_confirmar)
   })
 
 }
@@ -350,19 +354,19 @@ if (divUsuarios != undefined) {
 /* ------------------------ crear periodo en el login y consultar periodos en el login ----------------------- */
 //obtener periodos
 if (crearPeriodo != undefined) {
-  
+
   //comprobar si hay un admin registrado en la base de datos
   axios("ajax/php.php", {
     params: {
       ajax_comprobarAdmin: true
     }
   }).then(res => {
-   //en caso que no exita ningun admin registrado quiere decir que el sistema esta nuevo y se tendra que registrar un administrador
+    //en caso que no exita ningun admin registrado quiere decir que el sistema esta nuevo y se tendra que registrar un administrador
     if (res.data['resultado'] == "adminNoExiste") {
       //se redirecionara al formulario administrador con un indicador true para acceder al formulario
-      location.href="formularios/formulario_admin?id=true.php"
+      location.href = "formularios/formulario_admin?id=true.php"
     }
-    
+
     else if (res.data['resultado'] == "adminExiste") {
 
       import("./modulos/Crear periodo login.js").then(module => {
@@ -381,8 +385,8 @@ if (crearPeriodo != undefined) {
 
 /* -------- ventana modal en caso que esten viendo todos los periodos ------- */
 if (fieldset != undefined) {
-//el fieldset tiene una condional php de agregar un atributo disabled en caso que este en vista de todos los periodo
-//asi automaticamente tendra dos atributo y activara la condional
+  //el fieldset tiene una condional php de agregar un atributo disabled en caso que este en vista de todos los periodo
+  //asi automaticamente tendra dos atributo y activara la condional
   if (fieldset.getAttributeNames().length >= 2) {
     Swal.fire({
       title: 'Advertencia',
@@ -496,22 +500,123 @@ if (restaurarDb != undefined) {
 
 /* --------- secciones dinamicas con grados en formulario asignacion --------- */
 
-if(grado != undefined){
-let html='<option value="">Seleccione una seccion</option>'
- 
-grado.addEventListener("change",()=>{
- seccion.removeAttribute("disabled")
-    axios(url,{
-      params:{asignacion_grado:grado.value}
-    }).then(res=>res.data.forEach(seccion=>{
 
-      html+=`<option value="${seccion['id_seccion']}">${seccion['seccion']}</option>`
-      
-      seccion.innerHTML=html
+/* ----------------------------modal para activar secciones en grados con secciones inactivas  --------------------------- */
+if (activar_secciones != undefined) {
+
+
+  let modalActivarSecciones = () => {
+    Swal.fire({
+      title: 'Activar secciones',
+      html: `
+      <label class="swal2-input-label titulo_select_alerta">Grado</label>
+     
+      <select  class="select_alerta" name="grado" id="gradoConSeccionInactiva" auto>
+        <option value="0"></option>
+      </select> 
+     
+      <label class="swal2-input-label  titulo_select_alerta">Cantidad de secciones a activar</label>
+     
+      <select  class="select_alerta" name="seccion" id="cantidadSeccionesActivar">
+        <option value="0"></option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option> 
+      </select>`,
+
+      icon: 'info',
+      didOpen: () => {
+
+        import("../ajax/modulos/gradosSinSeccionesActivas.js").then(module => {
+          let gradoConSeccionInactiva = Swal.getHtmlContainer().querySelector('#gradoConSeccionInactiva')
+          module.solicitarGradoSinSecciones(gradoConSeccionInactiva)
+        })
+
+      },
+      showCloseButton: true,
+      background: fondo,
+      confirmButtonColor: color_boton,
+      confirmButtonText: 'Confirmar',
+      showLoaderOnConfirm: true,
+      footer: '<b>Tenga en cuenta que estos datos no se pueden modificar</b>',
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        let select_grado = Swal.getHtmlContainer().querySelector("#gradoConSeccionInactiva").value
+        let select_SeccionesActivar = Swal.getHtmlContainer().querySelector("#cantidadSeccionesActivar").value
+
+        if (select_grado == 0 || select_SeccionesActivar == 0) {
+          Swal.showValidationMessage(`Rellene todos los campos`)
+
+        } else {
+          return axios("registros/registro_secciones_activar.php", {
+            params: { grado: `${select_grado}`, seccionesActivar: `${select_SeccionesActivar}` }
+          }).then(res => {
+            return res.data
+          }).catch(err => {
+            Swal.showValidationMessage(err)
+          })
+        }
+
+
+      }
+    }).then(res => {
+
+      if (res.value.resultado == "exito") {
+       
+        Swal.fire({
+          icon: 'success',
+          title: 'Secciones Activadas',
+          background: fondo,
+          confirmButtonColor: color_boton,
+          iconColor: icono_confirmar
+        })
+      } else if (res.value.resultado == "error") {
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al activar secciones',
+          background: fondo,
+          confirmButtonColor: color_boton,
+
+        })
+
+
+      }
     })
+  }
 
-    )
-  })
+  activar_secciones.addEventListener("click", modalActivarSecciones)
+
+}
+
+/* -- detectar que no haya grados con secciones sin activar en formulario asignacion o asginar secciones a estudiante -- */
+if(asignar_profe !=undefined || divSeccion != undefined){
+  
+  axios(url,{
+  params:{gradoDisponible:true}
+}).then(res=>{
+ 
+  if (res.data.length >= 1) {
+    Swal.fire({
+      title: 'Existen grados sin secciones activas',
+      icon: 'warning',
+      text: 'Necesita que todos los grados tengan secciones activas para continuar ',
+      iconColor: '	rgb(255, 165, 0)',
+      allowOutsideClick: false,
+      confirmButtonColor: color_boton
+
+    }).then(res => {
+      history.back()
+    })
+  }
+
+
+
+})
+ 
 }
 
 /* ----------------------------- estrucura modal ---------------------------- */
