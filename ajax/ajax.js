@@ -599,7 +599,7 @@ if(asignar_profe !=undefined || divSeccion != undefined){
   params:{gradoDisponible:true}
 }).then(res=>{
  
-  if (res.data.length >= 1) {
+  if (res.data.length != 6) {
     Swal.fire({
       title: 'Existen grados sin secciones activas',
       icon: 'warning',
