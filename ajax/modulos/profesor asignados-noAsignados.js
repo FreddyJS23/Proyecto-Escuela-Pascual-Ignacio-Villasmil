@@ -1,7 +1,7 @@
 
    let verNoAsignados = (url,noAsignados) => {
     axios(url, {
-      params: { noAsignacion: true }
+      params: { devolverSinAsignar: true }
     }).then(res => {
       let html;
       html += `<option value="">Lista de profesores</option>`
@@ -20,7 +20,7 @@
   
   let verAsignados = (url,asignados) => {
     axios(url, {
-      params: { asignacion: true }
+      params: { devolverAsignados: true }
     }).then(res => {
       let html
       html += `<option value="">Lista de profesores</option>`

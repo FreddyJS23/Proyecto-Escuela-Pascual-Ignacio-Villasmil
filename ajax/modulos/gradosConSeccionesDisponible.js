@@ -58,7 +58,14 @@ let verSeccionesDisponible = (url,selectSeccionesDisponibles) => {
       }
     
       let html=` <option value="">Seleccione una seccion</option>`
-      seccionesDisponibles.forEach(seccionDisponible=>{
+     
+     if(seccionesDisponibles.length==0){
+      selectSeccionesDisponibles.innerHTML=` <option value="">No existen secciones disponibles</option>`
+     }
+      
+     seccionesDisponibles.forEach(seccionDisponible=>{
+      
+       
         html+=` <option value="${seccionDisponible['id_seccion']}">${seccionDisponible['seccion']}</option>`
 
         selectSeccionesDisponibles.innerHTML=html

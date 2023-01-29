@@ -29,7 +29,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
                     <div class="campos_asignacion">
 
                         <div class="titulo_formulario">
-                            <p>Asignacion de profeosr</p>
+                            <p>Asignacion de profesor</p>
                         </div>
 
                         <div class="container_campos">
