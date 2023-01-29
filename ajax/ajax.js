@@ -365,7 +365,7 @@ if (crearPeriodo != undefined) {
       ajax_comprobarAdmin: true
     }
   }).then(res => {
-    //en caso que no exita ningun admin registrado quiere decir que el sistema esta nuevo y se tendra que registrar un administrador
+    //en caso que no exista ningun admin registrado quiere decir que el sistema esta nuevo y se tendra que registrar un administrador
     if (res.data['resultado'] == "adminNoExiste") {
       //se redirecionara al formulario administrador con un indicador true para acceder al formulario
       location.href = "formularios/formulario_admin.php?id=true"
@@ -620,7 +620,7 @@ if (asignar_profe != undefined || divSeccion != undefined) {
 
 }
 
-/* ---------------- ver secciones disponibles para cada grado en asignacion de profesor --------------- */
+/* ---------------- ver cantidad de secciones activas y disponibles para cada grado en asignacion de profesor --------------- */
 if (selectSeccionesDisponibles != undefined) {
 
   import("../ajax/modulos/gradosConSeccionesDisponible.js").then(module=>{

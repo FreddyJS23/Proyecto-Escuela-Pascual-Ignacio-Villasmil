@@ -48,7 +48,7 @@ let modalRestaurarBd = () => {
 
 
                 }).then(res => {
-                    location.reload()
+                    location.href="cerrar sesion.php"
                 })
             } else if (res.value['resultado'] != 0) {
 

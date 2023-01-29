@@ -95,13 +95,18 @@ $ajax_usuarios = @$_GET['ajax_usuarios'];
 
 
 /* ---------- secciones dinamicas con grado en asginacion de profes --------- */
+//solicita cuantas secciones activas tiene el grado
+$id_gradoSeccionesActivas=@$_GET['secciones_activas'];
+
 //solicitar secciones que estan ocupadas en el grado
 $grado_seccionOcupada = @$_GET['grado'];
 
 
 /* ----------------- grados disponibles para activar seccion ---------------- */
-//solicita grados
+//solicita grados que no tengan secciones activas 
 $grados_disponible = @$_GET['gradoDisponible'];
+
+
 
 /* -------- consulta profes con y sin usuario para registrar usuario -------- */
 //profe sin usuario
@@ -110,6 +115,7 @@ $ajax_profeNoUsuario = @$_GET['ajax_profeNoUsuario'];
 $ajax_profeConUsuario = @$_GET['ajax_profeConUsuario'];
 
 
+/* ------------- comprobar en el login si hay admin registrado en el sistema en  ------------ */
 $comprobarAdmin = @$_GET['ajax_comprobarAdmin'];
 
 
@@ -538,22 +544,38 @@ if (!empty($ajax_profeConUsuario)) {
 }
 
 
+/* ------------- consultar cuantas secciones activas tiene un grado------------- */
+if (!empty($id_gradoSeccionesActivas) ) {
+
+    $select_grados_Secciones_activas = "SELECT  secciones_activas FROM `secciones_activas` 
+     WHERE id_periodo=$id_periodo && id_grado=$id_gradoSeccionesActivas" ;
+    $sql = mysqli_query($conexion, $select_grados_Secciones_activas);
+
+    $convertir= mysqli_fetch_array($sql);
+
+    $seccionesActivas=['seccionesActivas'=>$convertir[0]];
+    
+}
+
+
 /* ------------- consultar secciones disponible para el grado ------------- */
-if (!empty($grado_seccionOcupada)) {
+if (!empty($grado_seccionOcupada) || !empty($seccionesActivas)) {
 
     $select_grados_conSecciones_ocupada = "SELECT   asignacion.id_seccion, seccion FROM `asignacion` 
   INNER JOIN seccion
   ON asignacion.id_seccion=seccion.id_seccion WHERE id_periodo=$id_periodo && id_grado=$grado_seccionOcupada";
     $sql = mysqli_query($conexion, $select_grados_conSecciones_ocupada);
 
-    $resultado = mysqli_fetch_all($sql, MYSQLI_ASSOC);
-
+    $seccionesDisponibles= mysqli_fetch_all($sql, MYSQLI_ASSOC);
+    //juntar los dos array en una respuesta final
+    $resultado=array_merge($seccionesDisponibles,$seccionesActivas);
+ 
     echo json_encode($resultado);
 }
 
 
 /* ----------------- consultar grados con secciones activas ----------------- */
-if (!empty($grados_disponible)) {
+if (!empty($grados_disponible) ) {
 
     $select_grados_conSecciones_activas = "SELECT  secciones_activas.id_grado,grado  FROM `secciones_activas` 
     INNER JOIN grado

@@ -1,12 +1,14 @@
 //esquema utilizado
 //se crea la funcion
 const obtenerMunicipios= (estado, select_municipio, url) => {
-    
+     
+  //añadir un estado de carga mientras se carga la informacion
+  select_municipio.innerHTML=` <option value="">Cargando...</option>`
   /* la funcion recibe 3 parametros
 
     parametro 1:valor del select actual estado/municipio
     
-    parametro 2:elemento select selecionado en el doom
+    parametro 2:elemento select selecionado en el doom a añadir los datos de la obtencion
     
     parametro 3:dirrecion del archivo php que se hara la consulta */
 
@@ -34,6 +36,8 @@ const obtenerMunicipios= (estado, select_municipio, url) => {
   
   const obtenerParroquias = (municipio, select_parroquia, url) => {
     
+    select_parroquia.innerHTML=` <option value="">Cargando...</option>`
+    
     select_parroquia.removeAttribute("disabled");
     
     let html = '<option value="0">Seleccione una parroquia</option>';
@@ -55,7 +59,9 @@ const obtenerMunicipios= (estado, select_municipio, url) => {
   
   
   const obtenerCiudad = (estado,select_ciudad,url) => {
-  
+    
+    select_ciudad.innerHTML=` <option value="">Cargando...</option>`
+    
     let html = '<option value="0">Seleccione una ciudad</option>';
     select_ciudad.removeAttribute("disabled");
     axios(url, {

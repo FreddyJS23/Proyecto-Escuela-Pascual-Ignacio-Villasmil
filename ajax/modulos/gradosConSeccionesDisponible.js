@@ -1,9 +1,10 @@
 let verSeccionesDisponible = (url,selectSeccionesDisponibles) => {
-
+ //añadir un estado de carga mientras se carga la informacion
+ selectSeccionesDisponibles.innerHTML=` <option value="">Cargando...</option>`
     axios(url, {
-      params: { grado: grado.value }
+      params: { grado: grado.value,secciones_activas:grado.value }
     }).then(res => {
-
+      
       let seccionesOcupadas = Object.values(res.data)
 
       let secciones = [
@@ -32,6 +33,14 @@ let verSeccionesDisponible = (url,selectSeccionesDisponibles) => {
           "seccion": "F"
         }
       ]
+    
+      
+      //filtrar cantidad de secciones activas
+      let seccionesEliminar= 6 - res.data.seccionesActivas
+      for (let i = 0; i < seccionesEliminar; i++) {
+        secciones.pop()
+        
+      }
 
       let seccionesDisponibles = []
       for (let i = 0; i < secciones.length; i++) {

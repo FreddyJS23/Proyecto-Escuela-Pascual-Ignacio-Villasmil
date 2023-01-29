@@ -18,6 +18,10 @@ if (isset($_SESSION['usuario'] )&& $_SESSION['cargo']==1) {
     <head>
         <?php include("../cuerpo/head.html") ?>
         <title>Datos de los usuarios</title>
+
+        <script>
+            let ci_profe=<?= $_SESSION['ci_profe'] ?>
+        </script>
     </head>
 
     <body>

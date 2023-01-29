@@ -1,5 +1,12 @@
 <?php 
 include("../db.php");
+
+$sql = "SELECT  `id_cargo`  FROM `usuario` WHERE id_cargo=1;";
+    $consultar = mysqli_query($conexion, $sql);
+    $admin = mysqli_num_rows($consultar);
+
+
+if($admin == 0 ){
 $registrar_admin=$_GET['id'];
 
 if ($registrar_admin) {  ?>
@@ -96,4 +103,7 @@ if ($registrar_admin) {  ?>
 <?php } else {
 
     header("location:../index.html");
+}  }else{
+    header("location:../index.html");
 } ?>
+
