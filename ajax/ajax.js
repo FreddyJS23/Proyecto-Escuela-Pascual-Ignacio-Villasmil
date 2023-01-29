@@ -222,7 +222,7 @@ if (select_estado_profe != undefined) {
 ////////////////////nota
 if (divNota != undefined) {
 
-  import("./modulos/tabla_nota").then(module => {
+  import("./modulos/tabla_nota.js").then(module => {
 
 
     //esquema 
