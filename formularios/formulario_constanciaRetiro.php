@@ -6,7 +6,7 @@ if (isset($_SESSION['usuario'])) {  ?>
 
     <head>
         <?php include("../cuerpo/head.html") ?>
-        <title>Constancia de estudio</title>
+        <title>Constancia de retiro</title>
     </head>
 
     <body>
@@ -60,7 +60,7 @@ if (isset($_SESSION['usuario'])) {  ?>
 
                         <div class="contenedor_boton">
 
-                            <input class="boton" type="submit" value="Generar constancia">
+                            <input class="boton" type="submit" value="Generar constancia de retiro">
                         </div>
 
                     </div>

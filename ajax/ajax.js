@@ -26,7 +26,7 @@ let select_parroquia_profe = document.getElementById("parroquia");
 
 
 /* ----------- contenedores padres de las tablas de las consultas ----------- */
-;
+
 //asginar notas
 let divNota = document.querySelector(".nota");
 
@@ -75,8 +75,12 @@ let profeConUsuario = document.getElementById("profeConUsuario");
 let asignados = document.getElementById("asignados")
 let noAsignados = document.getElementById("no-asignados")
 
-//ver grados con secciones inasctivas 
+//ver grados con secciones inactivas 
 let activar_secciones = document.getElementById("activar_secciones")
+
+//ver secciones disponibles en los  grados
+let grado = document.getElementById("grado")
+let selectSeccionesDisponibles = document.getElementById("seccionDisponible")
 
 //crear y restaurar base de datos
 let crearDb = document.getElementById("crearDb")
@@ -364,7 +368,7 @@ if (crearPeriodo != undefined) {
     //en caso que no exita ningun admin registrado quiere decir que el sistema esta nuevo y se tendra que registrar un administrador
     if (res.data['resultado'] == "adminNoExiste") {
       //se redirecionara al formulario administrador con un indicador true para acceder al formulario
-      location.href = "formularios/formulario_admin?id=true.php"
+      location.href = "formularios/formulario_admin.php?id=true"
     }
 
     else if (res.data['resultado'] == "adminExiste") {
@@ -422,7 +426,7 @@ if (cerrarPeriodo != undefined) {
 
 /* ------ lista de profesores con y si usuarios al registrar un usuario ----- */
 if (profeNoUsuario != undefined) {
-  import("./modulos/profesor_con-sin_usuario").then(module => {
+  import("./modulos/profesor_con-sin_usuario.js").then(module => {
 
     module.consultarProfeConUsuario(url)
     module.consultarProfeNoUsuario(url)
@@ -498,7 +502,6 @@ if (restaurarDb != undefined) {
 
 }
 
-/* --------- secciones dinamicas con grados en formulario asignacion --------- */
 
 
 /* ----------------------------modal para activar secciones en grados con secciones inactivas  --------------------------- */
@@ -565,7 +568,7 @@ if (activar_secciones != undefined) {
     }).then(res => {
 
       if (res.value.resultado == "exito") {
-       
+
         Swal.fire({
           icon: 'success',
           title: 'Secciones Activadas',
@@ -593,30 +596,38 @@ if (activar_secciones != undefined) {
 }
 
 /* -- detectar que no haya grados con secciones sin activar en formulario asignacion o asginar secciones a estudiante -- */
-if(asignar_profe !=undefined || divSeccion != undefined){
-  
-  axios(url,{
-  params:{gradoDisponible:true}
-}).then(res=>{
- 
-  if (res.data.length != 6) {
-    Swal.fire({
-      title: 'Existen grados sin secciones activas',
-      icon: 'warning',
-      text: 'Necesita que todos los grados tengan secciones activas para continuar ',
-      iconColor: '	rgb(255, 165, 0)',
-      allowOutsideClick: false,
-      confirmButtonColor: color_boton
+if (asignar_profe != undefined || divSeccion != undefined) {
 
-    }).then(res => {
-      history.back()
-    })
-  }
+  axios(url, {
+    params: { gradoDisponible: true }
+  }).then(res => {
 
+    if (res.data.length != 6) {
+      Swal.fire({
+        title: 'Existen grados sin secciones activas',
+        icon: 'warning',
+        text: 'Necesita que todos los grados tengan secciones activas para continuar ',
+        iconColor: '	rgb(255, 165, 0)',
+        allowOutsideClick: false,
+        confirmButtonColor: color_boton
 
+      }).then(res => {
+        history.back()
+      })
+    }
 
-})
- 
+  })
+
+}
+
+/* ---------------- ver secciones disponibles para cada grado en asignacion de profesor --------------- */
+if (selectSeccionesDisponibles != undefined) {
+
+  import("../ajax/modulos/gradosConSeccionesDisponible.js").then(module=>{
+   
+    grado.addEventListener("change",()=>{module.verSeccionesDisponible(url,selectSeccionesDisponibles)})
+  })
+
 }
 
 /* ----------------------------- estrucura modal ---------------------------- */

@@ -3,141 +3,166 @@
 
 
 include("db.php");
-$consultar_estu="SELECT ci_estu FROM estudiante";
-$ejecutar_estu=mysqli_query($conexion,$consultar_estu);
+$consultar_estu = "SELECT ci_estu FROM estudiante";
+$ejecutar_estu = mysqli_query($conexion, $consultar_estu);
 
-$total_estu=mysqli_num_rows($ejecutar_estu);
-
-
-$consultar_profe="SELECT  ci_profe FROM profesor";
-$ejecutar_profe=mysqli_query($conexion,$consultar_profe);
-
-$total_profe=mysqli_num_rows($ejecutar_profe);
+$total_estu = mysqli_num_rows($ejecutar_estu);
 
 
-if(isset($_SESSION['usuario'])){  
+$consultar_profe = "SELECT  ci_profe FROM profesor";
+$ejecutar_profe = mysqli_query($conexion, $consultar_profe);
+
+$total_profe = mysqli_num_rows($ejecutar_profe);
+
+
+if (isset($_SESSION['usuario'])) {
 ?>
 
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/fontawesome-free-6.1.1-web/css/all.css" >
+    <!DOCTYPE html>
+    <html lang="en">
 
-    <title>Bienvenido</title>
-</head>
-
-<body>
-
-<header>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/fontawesome-free-6.1.1-web/css/all.css">
 
 
+        <title>Bienvenido</title>
+    </head>
 
-<nav class="nav">
-    <p class="titulo_principal"><?=$_SESSION['usuario'];    $_SESSION['periodo'] ?></p>
+    <body>
 
-    <ul class="menu">
+        <header>
 
-
-        <li class="pestaña"><i class="fa-solid fa-user"></i>Estudiantes
-
-
-
-            <ul class="submenu1">
-               
-                <li class="nav_li"> <a class="opcion" href="formularios/formulario_inscripcion.php">Inscribir</a></li>
-                <li class="nav_li"><a class="opcion" href="formularios/formulario_regular.php">Inscripcion regular </a></li>
-                <li class="nav_li"><a class="opcion" href="consultas/consultar_estu.php">Consultar </a></li>
-                <?php if($_SESSION['id_periodo']!='todos') {?> <li class="nav_li"> <a class="opcion" href="editar/editar_seccion.php">Asignar secciones</a> </li> <?php } ?>
-              
-               
-            </ul>
-        </li>
+            <nav class="navbar navbar-expand-lg  ">
+                <div class="container-fluid">
+                    <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 "> <?= $_SESSION['usuario'] ?> <?= $_SESSION['periodo'] ?></p>
+                    <a href="#" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                        <i class="fa-solid fa-bars icono-navbar navbar-toggler"></i>
+                    </a>
 
 
-        <li class="pestaña"><i class="fa-solid fa-person-chalkboard"></i>Profesores
+                    <div class="collapse navbar-collapse justify-content-center div-collapse" id="navbarSupportedContent">
 
-            <ul class="submenu2">
-              
-                <li class="nav_li"><a class="opcion" href="consultas/consultar_profe.php">Consultar</a> </li>
-                <li class="nav_li"> <a class="opcion" href="consultas/consulta_asignacion.php">Ver asignaciones </a> </li>
+                        <ul class="navbar-nav nav-usuario">
 
-            </ul>
+                            <li class="nav-item dropdown  ">
+                                <a class=" dropdown-toggle pestaña" id="toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-user"></i>Estudiantes</a>
+                                <ul class="dropdown-menu menu-nav" aria-labelledby="toggle">
+                                    <li class="nav_li"><a class="opcion" href="formularios/formulario_inscripcion.php">Inscribir</a></li>
+                                    <li class="nav_li"><a class="opcion" href="formularios/formulario_regular.php">Inscripcion regular </a></li>
+                                    <li class="nav_li"><a class="opcion" href="consultas/consultar_estu.php">Consultar </a></li>
 
-        </li>
+                                </ul>
+                            </li>
 
-        <li class="pestaña_logo">
+                            <li class="nav-item dropdown ">
+                                <a class=" dropdown-toggle pestaña" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-person-chalkboard"></i>Profesores</a>
+                                <ul class="dropdown-menu menu-nav">
 
-            <div class="contenedor_logo">
+                                    <li class="nav_li"><a class="opcion" href="consultas/consultar_profe.php">Consultar</a> </li>
+                                    <li class="nav_li"> <a class="opcion" href="consultas/consulta_asignacion.php">Ver asignaciones </a> </li>
 
-                 <img src="css//imagenes/logo.png" width="55px" alt="Logo">
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-item dropdown">
+                                <a class=" dropdown-toggle pestaña" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-calendar-days"></i>Periodos</a>
+                                <ul class="dropdown-menu menu-nav">
+
+                                    <?php if ($_SESSION['id_periodo'] != 'todos') { ?> <li class="nav_li"> <a class="opcion" href="editar/editar_nota.php">Vaciar notas</a> </li> <?php } ?>
+                                    <li class="nav_li"> <a class="opcion" href="consultas/consultar_final_periodo.php">Finales del periodo</a> </li>
+
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-item  ">
+                                <div class="container-logo-nav ">
+
+                                    <img class="logo-nav" src="css//imagenes/logo.png" alt="Logo">
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class=" dropdown-toggle pestaña" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-users"></i>Usuarios</a>
+                                <ul class="dropdown-menu menu-nav">
+                                    <li class="nav_li"><a class="opcion" href="formularios/formulario_editar_usuario.php?id=<?php echo $_SESSION['usuario'] ?>">Editar usuario </a></li>
+
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-item ">
+                                <a class=" pestaña" href="consultas/consultar_estu_reporte.php"><i class="fa-solid fa-file-export"></i>Reportes</a>
+                            </li>
+
+
+
+                            <li class="nav-item">
+                                <a class=" pestaña" href="cerrar sesion.php"><i class="fa-solid fa-door-open "></i> Cerrar sesión</a>
+                            </li>
+
+
+
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+
+
+
+        </header>
+
+        <div class="container contenedor_estadisticas1">
+
+            <div class="row">
+
+                <div class="col-10">
+                    <p>Total de estudiantes inscritos actualmente:</p>
+                </div>
+
+
+                <div class="col-2">
+                    <p class="rounded-circle contenedor_numero"><?php echo $total_estu ?></p>
+                </div>
             </div>
-        </li>
+        </div>
 
 
+        <div class="container contenedor_estadisticas2">
+
+            <div class="row">
+
+                <div class="col-10">
+                    <p>Total de profesores inscritos actualmente:</p>
+                </div>
 
 
-        <li class="pestaña"><i class="fa-solid fa-calendar-days"></i>Periodos
-
-            <ul class="submenu3">
-                
-                <!-- <?php if($_SESSION['id_periodo']!='todos') {?> <li class="nav_li"> <a class="opcion" href="consultas/consultar_principio_periodo.php">Principios del periodo</a> </li><?php }?> -->
-                <?php if($_SESSION['id_periodo']!='todos') {?> <li class="nav_li"> <a class="opcion" href="editar/editar_nota.php">Vaciar notas</a> </li> <?php }?>
-                <li class="nav_li"> <a class="opcion" href="consultas/consultar_final_periodo.php">Finales del periodo</a> </li>
-            
-            </ul>
-        
-        </li>
+                <div class="col-2">
+                    <p class="rounded-circle contenedor_numero"><?php echo $total_profe  ?></p>
+                </div>
+            </div>
+        </div>
 
 
-        <li class="pestaña"><i class="fa-solid fa-users"></i>Usuario
-
-            <ul class="submenu4">
-                
-                <li class="nav_li"><a class="opcion" href="formularios/formulario_editar_usuario.php?id=<?php echo $_SESSION['usuario'] ?>">Editar usuario </a></li>
-
-            </ul>
-
-        </li>
-
-        <li class="pestaña">
-                        <a href="consultas/consultar_estu_reporte.php"><i class="fa-solid fa-file-export"></i>Constancias</a>
-                    </li>
-        <li class="pestaña" for="cerrar"><a href="cerrar sesion.php"><i class="fa-solid fa-door-open"></i> Cerrar sesión</a></li>
-    </ul>
-</nav>
-</header>
-
-<div class="contenedor_estadisticas1">
-<p>Total de estudiantes inscritos actualmente:</p>
-
-<div class=contenedor_numero>
-    <div class=numero><?php echo $total_estu ?></div>
-</div>
-</div>
-
-<div class="contenedor_estadisticas2">
-<p>Total de profesores inscritos actualmente:</p>
-
-<div class="contenedor_numero">
-    <div class=numero><?php echo $total_profe  ?></div>
-</div>
-</div>
+        <script src="js/axios.js"></script>
+        <script src="js/sweetalert2.all.min.js"></script>
+        <script src="ajax/ajax.js"></script>
+        <script src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 
 
+    </body>
 
-</body>
+    </html>
 
-</html>
+<?php } else {
 
-
-
-
-<?php }else{
-
-header("location:index.html");
+    header("location:index.html");
 } ?>

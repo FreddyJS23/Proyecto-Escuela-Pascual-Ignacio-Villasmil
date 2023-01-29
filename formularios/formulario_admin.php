@@ -21,7 +21,7 @@ if ($registrar_admin) {  ?>
 
         <form action="" method="post" id="formulario">
 
-            <div class="contenedor_usuario">
+            <div class="contenedor_usuario container">
                 <div class="titulo_formulario">
                     <p><i class="fa-solid fa-user-plus"></i>Registrar administrador</p>
                 </div>

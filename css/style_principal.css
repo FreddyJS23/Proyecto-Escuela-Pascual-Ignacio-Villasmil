@@ -49,7 +49,10 @@ nav {
     
 }
 
-
+/* ----------------- margen en barra navegacion de ususario ----------------- */
+.nav-usuario{
+    margin-left: -170px;
+}
 
 /*----------------- pestañas  --------------------------*/
 .pestaña {

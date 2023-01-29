@@ -4,7 +4,7 @@ include("../db.php");
 
 /* -------------------------------- vairables ------------------------------- */
 $id_periodo = @$_SESSION['id_periodo'];
-$ci_profe=@$_SESSION['ci_profe'];
+$ci_profe = @$_SESSION['ci_profe'];
 
 /* ------------------------------- ubicaciones ------------------------------ */
 $estado = @$_GET['estado'];
@@ -32,7 +32,8 @@ $ci_estu_seccion = @$_GET['ci_estu_seccion'];
 //seccion
 $seccion = @$_GET['seccion'];
 
-
+//secciones activas en el grado
+$gradoSeccionesActivas = @$_GET['gradoSeccionesActivas'];
 
 /* ---------------------------- tabla estudiante ---------------------------- */
 //solicitar estudiantes
@@ -94,12 +95,13 @@ $ajax_usuarios = @$_GET['ajax_usuarios'];
 
 
 /* ---------- secciones dinamicas con grado en asginacion de profes --------- */
-//solicitar grado
-$grado_asignacion=@$_GET['asignacion_grado'];
+//solicitar secciones que estan ocupadas en el grado
+$grado_seccionOcupada = @$_GET['grado'];
 
 
 /* ----------------- grados disponibles para activar seccion ---------------- */
-$grados_disponible=@$_GET['gradoDisponible'];
+//solicita grados
+$grados_disponible = @$_GET['gradoDisponible'];
 
 /* -------- consulta profes con y sin usuario para registrar usuario -------- */
 //profe sin usuario
@@ -108,7 +110,7 @@ $ajax_profeNoUsuario = @$_GET['ajax_profeNoUsuario'];
 $ajax_profeConUsuario = @$_GET['ajax_profeConUsuario'];
 
 
-$comprobarAdmin=@$_GET['ajax_comprobarAdmin'];
+$comprobarAdmin = @$_GET['ajax_comprobarAdmin'];
 
 
 /* -------------------------- solicitar municipios -------------------------- */
@@ -123,12 +125,12 @@ if (!empty($estado)) {
     $sql_municipio = mysqli_query($conexion, $select_municipio);
     //fecth_all traera todos los datos y hara un bucle por cada fila encontrada y las traera como un array asociativo
     //ejemplo de como vienen los datos ['municipio'=>'caracciolo parra y olmedo']
-   
+
     $municipios = mysqli_fetch_all($sql_municipio, MYSQLI_ASSOC);
     //json_encode  tranforma el array asociativo de php a un array asociativo tipo json que leera js
     //ejemplo php:['municipio'=>'caracciolo parra y olmedo'] json:['municipio':'caracciolo parra y olmedo']
     //echo haran que se vea la respuesta del servidor
-    
+
     echo json_encode($municipios);
 }
 
@@ -161,27 +163,17 @@ if (!empty($ajax_notas)) {
 
     //esquema aplica para nota y asignar seccion
     //comprobar si se inicio sesion con vista a todos los periodos
-    if ($_SESSION['id_periodo'] == "todos" || $_SESSION['cargo']==1) {
-        $select_notas = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
-        INNER JOIN periodo
-        ON inscripcion.id_periodo=periodo.id_periodo
-        INNER JOIN grado
-        ON inscripcion.id_grado=grado.id_grado
-        INNER JOIN seccion
-        ON inscripcion.id_seccion=seccion.id_seccion
-        INNER JOIN estudiante
-        ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu where nota is null ;";
-    } else {
+     if($_SESSION['id_periodo']!= "todos") {
         //consulta para filtras los estudiante a su correspodiente profesor
         //consulta a la tabla asignacion para traer los datos del profesor que tiene la sesion iniciada
-        $filtro_estudiante="SELECT  `id_periodo`, `id_grado`, `id_seccion` FROM `asignacion` WHERE ci_profe_asignacion=$ci_profe && id_periodo=$id_periodo";
-        $sql=mysqli_query($conexion,$filtro_estudiante);
-        $filtro=mysqli_fetch_array($sql);
-        $id_grado= $filtro['id_grado'];
-        $id_seccion=$filtro['id_seccion'];
-         
+        $filtro_estudiante = "SELECT  `id_periodo`, `id_grado`, `id_seccion` FROM `asignacion` WHERE ci_profe_asignacion=$ci_profe && id_periodo=$id_periodo";
+        $sql = mysqli_query($conexion, $filtro_estudiante);
+        $filtro = mysqli_fetch_array($sql);
+        $id_grado = $filtro['id_grado'];
+        $id_seccion = $filtro['id_seccion'];
+
         //si se inicia sesion con un periodo normal tendra un where donde solo traiga los datos del periodo actual
-      $select_notas = "SELECT  inscripcion.id_periodo, `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
+        $select_notas = "SELECT  inscripcion.id_periodo, `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
         INNER JOIN periodo
         ON inscripcion.id_periodo=periodo.id_periodo
         INNER JOIN grado
@@ -193,11 +185,11 @@ if (!empty($ajax_notas)) {
         where nota is null && inscripcion.id_periodo=$id_periodo && inscripcion.id_seccion=$id_seccion && inscripcion.id_grado=$id_grado";
     }
 
-   
+
     $sql_notas = mysqli_query($conexion, $select_notas);
 
     $notas = mysqli_fetch_all($sql_notas, MYSQLI_ASSOC);
-    
+
     echo json_encode($notas);
 }
 
@@ -206,14 +198,14 @@ if (!empty($ci_estu_nota)) {
     //insertar la nota donde literario sera igual a lo que se halla recibdo del parametro axios
     //el where indicara a que estudiante se le asignara la nota
     $insertar_nota = "UPDATE `inscripcion` SET `nota`='$literario' WHERE ci_estu_inscripcion=$ci_estu_nota";
-    
+
     $sql_nota = mysqli_query($conexion, $insertar_nota);
-   //envia una respuesta en caso que se haya insertado la nota o haya ocurrido un error
+    //envia una respuesta en caso que se haya insertado la nota o haya ocurrido un error
     if ($sql_nota) {
-        $resultado=['resultado'=>'exito'];
+        $resultado = ['resultado' => 'exito'];
         echo json_encode($resultado);
     } else {
-        $resultado=['resultado'=>'error'];
+        $resultado = ['resultado' => 'error'];
         echo json_encode($resultado);
     };
 }
@@ -221,7 +213,7 @@ if (!empty($ci_estu_nota)) {
 /* ----------------------- tabla datos asignar seccion ---------------------- */
 if (!empty($ajax_seccion)) {
 
-    if ($_SESSION['id_periodo'] == "todos" || $_SESSION['cargo']==1) {
+    if ($_SESSION['id_periodo'] == "todos" || $_SESSION['cargo'] == 1) {
         $select_secciones = "SELECT  `periodo`, `grado`,ci_estu_inscripcion,nombre_estu,apellido_estu FROM `inscripcion` 
         INNER JOIN periodo
         ON inscripcion.id_periodo=periodo.id_periodo
@@ -230,7 +222,7 @@ if (!empty($ajax_seccion)) {
         INNER JOIN estudiante
         ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu where id_seccion is null ;";
     } else {
-      
+
         $select_secciones = "SELECT  `periodo`, `grado`,ci_estu_inscripcion,nombre_estu,apellido_estu FROM `inscripcion` 
         INNER JOIN periodo
         ON inscripcion.id_periodo=periodo.id_periodo
@@ -238,17 +230,34 @@ if (!empty($ajax_seccion)) {
         ON inscripcion.id_grado=grado.id_grado
         INNER JOIN estudiante 
         ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu where id_seccion is null && inscripcion.id_periodo=$id_periodo;";
-    
-};
+    };
 
-   
+
     $consulta_secciones = mysqli_query($conexion, $select_secciones);
     $gestion_secciones = mysqli_fetch_all($consulta_secciones, MYSQLI_ASSOC);
 
-    
+
     echo json_encode($gestion_secciones);
+}
+
+
+
+/* ------- ver secciones activas en el grado de tabla asignar seccion ------- */
+if (!empty($gradoSeccionesActivas)) {
+
+    $selectSeccionesActivas = "SELECT `secciones_activas`, grado FROM `secciones_activas` 
+    INNER JOIN grado ON secciones_activas.id_grado=grado.id_grado 
+    WHERE id_periodo=$id_periodo  && grado='$gradoSeccionesActivas'";
+
+    $sqlSeccionesActivas = mysqli_query($conexion, $selectSeccionesActivas);
+    $resultado = mysqli_fetch_all($sqlSeccionesActivas, MYSQLI_ASSOC);
+
+    echo json_encode($resultado);
+    
 
 }
+
+
 
 /* ----------------------------- asignar seccion ---------------------------- */
 if (!empty($ci_estu_seccion)) {
@@ -257,26 +266,37 @@ if (!empty($ci_estu_seccion)) {
     $sql_seccion = mysqli_query($conexion, $insertar_seccion);
 
     if ($sql_seccion) {
-        $resultado=['resultado'=>'exito'];
-        echo json_encode($resultado) ;
+        $resultado = ['resultado' => 'exito'];
+        echo json_encode($resultado);
     } else {
-        $resultado=['resultado'=>'error'];
-        echo json_encode($resultado) ;
+        $resultado = ['resultado' => 'error'];
+        echo json_encode($resultado);
     };
-
 }
-/* -------------------------- solicitar estudiantes para consulta ------------------------- */
+/* -------------------------- solicitar estudiantes para consulta / constancias  ------------------------- */
 if (!empty($ajax_estudiante)) {
-
-    $consultar_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `municipio`  FROM `estudiante` 
-    INNER JOIN municipios
-    ON estudiante.id_municipio=municipios.id_municipio";
+    if($_SESSION['id_periodo'] != "todos"){ 
+    $consultar_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `municipio` FROM `estudiante` INNER JOIN municipios
+    ON estudiante.id_municipio=municipios.id_municipio
+    LEFT JOIN inscripcion
+    ON estudiante.ci_estu=inscripcion.ci_estu_inscripcion WHERE id_periodo=$id_periodo";
 
     $sql = mysqli_query($conexion, $consultar_estu);
     $estudiante = mysqli_fetch_all($sql, MYSQLI_ASSOC);
 
-    echo json_encode($estudiante);
-    
+    echo json_encode($estudiante); 
+}else{
+    $consultar_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `municipio` FROM `estudiante` INNER JOIN municipios
+    ON estudiante.id_municipio=municipios.id_municipio
+    LEFT JOIN inscripcion
+    ON estudiante.ci_estu=inscripcion.ci_estu_inscripcion ";
+
+    $sql = mysqli_query($conexion, $consultar_estu);
+    $estudiante = mysqli_fetch_all($sql, MYSQLI_ASSOC);
+
+    echo json_encode($estudiante); 
+
+}
 }
 
 /* ------------------solicitar datos del estudiante para ventana modal ----------------- */
@@ -297,16 +317,16 @@ if (!empty($ci_estu_editar)) {
     ON estudiante.id_pais_nacimiento=pais.id_pais
     INNER JOIN ciudades
     ON estudiante.id_ciudad_nacimiento=ciudades.id_ciudad where ci_estu=$ci_estu_editar";
-   
-   $consultar_estu = mysqli_query($conexion, $select_estu);
-   
-   $estu = mysqli_fetch_all($consultar_estu, MYSQLI_ASSOC);
+
+    $consultar_estu = mysqli_query($conexion, $select_estu);
+
+    $estu = mysqli_fetch_all($consultar_estu, MYSQLI_ASSOC);
 
     echo json_encode($estu);
 
 
-/* ----------------- datos del reprentante en ventana modal ----------------- */
-} 
+    /* ----------------- datos del reprentante en ventana modal ----------------- */
+}
 
 if (!empty($ci_estu_repre)) {
 
@@ -314,7 +334,7 @@ if (!empty($ci_estu_repre)) {
     $consultar_parentesco = mysqli_query($conexion, $select_parentesco);
     $parentesco = mysqli_fetch_array($consultar_parentesco);
     $ci_repre = $parentesco['ci_repre'];
-    
+
     $select_repre = "SELECT `ci_repre`, `nombre_repre`, `apellido_repre`, `fn_repre`, `sx_repre`, `tlf_repre`, `estado`, `municipio`, `parroquia`, `sector` FROM `representante`
     INNER JOIN estados
      ON representante.id_estado=estados.id_estado
@@ -324,13 +344,11 @@ if (!empty($ci_estu_repre)) {
     ON representante.id_parroquia=parroquias.id_parroquia WHERE ci_repre=$ci_repre";
 
     $consultar_repre = mysqli_query($conexion, $select_repre);
-    $repre = mysqli_fetch_all($consultar_repre,MYSQLI_ASSOC);
+    $repre = mysqli_fetch_all($consultar_repre, MYSQLI_ASSOC);
 
-   
-    
+
+
     echo json_encode($repre);
-
-   
 }
 /* ------------------------ tabla de datos profesores ----------------------- */
 if (!empty($ajax_profe)) {
@@ -346,10 +364,8 @@ if (!empty($ajax_profe)) {
     $profesor = mysqli_fetch_all($sql, MYSQLI_ASSOC);
 
     echo json_encode($profesor);
-
-   
-} 
- /* --------------------- consultar profes asignados y no asignados para la ayuda en formulario asignaciones-------------------- */
+}
+/* --------------------- consultar profes asignados y no asignados para la ayuda en formulario asignaciones-------------------- */
 if (!empty($ajax_asignacion_ayuda)) {
     if ($_SESSION['id_periodo'] == "todos") {
         $consultar_asignacion = "SELECT  `ci_profe_asignacion`,nombre_profe,apellido_profe, `periodo`, `grado`, `seccion` FROM `asignacion` 
@@ -362,7 +378,7 @@ if (!empty($ajax_asignacion_ayuda)) {
         INNER JOIN seccion
         ON asignacion.id_seccion=seccion.id_seccion";
     } else {
-      
+
         $consultar_asignacion = "SELECT  `ci_profe_asignacion`,nombre_profe,apellido_profe, `periodo`, `grado`, `seccion` FROM `asignacion` 
         INNER JOIN profesor
         ON asignacion.ci_profe_asignacion=profesor.ci_profe
@@ -374,10 +390,10 @@ if (!empty($ajax_asignacion_ayuda)) {
         ON asignacion.id_seccion=seccion.id_seccion WHERE asignacion.id_periodo=$id_periodo && periodo.status='ON'";
     }
     $consulta_asignacion = mysqli_query($conexion, $consultar_asignacion);
-    $asignacion = mysqli_fetch_all($consulta_asignacion,MYSQLI_ASSOC);
+    $asignacion = mysqli_fetch_all($consulta_asignacion, MYSQLI_ASSOC);
 
     echo json_encode($asignacion);
-} 
+}
 /* ------------------------------ no asignados ------------------------------ */
 if (!empty($ajax_noAsignados_ayuda)) {
 
@@ -390,14 +406,11 @@ if (!empty($ajax_noAsignados_ayuda)) {
     $noAsignados = mysqli_fetch_all($consulta_noAsignados, MYSQLI_ASSOC);
 
     echo json_encode($noAsignados);
-
-
-   
 }
- /* ------------------------- datos tabla asignaciones ------------------------- */
- if (!empty($ajax_asignaciones)) {
+/* ------------------------- datos tabla asignaciones ------------------------- */
+if (!empty($ajax_asignaciones)) {
     if ($_SESSION['id_periodo'] == "todos") {
-         $consultar_asignacion = "SELECT  `ci_profe_asignacion`,nombre_profe,apellido_profe, `periodo`, `grado`, `seccion` FROM `asignacion` 
+        $consultar_asignacion = "SELECT  `ci_profe_asignacion`,nombre_profe,apellido_profe, `periodo`, `grado`, `seccion` FROM `asignacion` 
         INNER JOIN profesor
         ON asignacion.ci_profe_asignacion=profesor.ci_profe
         INNER JOIN periodo
@@ -407,7 +420,7 @@ if (!empty($ajax_noAsignados_ayuda)) {
         INNER JOIN seccion
         ON asignacion.id_seccion=seccion.id_seccion";
     } else {
-      
+
         $consultar_asignacion = "SELECT  `ci_profe_asignacion`,nombre_profe,apellido_profe, `periodo`, `grado`, `seccion` FROM `asignacion` 
         INNER JOIN profesor
         ON asignacion.ci_profe_asignacion=profesor.ci_profe
@@ -423,35 +436,12 @@ if (!empty($ajax_noAsignados_ayuda)) {
     $asignaciones = mysqli_fetch_all($consultar);
 
     echo json_encode($asignaciones);
-    
 }
-/* -------------------- datos tabla principios de periodos -------------------- */
-if (!empty($ajax_principioPeriodo)) {
-    if ($_SESSION['id_periodo'] == "todos") {
-        
-    } else {
-      
-        $consultar_principioPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu FROM `inscripcion` 
-        INNER JOIN periodo
-        ON inscripcion.id_periodo=periodo.id_periodo
-        INNER JOIN grado
-        ON inscripcion.id_grado=grado.id_grado
-        INNER JOIN seccion
-        ON inscripcion.id_seccion=seccion.id_seccion
-        INNER JOIN estudiante
-        ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu WHERE inscripcion.id_periodo=$id_periodo";
-    }
-    $consultar = mysqli_query($conexion, $consultar_principioPerido);
 
-    $principioPeriodo = mysqli_fetch_all($consultar);
-
-    echo json_encode($principioPeriodo);
-    
-}
 /* ---------------------- datos tabla finales de periodo ---------------------- */
 if (!empty($ajax_finalPeriodo)) {
-    if ($_SESSION['id_periodo'] == "todos" ) {
-      
+    if ($_SESSION['id_periodo'] == "todos") {
+
         $consultar_finalPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
         INNER JOIN periodo
         ON inscripcion.id_periodo=periodo.id_periodo
@@ -460,10 +450,9 @@ if (!empty($ajax_finalPeriodo)) {
         INNER JOIN seccion
         ON inscripcion.id_seccion=seccion.id_seccion
         INNER JOIN estudiante
-        ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu  WHERE periodo.status != 'ON'";
-    
-}  else if ( $_SESSION['cargo']==1) {
-      
+        ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu  WHERE periodo.status = 'OFF'";
+    } else if ($_SESSION['cargo'] == 1) {
+
         $consultar_finalPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
         INNER JOIN periodo
         ON inscripcion.id_periodo=periodo.id_periodo
@@ -475,14 +464,14 @@ if (!empty($ajax_finalPeriodo)) {
         ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu 
         WHERE inscripcion.id_periodo=$id_periodo";
     } else {
-        
-       
-        $filtro_estudiante="SELECT  `id_periodo`, `id_grado`, `id_seccion` FROM `asignacion` WHERE ci_profe_asignacion=$ci_profe && id_periodo=$id_periodo";
-        $sql=mysqli_query($conexion,$filtro_estudiante);
-        $filtro=mysqli_fetch_array($sql);
-        $id_grado= $filtro['id_grado'];
-        $id_seccion=$filtro['id_seccion'];
-       
+
+
+        $filtro_estudiante = "SELECT  `id_periodo`, `id_grado`, `id_seccion` FROM `asignacion` WHERE ci_profe_asignacion=$ci_profe && id_periodo=$id_periodo";
+        $sql = mysqli_query($conexion, $filtro_estudiante);
+        $filtro = mysqli_fetch_array($sql);
+        $id_grado = $filtro['id_grado'];
+        $id_seccion = $filtro['id_seccion'];
+
 
         $consultar_finalPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
         INNER JOIN periodo
@@ -499,7 +488,7 @@ if (!empty($ajax_finalPeriodo)) {
     $consultar = mysqli_query($conexion, $consultar_finalPerido);
 
     $finalPeriodo = mysqli_fetch_all($consultar);
-    
+
     echo json_encode($finalPeriodo);
 }
 
@@ -510,27 +499,25 @@ if (!empty($ajax_usuarios)) {
 
     $sql = mysqli_query($conexion, $consulta_usuarios);
 
-    $usuarios = mysqli_fetch_all($sql,MYSQLI_ASSOC);
+    $usuarios = mysqli_fetch_all($sql, MYSQLI_ASSOC);
 
     echo json_encode($usuarios);
-  
-} 
+}
 
 
-  /* ------------------ lista de periodos en el select del  login ----------------- */
-  if (!empty($ajax_periodo)) {
+/* ------------------ lista de periodos en el select del  login ----------------- */
+if (!empty($ajax_periodo)) {
     $select_periodo = "SELECT `id_periodo`, `periodo` FROM `periodo` WHERE status='ON'";
     $sql_periodo = mysqli_query($conexion, $select_periodo);
     $periodos = mysqli_fetch_all($sql_periodo, MYSQLI_ASSOC);
 
     echo json_encode($periodos);
-   
-} 
+}
 
 
 
 /* ----------- consulta para ayuda de profesores con y sin usuarios ---------- */
-if(!empty($ajax_profeNoUsuario)) {
+if (!empty($ajax_profeNoUsuario)) {
 
     $select_profeNoUsuario = "SELECT  profesor.ci_profe,id_usuario, nombre_profe,apellido_profe FROM `usuario` RIGHT JOIN profesor
     ON usuario.ci_profe=profesor.ci_profe WHERE id_usuario is null;";
@@ -539,9 +526,9 @@ if(!empty($ajax_profeNoUsuario)) {
     $profeNousuario = mysqli_fetch_all($sql, MYSQLI_ASSOC);
 
     echo json_encode($profeNousuario);
-} 
+}
 //sin usuarios
- if (!empty($ajax_profeConUsuario)) {
+if (!empty($ajax_profeConUsuario)) {
 
     $select_profeConUsuario = "SELECT   `nombre`, `apellido`, `ci_profe` FROM `usuario` where id_usuario!=1";
     $consultar = mysqli_query($conexion, $select_profeConUsuario);
@@ -551,43 +538,47 @@ if(!empty($ajax_profeNoUsuario)) {
 }
 
 
-/* ------------- grado con secciones dinamicas asginacion profe ------------- */
-if(!empty($grado_asignacion)){
+/* ------------- consultar secciones disponible para el grado ------------- */
+if (!empty($grado_seccionOcupada)) {
 
-   /*  SELECT `id_asignacion`, `ci_profe_asignacion`, `id_periodo`, `id_grado`, `seccion` 
-    FROM asignacion RIGHT JOIN seccion ON asignacion.id_seccion=seccion.id_seccion WHERE id_periodo=23 && id_grado=2 or id_grado is null; */
-}
-/* ----------------- consultar grados con secciones activas ----------------- */
-if($grados_disponible){
+    $select_grados_conSecciones_ocupada = "SELECT   asignacion.id_seccion, seccion FROM `asignacion` 
+  INNER JOIN seccion
+  ON asignacion.id_seccion=seccion.id_seccion WHERE id_periodo=$id_periodo && id_grado=$grado_seccionOcupada";
+    $sql = mysqli_query($conexion, $select_grados_conSecciones_ocupada);
 
-    $select_grados_conSecciones_activas="SELECT  secciones_activas.id_grado,grado  FROM `secciones_activas` 
-    INNER JOIN grado
-    ON secciones_activas.id_grado=grado.id_grado WHERE id_periodo=$id_periodo";
-    $sql=mysqli_query($conexion,$select_grados_conSecciones_activas);
-
-    $resultado=mysqli_fetch_all($sql,MYSQLI_ASSOC);
+    $resultado = mysqli_fetch_all($sql, MYSQLI_ASSOC);
 
     echo json_encode($resultado);
+}
 
+
+/* ----------------- consultar grados con secciones activas ----------------- */
+if (!empty($grados_disponible)) {
+
+    $select_grados_conSecciones_activas = "SELECT  secciones_activas.id_grado,grado  FROM `secciones_activas` 
+    INNER JOIN grado
+    ON secciones_activas.id_grado=grado.id_grado WHERE id_periodo=$id_periodo";
+    $sql = mysqli_query($conexion, $select_grados_conSecciones_activas);
+
+    $resultado = mysqli_fetch_all($sql, MYSQLI_ASSOC);
+
+    echo json_encode($resultado);
 }
 
 
 /* ----------------- comprobar si un admin esta registrado ----------------- */
-if(!empty($comprobarAdmin)){
+if (!empty($comprobarAdmin)) {
 
-    $sql="SELECT  `id_cargo`  FROM `usuario` WHERE id_cargo=1;";
-    $consultar=mysqli_query($conexion,$sql);
-    $admin=mysqli_num_rows($consultar);
-   
-    if($admin >= 1){
-        $resultado=['resultado'=>'adminExiste'];
+    $sql = "SELECT  `id_cargo`  FROM `usuario` WHERE id_cargo=1;";
+    $consultar = mysqli_query($conexion, $sql);
+    $admin = mysqli_num_rows($consultar);
+
+    if ($admin >= 1) {
+        $resultado = ['resultado' => 'adminExiste'];
         echo json_encode($resultado);
+    } else {
 
-    }else{
-
-        $resultado=['resultado'=>'adminNoExiste'];
+        $resultado = ['resultado' => 'adminNoExiste'];
         echo json_encode($resultado);
     }
-
 }
-

@@ -100,7 +100,7 @@ if (!empty($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
 
 
                         <li class="nav-item ">
-                            <a class=" pestaña" href="consultas/consultar_estu_reporte.php"><i class="fa-solid fa-file-export"></i>Constancias</a>
+                            <a class=" pestaña" href="consultas/consultar_estu_reporte.php"><i class="fa-solid fa-file-export"></i>Reportes</a>
                         </li>
 
                         <li class="nav-item dropdown">
@@ -163,7 +163,7 @@ if (!empty($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
         
         
         
-        <
+        
 
         <script src="js/axios.js"></script>
         <script src="js/sweetalert2.all.min.js"></script>

@@ -10,9 +10,7 @@ if($_SESSION['cargo']==1)
 
     <nav class="navbar navbar-expand-lg  ">
         <div class="container-fluid">
-            <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 ">
-                <?= $_SESSION['periodo'] ?>
-            </p>
+            <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 ">Director <?= $_SESSION['periodo'] ?> </p>
             <a href="#" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <i class="fa-solid fa-bars icono-navbar navbar-toggler"></i>
             </a>
@@ -97,7 +95,7 @@ if($_SESSION['cargo']==1)
     
                     <li class="nav-item ">
                         <a class=" pestaña" href="../consultas/consultar_estu_reporte.php"><i
-                                class="fa-solid fa-file-export"></i>Constancias</a>
+                                class="fa-solid fa-file-export"></i>Reportes</a>
                     </li>
     
                     <li class="nav-item dropdown">
@@ -121,6 +119,9 @@ if($_SESSION['cargo']==1)
             </div>
         </div>
     </nav>
+
+
+
 </header>
 
 
@@ -135,109 +136,85 @@ if($_SESSION['cargo']==1)
 
 <header>
 
-    <nav class="nav">
+    <nav class="navbar navbar-expand-lg  ">
+        <div class="container-fluid">
+            <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 "> <?= $_SESSION['usuario'] ?> <?= $_SESSION['periodo'] ?></p>
+            <a href="#" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <i class="fa-solid fa-bars icono-navbar navbar-toggler"></i>
+            </a>
 
-        <ul class="menu">
 
-            <li class="pestaña"><i class="fa-solid fa-user"></i>Estudiantes
+            <div class="collapse navbar-collapse justify-content-center div-collapse" id="navbarSupportedContent">
 
-                <ul class="submenu1 oscuro">
+                <ul class="navbar-nav nav-usuario">
 
-                    <li class="nav_li"> <a class="opcion" href="../formularios/formulario_inscripcion.php">Inscribir</a>
+                    <li class="nav-item dropdown  ">
+                        <a class=" dropdown-toggle pestaña" id="toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-user"></i>Estudiantes</a>
+                        <ul class="dropdown-menu menu-nav" aria-labelledby="toggle">
+                            <li class="nav_li"><a class="opcion" href="../formularios/formulario_inscripcion.php">Inscribir</a></li>
+                            <li class="nav_li"><a class="opcion" href="../formularios/formulario_regular.php">Inscripcion regular </a></li>
+                            <li class="nav_li"><a class="opcion" href="../consultas/consultar_estu.php">Consultar </a></li>
+
+                        </ul>
                     </li>
-                    <li class="nav_li"><a class="opcion" href="../formularios/formulario_regular.php">Inscripcion
-                            regular </a></li>
-                    <li class="nav_li"><a class="opcion" href="../consultas/consultar_estu.php">Consultar </a></li>
-                    <!--  <?php if($_SESSION['id_periodo']!='todos') {?> <li class="nav_li"> <a class="opcion" href="../editar/editar_seccion.php">Asignar secciones</a> </li> <?php } ?> -->
+
+                    <li class="nav-item dropdown ">
+                        <a class=" dropdown-toggle pestaña" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-person-chalkboard"></i>Profesores</a>
+                        <ul class="dropdown-menu menu-nav">
+
+                            <li class="nav_li"><a class="opcion" href="../consultas/consultar_profe.php">Consultar</a> </li>
+                            <li class="nav_li"> <a class="opcion" href="../consultas/consulta_asignacion.php">Ver asignaciones </a> </li>
+
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item dropdown">
+                        <a class=" dropdown-toggle pestaña" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-calendar-days"></i>Periodos</a>
+                        <ul class="dropdown-menu menu-nav">
+
+                            <?php if ($_SESSION['id_periodo'] != 'todos') { ?> <li class="nav_li"> <a class="opcion" href="../editar/editar_nota.php">Vaciar notas</a> </li> <?php } ?>
+                            <li class="nav_li"> <a class="opcion" href="../consultas/consultar_final_periodo.php">Finales del periodo</a> </li>
+
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item  ">
+                        <div class="container-logo-nav ">
+                            <a href="../usuario.php"> <img class="logo-nav" src="../css//imagenes/logo.png" alt="Logo"></a>
+                            
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class=" dropdown-toggle pestaña" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-users"></i>Usuarios</a>
+                        <ul class="dropdown-menu menu-nav">
+                            <li class="nav_li"><a class="opcion" href="../formularios/formulario_editar_usuario.php?id=<?php echo $_SESSION['usuario'] ?>">Editar usuario </a></li>
+
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item ">
+                        <a class=" pestaña" href="../consultas/consultar_estu_reporte.php"><i class="fa-solid fa-file-export"></i>Reportes</a>
+                    </li>
+
+
+
+                    <li class="nav-item">
+                        <a class=" pestaña" href="../cerrar sesion.php"><i class="fa-solid fa-door-open "></i> Cerrar sesión</a>
+                    </li>
+
+
 
                 </ul>
 
-            </li>
-
-
-            <li class="pestaña"><i class="fa-solid fa-person-chalkboard"></i>Profesores
-
-                <ul class="submenu2 oscuro">
-
-                    <li class="nav_li"><a class="opcion" href="../consultas/consultar_profe.php">Consultar</a> </li></a>
-            </li>
-            <li class="nav_li"> <a class="opcion" href="../consultas/consulta_asignacion.php">Ver asignaciones </a>
-            </li>
-
-        </ul>
-
-        </li>
-
-        <li class="pestaña_logo">
-
-            <div class="contenedor_logo">
-
-                <?php 
-                    
-                    if($_SESSION['cargo']==1){ ?>
-                <a href="../director.php"> <img src="../css/imagenes/logo.png" width="55px" alt="Logo"></a>
-
-                <?php }else{ ?>
-                <a href="../usuario.php"> <img src="../css/imagenes/logo.png" width="55px" alt="Logo"></a>
-                <?php } ?>
             </div>
-        </li>
-
-
-
-
-        <li class="pestaña"><i class="fa-solid fa-calendar-days"></i>Periodos
-
-            <ul class="submenu3 oscuro">
-
-                <!--  <li class="nav_li"> <a class="opcion" href="../consultas/consultar_principio_periodo.php">Principios del periodo</a> </li> -->
-                <?php if($_SESSION['id_periodo']!='todos') {?>
-                <li class="nav_li"> <a class="opcion" href="../editar/editar_nota.php">Vaciar notas</a> </li>
-                <?php }?>
-                <li class="nav_li"> <a class="opcion" href="../consultas/consultar_final_periodo.php">Finales del
-                        periodo</a> </li>
-
-            </ul>
-
-        </li>
-
-
-        <li class="pestaña"><i class="fa-solid fa-users"></i>Usuarios
-
-            <?php if($_SESSION['cargo']==1) { ?>
-
-            <ul class="submenu4 oscuro">
-
-                <li class="nav_li"><a class="opcion" href="../consultas/consultar_usuario.php">Ver Usuarios </a></li>
-                <li class="nav_li"><a class="opcion" href="../formularios/formulario_usuario.php">Registrar</a></li>
-
-            </ul>
-            <?php } ?>
-
-            <?php if($_SESSION['cargo']!=1) { ?>
-
-            <ul class="submenu4 oscuro">
-
-
-                <li class="nav_li"><a class="opcion"
-                        href="../formularios/formulario_editar_usuario.php?id=<?php echo $_SESSION['usuario'] ?>">Editar
-                        usuario </a></li>
-
-
-
-            </ul>
-            <?php } ?>
-
-
-
-
-
-        </li>
-
-        <li class="pestaña" for="cerrar"><a href="../cerrar sesion.php"><i class="fa-solid fa-door-open"></i> Cerrar
-                sesión</a></li>
-        </ul>
+        </div>
     </nav>
+
+
 </header>
 
 <?php } ?>

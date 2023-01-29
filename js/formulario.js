@@ -42,7 +42,7 @@ let modalReporte = () => {
     Swal.fire({
         title: 'Generando pdf',
         showConfirmButton: false,
-        timer: 2500,
+        timer: 3000,
         didOpen: () => {
             Swal.showLoading()
         },

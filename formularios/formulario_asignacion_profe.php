@@ -55,15 +55,10 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
 
                         <div class="container_campos">
                             <label class="label_select" for="seccion">Seccion</label>
-                            <select class="select" name="seccion" id="seccion" disabled>
+                            <select class="select" name="seccion" id="seccionDisponible" disabled>
 
                                 <option value="">Seleccione una seccion</option>
-                              <!--   <option value="1">A</option>
-                                <option value="2">B</option>
-                                <option value="3">C</option>
-                                <option value="4">D</option>
-                                <option value="5">E</option>
-                                <option value="6">F</option> -->
+                           
 
                             </select>
                         </div>

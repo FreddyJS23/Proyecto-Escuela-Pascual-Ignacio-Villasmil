@@ -48,7 +48,7 @@ if (isset($_SESSION['usuario'])) {  ?>
 
                         <div class="contenedor_boton">
 
-                            <input class="boton" type="submit" value="Generar constancia">
+                            <input class="boton" type="submit" value="Generar carta de aceptacion">
                         </div>
 
                     </div>
