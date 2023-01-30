@@ -72,8 +72,13 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
         ci_estu_editar: ci_estu
       }
     }).then(res => {
-
-      res.data.forEach(estudiante => {
+      //data estudiante
+      let data1=res.data[0]
+      //data lugar de nacimiento estudiante
+      let data2=res.data[1]
+      //juntar informacion
+      let estudiante=Object.assign(data1,data2)
+        
         let genero;
         if (estudiante['sx_repre'] == "F") {
           genero = "Femenino"
@@ -249,7 +254,7 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
             location.href = `../formularios/formulario_editar_estu.php?id=${estudiante['ci_estu']}`
           }
         })
-      })
+      
 
     })
 

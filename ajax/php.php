@@ -325,9 +325,17 @@ if (!empty($ci_estu_editar)) {
 
     $consultar_estu = mysqli_query($conexion, $select_estu);
 
-    $estu = mysqli_fetch_all($consultar_estu, MYSQLI_ASSOC);
-
-    echo json_encode($estu);
+    $estudiante = mysqli_fetch_all($consultar_estu, MYSQLI_ASSOC);
+    //consulta solo estado de nacimiento
+    $consultarEstadoNacimiento = "SELECT estudiante.id_estado_nacimiento, estado as estado_nacimiento FROM `estudiante` INNER JOIN estados ON estudiante.id_estado_nacimiento=estados.id_estado WHERE ci_estu=$ci_estu_editar";
+    $obtenerEstadoNacimiento = mysqli_query($conexion, $consultarEstadoNacimiento);
+    $estadoNacimiento = mysqli_fetch_all($obtenerEstadoNacimiento, MYSQLI_ASSOC);
+    //juntar dos array en un array
+   $estudiante=array_merge($estudiante,$estadoNacimiento);
+   
+    
+    echo json_encode($estudiante);
+   
 
 
     /* ----------------- datos del reprentante en ventana modal ----------------- */
@@ -417,14 +425,14 @@ if (!empty($ajax_devolverProfeSinAsignar)) {
     $consulta_asignacion = mysqli_query($conexion, $consultar_asignaciones);
     $profesoresAsignados = mysqli_fetch_all($consulta_asignacion, MYSQLI_ASSOC);
     $cantidadProfesoresAsignados = count($profesoresAsignados);
-    
-     //inicializar array que contendra profesores sin asignar
+
+    //inicializar array que contendra profesores sin asignar
     $profesoresSinAsignar = [];
-   //bucle para leer profesores inscritos
+    //bucle para leer profesores inscritos
     for ($i = 0; $i < $cantidadProfesores; $i++) {
-       //identificador de profesor asignado
+        //identificador de profesor asignado
         $profeAsignado = false;
-       //bucle para leer profesores asignados
+        //bucle para leer profesores asignados
         for ($j = 0; $j < $cantidadProfesoresAsignados; $j++) {
             //informar si un profesor ya esta asignado
             if ($profesores[$i] == $profesoresAsignados[$j]) {
@@ -435,10 +443,10 @@ if (!empty($ajax_devolverProfeSinAsignar)) {
         if (!$profeAsignado) {
             array_push($profesoresSinAsignar, $profesores[$i]);
         }
-    } 
-    
+    }
 
-      
+
+
     echo json_encode($profesoresSinAsignar);
 
 
@@ -502,17 +510,17 @@ if (!empty($ajax_finalPeriodo)) {
         WHERE inscripcion.id_periodo=$id_periodo";
     } else {
 
-      
+
         $filtro_estudiante = "SELECT  `id_periodo`, `id_grado`, `id_seccion` FROM `asignacion` WHERE ci_profe_asignacion=$ci_profe && id_periodo=$id_periodo";
         $sql = mysqli_query($conexion, $filtro_estudiante);
         $filtro = mysqli_fetch_array($sql);
-        if($filtro){
+        if ($filtro) {
             $id_grado = $filtro['id_grado'];
             $id_seccion = $filtro['id_seccion'];
-         }else{
+        } else {
             exit;
-         }
-      
+        }
+
 
 
         $consultar_finalPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
