@@ -4,7 +4,7 @@ include("../db.php");
 
 $ci_estu = $_GET['id'];
 
-$consulta = "SELECT ci_estu, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `enfermedad`,`discapacidad`, `estado_econ`, `tlf_estu`, `estado`, `municipio`, `parroquia`, `sector`, `pais`, `ciudad` FROM `estudiante` 
+$consulta = "SELECT ci_estu, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `enfermedad`,`discapacidad`, `estado_econ`, `tlf_estu`, estudiante.id_estado, estudiante.id_municipio, estudiante.id_parroquia,`estado`, `municipio`, `parroquia`, `sector`, `pais`, `ciudad` FROM `estudiante` 
 INNER JOIN salud
 ON estudiante.id_salud=salud.id_salud
 INNER JOIN economia
@@ -23,11 +23,15 @@ ON estudiante.id_ciudad_nacimiento=ciudades.id_ciudad WHERE ci_estu=$ci_estu";
 $ejecutar = mysqli_query($conexion, $consulta);
 $row = mysqli_fetch_array($ejecutar);
 
+$consultarEstadoNacimiento= "SELECT estudiante.id_estado_nacimiento, `estado` FROM `estudiante` INNER JOIN estados ON estudiante.id_estado_nacimiento=estados.id_estado WHERE ci_estu=$ci_estu";
+
+$obtenerEstadoNacimiento= mysqli_query($conexion, $consultarEstadoNacimiento);
+$estadoNacimiento = mysqli_fetch_array($obtenerEstadoNacimiento);
+
 
 if (isset($_SESSION['usuario'])) {
 
-    // $consulta_id_salud="SELECT `id_salud` FROM `estudiante` where ci_estu=$ci_estu";
-    // $ejecutar=mysqli_query($conexion,$consulta_id_salud);
+    
 
 ?>
 
@@ -83,29 +87,66 @@ if (isset($_SESSION['usuario'])) {
                     <div class="container_campos genero" for="genero">
                         <label for="sx_estu" class="label_select" for="sx_estu">Genero</label>
                         <select class="select" name="sx_estu" id="sx_estu">
-                            <option value="0">Seleccione un genero</option>
-                            <option value="M">Masculino</option>
-                            <option value="F">Femenino</option>
+                            <?php if ($row['sx_estu'] == "M") { ?>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            <?php } ?>
+
+                            <?php if ($row['sx_estu'] == "F") {  ?>
+                                <option value="F">Femenino</option>
+                                <option value="M">Masculino</option>
+                            <?php  } ?>
+
                         </select>
                     </div>
 
                     <div class="container_campos" for="economia">
                         <label for="economia" class="label_select">Estado economico</label>
                         <select class="select" name="economia" id="economia">
-                            <option value="0">Estado economico</option>
-                            <option value="1">Alto</option>
-                            <option value="2">Bueno</option>
-                            <option value="3">Intermedio</option>
-                            <option value="4">Bajo</option>
+
+                            <?php if ($row['estado_econ'] == "alto") { ?>
+                                <option value="1">Alto</option>
+                                <option value="2">Bueno</option>
+                                <option value="3">Intermedio</option>
+                                <option value="4">Bajo</option>
+                            <?php } ?>
+
+                            <?php if ($row['estado_econ'] == "bueno") { ?>
+                                <option value="2">Bueno</option>
+                                <option value="3">Intermedio</option>
+                                <option value="4">Bajo</option>
+                                <option value="1">Alto</option>
+                            <?php } ?>
+
+                            <?php if ($row['estado_econ'] == "intermedio") { ?>
+                                <option value="3">Intermedio</option>
+                                <option value="4">Bajo</option>
+                                <option value="1">Alto</option>
+                                <option value="2">Bueno</option>
+                            <?php } ?>
+                            <?php if ($row['estado_econ'] == "bajo") { ?>
+                                <option value="4">Bajo</option>
+                                <option value="1">Alto</option>
+                                <option value="2">Bueno</option>
+                                <option value="3">Intermedio</option>
+                            <?php } ?>
                         </select>
                     </div>
 
                     <div class="container_campos" for="discapacidad">
                         <label for="discapacidad" class="label_select">Discapacidad</label>
                         <select class="select" name="discapacidad" id="select_discapacidad">
-                            <option value="0">Mencione si tiene alguna discapacidad</option>
-                            <option value="si">Si</option>
-                            <option value="no">No</option>
+
+                            <?php if ($row['discapacidad'] == "si") {  ?>
+                                 <option value="si">Si</option>
+                                <option value="no">No</option>
+                            <?php  } ?>
+
+                            <?php if ($row['discapacidad'] == "no") {  ?>
+                                <option value="no">No</option>
+                                <option value="si">Si</option>
+                            <?php  } ?>
+                        
                         </select>
                     </div>
 
@@ -131,7 +172,7 @@ if (isset($_SESSION['usuario'])) {
                         <div class="container_campos">
                             <label class="label_select" for="estado_estu">Estado</label>
                             <select class="select" name="estado_estu" id="estado_estu">
-                                <option value="0">Seleccione un estado</option>
+                            <option value="<?php echo $row['id_estado'] ?>"><?php echo $row['estado'] ?></option>
                                 <option value="1 ">Amazonas </option>
                                 <option value="2 ">Anzoátegui </option>
                                 <option value="3 ">Apure </option>
@@ -163,7 +204,7 @@ if (isset($_SESSION['usuario'])) {
                         <div class="container_campos">
                             <label class="label_select" for="municipio_estu">Municipio</label>
                             <select class="select" name="municipio_estu" id="municipio_estu" disabled>
-                                <option value="0"><?= $row['municipio'] ?></option>
+                            <option value="<?php echo $row['id_municipio'] ?>"><?php echo $row['municipio'] ?></option>
 
                             </select>
                         </div>
@@ -171,7 +212,7 @@ if (isset($_SESSION['usuario'])) {
                         <div class="container_campos">
                             <label class="label_select" for="parroquia">Parrquia</label>
                             <select class="select" name="parroquia_estu" id="parroquia_estu" disabled>
-                                <option value="0"><?= $row['parroquia'] ?></option>
+                            <option value="<?php echo $row['id_parroquia'] ?>"><?php echo $row['parroquia'] ?></option>
 
                             </select>
                         </div>
@@ -196,16 +237,14 @@ if (isset($_SESSION['usuario'])) {
                         <div class="container_campos">
                             <label class="label_select" for="pais">Pais</label>
                             <select class="select" name="pais" id="pais">
-                                <option value="0">Seleccione un pais</option>
-                                <option value="1">Venezuela</option>
-                                <option value="2">Colombia</option>
+                            <option value="1">Venezuela</option>
                             </select>
                         </div>
 
                         <div class="container_campos">
                             <label class="label_select" for="estado_nacimiento_estu">Estado</label>
                             <select class="select" name="estado_nacimiento_estu" id="estado_nacimiento_estu">
-                                <option value="0">Seleccione un estado</option>
+                            <option value="<?php echo $estadoNacimiento['id_estado_nacimiento'] ?>"><?php echo $estadoNacimiento['estado'] ?></option>
                                 <option value="1 ">Amazonas </option>
                                 <option value="2 ">Anzoátegui </option>
                                 <option value="3 ">Apure </option>
@@ -237,7 +276,7 @@ if (isset($_SESSION['usuario'])) {
                         <div class="container_campos">
                             <label class="label_select" for="ciudad">Ciudad</label>
                             <select class="select" name="ciudad" id="ciudad" disabled>
-                                <option value="0">Seleccione una ciudad</option>
+                            <option value="<?php echo $row['id_ciudad_nacimiento'] ?>"><?php echo $row['ciudad'] ?></option>
 
                             </select>
 

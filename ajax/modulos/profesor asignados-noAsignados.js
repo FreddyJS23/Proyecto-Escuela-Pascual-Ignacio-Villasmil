@@ -25,7 +25,7 @@
       let html
       html += `<option value="">Lista de profesores</option>`
       res.data.forEach(profe => {
-        html += ` <option value="">${profe.nombre_profe} Grado:${profe.grado}  Seccion:${profe.seccion} </option>`
+        html += ` <option value="">${profe.nombre_profe} ${profe.apellido_profe} Grado:${profe.grado}  Seccion:${profe.seccion} </option>`
         asignados.innerHTML = html
       })
     })

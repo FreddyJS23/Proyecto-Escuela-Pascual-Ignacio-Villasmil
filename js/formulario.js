@@ -811,7 +811,7 @@ if (formulario != undefined) {
             /* --------------------------- formulario profesor -------------------------- */
             if (inscripcion_profesor != undefined) {
 
-                axios.post("../registros/registro_profe", formData).then(res => {
+                axios.post("../registros/registro_profe.php", formData).then(res => {
 
                     if (res.data['resultado'] == "exito") {
                         Swal.fire({
@@ -850,7 +850,7 @@ if (formulario != undefined) {
             /* ----------------------- formulario editar profesor ----------------------- */
             if (editar_profe != undefined) {
 
-                axios.post("../editar/editar_profe", formData).then(res => {
+                axios.post("../editar/editar_profe.php", formData).then(res => {
                     if (res.data['resultado'] == "exito") {
                         Swal.fire({
                             icon: 'success',

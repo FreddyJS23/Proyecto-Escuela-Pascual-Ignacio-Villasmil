@@ -3,7 +3,7 @@
 include("../db.php");
 $ci_repre = $_GET['id'];
 
-$select_repre = "SELECT `ci_repre`, `nombre_repre`, `apellido_repre`, `fn_repre`, `sx_repre`, `tlf_repre`, `estado`, `municipio`, `parroquia`, `sector` FROM `representante`
+$select_repre = "SELECT `ci_repre`, `nombre_repre`, `apellido_repre`, `fn_repre`, `sx_repre`, `tlf_repre`, representante.id_estado, representante.id_municipio, representante.id_parroquia,`estado`, `municipio`, `parroquia`, `sector` FROM `representante`
     INNER JOIN estados
      ON representante.id_estado=estados.id_estado
     INNER JOIN municipios
@@ -13,14 +13,6 @@ $select_repre = "SELECT `ci_repre`, `nombre_repre`, `apellido_repre`, `fn_repre`
 
 $sql_repre = mysqli_query($conexion, $select_repre);
 $row=mysqli_fetch_array($sql_repre);
-
-
-//obner parentesco
-/* $id_periodo=$_SESSION['id_periodo'];
-$select_parentesco="SELECT parentesco FROM parentesco WHERE ci_repre=$ci_repre GROUP BY ci_repre;";
-$sql_parentesco=mysqli_query($conexion,$select_parentesco);
-$parentesco=mysqli_fetch_array($sql_parentesco);
- */
 
 
 ?>
@@ -39,8 +31,8 @@ $parentesco=mysqli_fetch_array($sql_parentesco);
     <form action="../registros/editar_repre.php" method="post" id="formulario">
         
         <input type="hidden" name="referencia" value="<?= $row['ci_repre'] ?>">
-        <div class="contenedor_representante contenedor_representante_grid">
-            <div class="titulo_formulario titulo_formulario_grip">
+        <div class="container contenedor_representante contenedor_representante_grid">
+            <div class="titulo_formulario titulo_formulario_grid">
                 <p><i class="fa-solid fa-person-breastfeeding"></i>Datos del representante</p>
             </div>
             <div class="campos_representante campos_representante_grid">
@@ -63,19 +55,23 @@ $parentesco=mysqli_fetch_array($sql_parentesco);
                 <div class="container_campos genero">
                     <label class="label_select" for="sx_repre">Genero</label>
                     <select class="select" name="sx_repre" id="sx_repre">
-                        <option value="0">Seleccione un genero</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Femenino</option>
+                    <?php if ($row['sx_repre'] == "M") { ?>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            <?php } ?>
+
+                            <?php if ($row['sx_repre'] == "F") {  ?>
+                                <option value="F">Femenino</option>
+                                <option value="M">Masculino</option>
+                            <?php  } ?>
+
                     </select>
                 </div>
                 <div class="container_campos">
                     <input class="input" required type="text" name="tlf_repre" id="tlf_repre" placeholder=" "  value="<?= $row['tlf_repre'] ?>"autocomplete="off" maxlength="12" pattern="[0-9]{4,4}-[0-9]{7,7}" title="Formato 0xxx-xxxxxxx">
                     <label class="label" id="label_tlf_repre" for="tlf_repre">Telefono contacto</label>
                 </div>
-                <!-- <div class="container_campos">
-                    <input class="input" required type="text" name="parentesco" id="parentesco" placeholder=" " value="" autocomplete="off" maxlength="15">
-                    <label class="label" id="label_parentesco" for="parentesco">Parentesco con el estudiante</label>
-                </div> -->
+                
             </div>
             <!-- ubicacion -->
             <div class="contenedor_ubicacion">
@@ -86,7 +82,7 @@ $parentesco=mysqli_fetch_array($sql_parentesco);
                     <div class="container_campos">
                         <label class="label_select" for="estado">Estado</label>
                         <select class="select" name="estado_repre" id="estado_repre">
-                            <option value="0"> <?= $row['estado'] ?></option>
+                        <option value="<?php echo $row['id_estado'] ?>"><?php echo $row['estado'] ?></option>
                             <option value="1 ">Amazonas </option>
                             <option value="2 ">Anzoátegui </option>
                             <option value="3 ">Apure </option>
@@ -117,7 +113,7 @@ $parentesco=mysqli_fetch_array($sql_parentesco);
                     <div class="container_campos">
                         <label class="label_select" for="estado">Municipio</label>
                         <select class="select" name="municipio_repre" id="municipio_repre" disabled>
-                            <option value="0"> <?= $row['municipio'] ?></option>
+                        <option value="<?php echo $row['id_municipio'] ?>"><?php echo $row['municipio'] ?></option>
 
                             <option value="460">Sucre</option>
                         </select>
@@ -125,7 +121,7 @@ $parentesco=mysqli_fetch_array($sql_parentesco);
                     <div class="container_campos">
                         <label class="label_select" for="parroquia">Parrquia</label>
                         <select class="select" name="parroquia_repre" id="parroquia_repre" disabled>
-                            <option value="0"> <?= $row['parroquia'] ?></option>
+                        <option value="<?php echo $row['id_parroquia'] ?>"><?php echo $row['parroquia'] ?></option>
 
                         </select>
                     </div>
@@ -134,9 +130,9 @@ $parentesco=mysqli_fetch_array($sql_parentesco);
                         <label class="label" id="label_sector_repre" for="sector_repre">Sector</label>
                     </div>
                 </div>
-        
+                <input class="boton boton_editar bton_repre_nuevo" type="submit" value="Editar">
             </div>
-            <input class="boton boton_editar" type="submit" value="Editar">
+
             <input type="hidden" id="editar_repre">
         </div>
         

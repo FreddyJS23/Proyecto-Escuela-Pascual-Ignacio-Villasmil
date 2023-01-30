@@ -4,7 +4,7 @@ include("../db.php");
 
 $ci_profe = $_GET['id'];
 
-$consulta_profe = "SELECT `ci_profe`, `nombre_profe`, `apellido_profe`, `fn_profe`, `sx_profe`, `tlf_profe`,`correo_profe`,`grado_instruccion`,`condicion_laboral`,`status`, `estado`, `municipio`, `parroquia`, `sector` FROM `profesor` 
+$consulta_profe = "SELECT `ci_profe`, `nombre_profe`, `apellido_profe`, `fn_profe`, `sx_profe`, `tlf_profe`,`correo_profe`,`grado_instruccion`,`condicion_laboral`,`status`, profesor.id_estado, profesor.id_municipio, profesor.id_parroquia,`estado`, `municipio`, `parroquia`, `sector` FROM `profesor` 
 INNER JOIN estados
 ON profesor.id_estado=estados.id_estado
 INNER JOIN municipios
@@ -16,7 +16,7 @@ ON profesor.id_parroquia=parroquias.id_parroquia where ci_profe=$ci_profe";
 $ejecutar_consulta_profe = mysqli_query($conexion, $consulta_profe);
 $row = mysqli_fetch_array($ejecutar_consulta_profe);
 
-if (isset($_SESSION['usuario'])&& $_SESSION['cargo']==1) {
+if (isset($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
 
 ?>
 
@@ -78,9 +78,17 @@ if (isset($_SESSION['usuario'])&& $_SESSION['cargo']==1) {
                     <div class="container_campos">
                         <label class="label" for="sx_profe"></label>
                         <select class="select" name="sx_profe" id="sx_profe">
-                            <option value="">Seleccione un genero</option>
-                            <option value="M">Masculino</option>
-                            <option value="F">Femenino</option>
+
+                            <?php if ($row['sx_profe'] == "M") { ?>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            <?php } ?>
+                            
+                            <?php if ($row['sx_profe'] == "F") {  ?>
+                                <option value="F">Femenino</option>
+                                <option value="M">Masculino</option>
+                            <?php  } ?>
+
                         </select>
                     </div>
 
@@ -105,19 +113,42 @@ if (isset($_SESSION['usuario'])&& $_SESSION['cargo']==1) {
                     <div class="container_campos">
                         <label class="label_select" for="grado_instruccion">Grado de instruccion</label>
                         <select class="select" name="grado_instruccion" id="grado_instruccion" value="<?php echo $row['grado_instruccion'] ?>">
-                            <option value=""><?php echo $row['grado_instruccion'] ?></option>
-                            <option value="alto">Alto</option>
-                            <option value="medio">Medio</option>
-                            <option value="bajo">Bajo</option>
+
+                            <?php if ($row['grado_instruccion'] == "alto") { ?>
+                                <option value="alto">Alto</option>
+                                <option value="medio">Medio</option>
+                                <option value="bajo">Bajo</option>
+                            <?php } ?>
+
+                            <?php if ($row['grado_instruccion'] == "medio") { ?>
+                                <option value="medio">Medio</option>
+                                <option value="alto">Alto</option>
+                                <option value="bajo">Bajo</option>
+                            <?php } ?>
+
+                            <?php if ($row['grado_instruccion'] == "bajo") { ?>
+                                <option value="bajo">Bajo</option>
+                                <option value="alto">Alto</option>
+                                <option value="medio">Medio</option>
+                            <?php } ?>
+
                         </select>
                     </div>
                     <div class="container_campos">
                         <label class="label_select" for="condicion_laboral">Condicion laboral</label>
 
                         <select class="select" name="condicion_laboral" id="condicon_laboral" value="<?php echo $row['condicion_laboral'] ?>">
-                            <option value=""><?php echo $row['condicion_laboral'] ?></option>
-                            <option value="fijo">fijo</option>
-                            <option value="no fijo">no fijo</option>
+
+                            <?php if ($row['condicion_laboral'] == "fijo") { ?>
+                                <option value="fijo">fijo</option>
+                                <option value="no fijo">no fijo</option>
+                            <?php } ?>
+
+                            <?php if ($row['condicion_laboral'] == "nofijo") { ?>
+                                <option value="nofijo">no fijo</option>
+                                <option value="fijo">fijo</option>
+                            <?php } ?>
+
 
                         </select>
                     </div>
@@ -125,11 +156,18 @@ if (isset($_SESSION['usuario'])&& $_SESSION['cargo']==1) {
                         <label class="label_select" for="status">Estado</label>
 
                         <select class="select" name="status" id="status" value="<?php echo $row['status'] ?>">
-                            <option value="0"><?php echo $row['status'] ?></option>
-                            <option value="ON">Activo</option>
-                            <option value="OFF">Inactivo</option>
 
-                        </select>
+                            <?php if ($row['status'] == "ON") { ?>
+                                <option value="ON">Activo</option>
+                                <option value="OFF">Inactivo</option>
+                            <?php } ?>
+                            
+                            <?php if ($row['status'] == "OFF") { ?>
+                                <option value="OFF">Inactivo</option>
+                                <option value="ON">Activo</option>
+                            <?php } ?>
+
+                            </select>
                     </div>
 
                     <div class="campos_ubicacion">
@@ -145,8 +183,8 @@ if (isset($_SESSION['usuario'])&& $_SESSION['cargo']==1) {
 
                             <label class="label_select" for="estado">Estado</label>
 
-                            <select class="select" name="estado" id="estado" value="<?php echo $row['estado'] ?>">
-                                <option value="0">Seleccione un estado</option>
+                            <select class="select" name="estado" id="estado" >
+                            <option value="<?php echo $row['id_estado'] ?>"><?php echo $row['estado'] ?></option>
 
                                 <option value="1 ">Amazonas </option>
                                 <option value="2 ">Anzoátegui </option>
@@ -183,7 +221,7 @@ if (isset($_SESSION['usuario'])&& $_SESSION['cargo']==1) {
                             <label class="label_select" for="estado">Municipio</label>
                             <select class="select" name="municipio" id="municipio" disabled>
 
-                                <option value="0"><?php echo $row['municipio'] ?></option>
+                                <option value="<?php echo $row['id_municipio'] ?>"><?php echo $row['municipio'] ?></option>
 
                             </select>
 
@@ -194,7 +232,7 @@ if (isset($_SESSION['usuario'])&& $_SESSION['cargo']==1) {
                         <div class="container_campos">
                             <label class="label_select" for="parroquia">Parrquia</label>
                             <select class="select" name="parroquia" id="parroquia" disabled>
-                                <option value="0"><?php echo $row['parroquia'] ?></option>
+                            <option value="<?php echo $row['id_parroquia'] ?>"><?php echo $row['parroquia'] ?></option>
 
                             </select>
 

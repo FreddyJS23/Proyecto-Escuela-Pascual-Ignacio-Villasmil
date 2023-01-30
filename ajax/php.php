@@ -282,7 +282,7 @@ if (!empty($ajax_estudiante)) {
     if ($_SESSION['id_periodo'] != "todos") {
         $consultar_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `municipio` FROM `estudiante` INNER JOIN municipios
     ON estudiante.id_municipio=municipios.id_municipio
-    LEFT JOIN inscripcion
+    INNER JOIN inscripcion
     ON estudiante.ci_estu=inscripcion.ci_estu_inscripcion WHERE id_periodo=$id_periodo";
 
         $sql = mysqli_query($conexion, $consultar_estu);
@@ -293,7 +293,9 @@ if (!empty($ajax_estudiante)) {
         $consultar_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `municipio` FROM `estudiante` INNER JOIN municipios
     ON estudiante.id_municipio=municipios.id_municipio
     LEFT JOIN inscripcion
-    ON estudiante.ci_estu=inscripcion.ci_estu_inscripcion ";
+    ON estudiante.ci_estu=inscripcion.ci_estu_inscripcion 
+    INNER JOIN periodo
+    ON inscripcion.id_periodo=periodo.id_periodo WHERE periodo.status='OFF' ";
 
         $sql = mysqli_query($conexion, $consultar_estu);
         $estudiante = mysqli_fetch_all($sql, MYSQLI_ASSOC);
@@ -410,7 +412,7 @@ if (!empty($ajax_devolverProfeSinAsignar)) {
     $consultar_asignaciones = "SELECT ci_profe_asignacion as ci_profe,nombre_profe,apellido_profe FROM `asignacion` 
     INNER JOIN profesor ON asignacion.ci_profe_asignacion=profesor.ci_profe 
     INNER JOIN periodo ON asignacion.id_periodo=periodo.id_periodo 
-    WHERE asignacion.id_periodo=$id_periodo && periodo.status='ON'";
+    WHERE asignacion.id_periodo=$id_periodo && periodo.status='ON' && profesor.status='ON'";
 
     $consulta_asignacion = mysqli_query($conexion, $consultar_asignaciones);
     $profesoresAsignados = mysqli_fetch_all($consulta_asignacion, MYSQLI_ASSOC);
@@ -500,12 +502,17 @@ if (!empty($ajax_finalPeriodo)) {
         WHERE inscripcion.id_periodo=$id_periodo";
     } else {
 
-
+      
         $filtro_estudiante = "SELECT  `id_periodo`, `id_grado`, `id_seccion` FROM `asignacion` WHERE ci_profe_asignacion=$ci_profe && id_periodo=$id_periodo";
         $sql = mysqli_query($conexion, $filtro_estudiante);
         $filtro = mysqli_fetch_array($sql);
-        $id_grado = $filtro['id_grado'];
-        $id_seccion = $filtro['id_seccion'];
+        if($filtro){
+            $id_grado = $filtro['id_grado'];
+            $id_seccion = $filtro['id_seccion'];
+         }else{
+            exit;
+         }
+      
 
 
         $consultar_finalPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
