@@ -120,42 +120,31 @@ if (isset($_SESSION['usuario'])) {
 
         </header>
 
-        <div class="container contenedor_estadisticas1">
-
+      
+        <div class="container contenedor_estadisticas">
             <div class="row">
-
-                <div class="col-10">
-                    <p>Total de estudiantes inscritos actualmente:</p>
+                <div class="col-6 contenedor_estadistica1">
+                    <canvas id="graficoProfesor"></canvas>
                 </div>
 
 
-                <div class="col-2">
-                    <p class="rounded-circle contenedor_numero"><?php echo $total_estu ?></p>
+                <div class="col-6 contenedor_estadistica2">
+                    <canvas id="graficoEstudiante"></canvas>
                 </div>
+                <div class="row justify-content-center">
+                    <div class=" col-12 contenedor_estadistica3">
+                        <canvas id="graficoGrado"></canvas>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-
-        <div class="container contenedor_estadisticas2">
-
-            <div class="row">
-
-                <div class="col-10">
-                    <p>Total de profesores inscritos actualmente:</p>
-                </div>
-
-
-                <div class="col-2">
-                    <p class="rounded-circle contenedor_numero"><?php echo $total_profe  ?></p>
-                </div>
-            </div>
-        </div>
-
-
+        <script src="chartjs/chart.umd.js"></script>
         <script src="js/axios.js"></script>
         <script src="js/sweetalert2.all.min.js"></script>
-        <script src="ajax/ajax.js"></script>
-        <script src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+         <script src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/graficos.js"></script>
 
 
     </body>

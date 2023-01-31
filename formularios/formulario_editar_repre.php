@@ -76,7 +76,7 @@ $row=mysqli_fetch_array($sql_repre);
             <!-- ubicacion -->
             <div class="contenedor_ubicacion">
                 <div class="contenedor_titulo_ubicacion">
-                    <p class="titulo_ubicacion">Donde recide actualemte</p>
+                    <p class="titulo_ubicacion">Donde reside actualemte</p>
                 </div>
                 <div class="campos_ubicacion">
                     <div class="container_campos">
@@ -119,7 +119,7 @@ $row=mysqli_fetch_array($sql_repre);
                         </select>
                     </div>
                     <div class="container_campos">
-                        <label class="label_select" for="parroquia">Parrquia</label>
+                        <label class="label_select" for="parroquia">Parroquia</label>
                         <select class="select" name="parroquia_repre" id="parroquia_repre" disabled>
                         <option value="<?php echo $row['id_parroquia'] ?>"><?php echo $row['parroquia'] ?></option>
 

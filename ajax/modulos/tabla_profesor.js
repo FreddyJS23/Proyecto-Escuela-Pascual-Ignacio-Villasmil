@@ -28,7 +28,7 @@ let tablaProfesor=(diseno,espanol,hover,divProfe,url,  fondo,color_boton)=>{
           { id: 'tlf_profe', name: 'Telefono' },
           { id: 'grado_instruccion', name: 'Grado de instruccion' },
           { id: 'condicion_laboral', name: 'Condicion laboral' },
-          { id: 'status', name: 'status' },
+          { id: 'status', name: 'Status' },
           { id: 'sector', name: 'Sector' },
     
     

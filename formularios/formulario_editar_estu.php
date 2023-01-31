@@ -165,7 +165,7 @@ if (isset($_SESSION['usuario'])) {
                 <!-- campos ubicacion -->
                 <div class="contenedor_ubicacion  contenedor_ubicacion_grid">
                     <div class="contenedor_titulo_ubicacion">
-                        <p class="titulo_ubicacion">Donde recide actualemte</p>
+                        <p class="titulo_ubicacion">Donde reside actualemte</p>
                     </div>
 
                     <div class="campos_ubicacion">
@@ -210,7 +210,7 @@ if (isset($_SESSION['usuario'])) {
                         </div>
 
                         <div class="container_campos">
-                            <label class="label_select" for="parroquia">Parrquia</label>
+                            <label class="label_select" for="parroquia">Parroquia</label>
                             <select class="select" name="parroquia_estu" id="parroquia_estu" disabled>
                             <option value="<?php echo $row['id_parroquia'] ?>"><?php echo $row['parroquia'] ?></option>
 

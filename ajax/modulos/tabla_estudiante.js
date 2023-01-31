@@ -160,7 +160,7 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
             <!-- campos ubicacion -->
             <div class="contenedor_ubicacion  contenedor_ubicacion_grid">
                 <div class="contenedor_titulo_ubicacion">
-                    <p class="titulo_ubicacion">Donde recide actualemte</p>
+                    <p class="titulo_ubicacion">Donde reside actualemte</p>
                 </div>
 
                 <div class="campos_ubicacion">
@@ -181,7 +181,7 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
                     </div>
 
                     <div class="container_campos">
-                        <label class="label_select" for="parroquia">Parrquia</label>
+                        <label class="label_select" for="parroquia">Parroquia</label>
                         <select class="select" name="parroquia_estu" id="parroquia" value="parroquia">
                             <option value="0">${estudiante['parroquia']}</option>
                             
@@ -320,7 +320,7 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
          <!-- ubicacion -->
          <div class="contenedor_ubicacion">
              <div class="contenedor_titulo_ubicacion">
-                 <p class="titulo_ubicacion">Donde recide actualemte</p>
+                 <p class="titulo_ubicacion">Donde reside actualemte</p>
              </div>
              <div class="campos_ubicacion">
                  <div class="container_campos">
@@ -339,7 +339,7 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
                      </select>
                  </div>
                  <div class="container_campos">
-                     <label class="label_select" for="parroquia">Parrquia</label>
+                     <label class="label_select" for="parroquia">Parroquia</label>
                      <select class="select" name="parroquia_repre" id="parroquia_repre">
                          <option value="0">${representante['parroquia']}</option>
 

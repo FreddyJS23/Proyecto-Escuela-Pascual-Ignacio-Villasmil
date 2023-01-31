@@ -143,53 +143,33 @@ nav {
 }
 /*-----------------  estadisticas  --------------------------*/
 
-.contenedor_estadisticas1,
-.contenedor_estadisticas2 {
 
+.contenedor_estadistica1,
+.contenedor_estadistica2, 
+.contenedor_estadistica3 {
+
+    background-color: rgb(248, 248, 255);
+   padding: 40px;
+   border-radius: 10px;
    
-    background-color: var(--fondo-formulario);
-    max-width: 700px;
-    padding: 40px;
-    margin: auto;
-    margin-left: 50px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 25px;
-    color: var(--color-letra);
-    text-shadow: var(--sombra);
-    box-shadow: var(--sombra-contenedor_estadistica);
+   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;   width: 500px;
 
 }
-
-.contenedor_estadisticas1 {
-
-    margin-top: 200px;
+.contenedor_estadistica1,
+.contenedor_estadistica2{
+    margin-top: 25px;
+}
+.contenedor_estadistica1{
+    margin-right: 56px;
 }
 
-.contenedor_estadisticas2 {
-
-
-    margin-top: 70px;
+.contenedor_estadistica3{
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 
 
-/*-----------------  texto  estadistica  --------------------------*/
-
-.contenedor_estadisticas1 p,
-.contenedor_estadisticas2 p {
-
-    font-size: 25px;
-}
 
 
-/*-----------------  numero estadistica  --------------------------*/
-.contenedor_numero {
 
-   
-    background: var(--color-primario);
-    text-align: center;
-  
-    padding: 5px;
-  
 
-}

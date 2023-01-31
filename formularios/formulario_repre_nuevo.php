@@ -63,7 +63,7 @@ $ci_repre = $_GET['ci_repre'];
 
             <div class="contenedor_ubicacion">
                 <div class="contenedor_titulo_ubicacion">
-                    <p class="titulo_ubicacion">Donde recide actualemte</p>
+                    <p class="titulo_ubicacion">Donde reside actualemte</p>
                 </div>
                 <div class="campos_ubicacion">
                     <div class="container_campos">
@@ -106,7 +106,7 @@ $ci_repre = $_GET['ci_repre'];
                         </select>
                     </div>
                     <div class="container_campos">
-                        <label class="label_select" for="parroquia">Parrquia</label>
+                        <label class="label_select" for="parroquia">Parroquia</label>
                         <select class="select" name="parroquia_repre" id="parroquia_repre" disabled>
                             <option value="0"> Seleccione una parroquia</option>
 

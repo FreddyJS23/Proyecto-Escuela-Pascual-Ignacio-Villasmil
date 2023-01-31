@@ -630,6 +630,7 @@ if (selectSeccionesDisponibles != undefined) {
 
 }
 
+
 /* ----------------------------- estrucura modal ---------------------------- */
 
 
