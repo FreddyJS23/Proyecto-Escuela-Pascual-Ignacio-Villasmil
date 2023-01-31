@@ -116,7 +116,16 @@ border-bottom: 1px solid var(--color-primario);
     font-size: larger;
     margin-bottom: 10px;
 }
-
+/* --------------- logo en la barra navegacions para dispositivos -------------- */
+.logo-menu-tlf{
+    
+    width: 45px;
+    height: 60px;
+    display: none;
+    position: absolute;
+   top: -3px;
+   left: 18px;
+}   
 
 /* ----------------------- media querys o respoinsive ----------------------- */
 
@@ -274,13 +283,17 @@ select,
 }    
 
 }
-
-@media screen and (max-width:992px){
+/* media para usar menu despeglable */
+@media screen and (max-width:991px){
     .titulo-nav{
         font-size: 21px;
-        margin-left: 5px;
+        margin-left: 50px;
        
     }
+    .logo-menu-tlf{
+        display: block;
+    }
+   
     .pestaña,
     a>i,
     .nav_li>a{
@@ -305,19 +318,37 @@ select,
   
       font-size: 20px;
   }
-  
+  .nav-usuario{
+    margin-left: initial;
+  }
 }
+
+@media screen and (max-width:341px){
+    .titulo-nav{
+        font-size: 21px;
+        margin-left: 5px;
+       
+    }
+    .logo-menu-tlf{
+        display: none;
+    }
+}
+
 /* ------------------------------- formularios ------------------------------ */
 /* formulario estudiante */
 @media screen and (max-width:1100px){
 
 
 .campos_estudiante .container_campos .input,
-.campos_estudiante .container_campos select{
+.campos_estudiante .container_campos select,
+.campos_ubicacion .container_campos .input,
+.campos_ubicacion .container_campos select{
   font-size: medium;
 }
 .campos_estudiante .container_campos .label,
-.campos_estudiante .container_campos  .label_select{
+.campos_estudiante .container_campos  .label_select,
+.campos_ubicacion .container_campos .label,
+.campos_ubicacion .container_campos .label_select{
     font-size: small;
 }
 .campos_estudiante .container_campos .label{
@@ -329,6 +360,20 @@ select,
 .titulo_formulario p,
 .titulo_ubicacion{
     font-size: 20px;
+}
+
+.label_select_previa_datos_economia{
+    left: -28px;
+    
+    }
+.label_input_previa_datos{
+    bottom: 32px ;
+    
+}
+.label_input_previa_datos_ci,
+.label_input_previa_datos_sector{
+    bottom: 23px ;
+    
 }
 
 }
@@ -345,20 +390,44 @@ select,
     }
 
 .campos_estudiante .container_campos .input,
-.campos_estudiante .container_campos select{
+.campos_estudiante .container_campos select
+.campos_ubicacion .container_campos .input,
+.campos_ubicacion .container_campos select{
   font-size: large;
 }
 .campos_estudiante .container_campos .label,
-.campos_estudiante .container_campos .label_select{
+.campos_estudiante .container_campos .label_select,
+.campos_ubicacion .container_campos .label,
+.campos_ubicacion .container_campos .label_select{
     font-size:large;
 }
 .campos_estudiante .container_campos .label,#label_ci_estu{
     bottom: initial;
 }
-    .contenedor_titulo_ubicacion{
-        margin-bottom: -37px;
-        margin-top: 50px;
-    }
+  .contenedor_titulo_ubicacion{
+      margin-bottom: -37px;
+      margin-top: 50px;
+  }
+  
+  .label_select_previa_datos{
+    position: relative;  
+    left: -98px ;
+      bottom: 9px;
+      }
+       .label_select_previa_datos_genero{
+      left: -107px;
+      
+      }
+       .label_select_previa_datos_economia{
+      left: -60px;
+      
+      }
+       .label_select_previa_datos_discapacidad{
+      left: -83px;
+      
+      }
+      
+
 
  }
 
@@ -379,8 +448,122 @@ select,
 .campos_estudiante .container_campos .label_select{
     font-size:medium;
 }
- }
 
+/* -------------- labels en modal de previa de datos estudiante ------------- */
+.label_select_previa_datos{
+    position: relative;  
+    left: -174px ;
+      bottom: 9px;
+      } 
+      .label_select_previa_datos_genero{
+        left: -188px;
+        
+        }
+         .label_select_previa_datos_economia{
+        left: -147px;
+        
+        }
+         .label_select_previa_datos_discapacidad{
+        left: -163px;
+        
+        }
+        
+
+}
+@media screen and (max-width:680px){
+
+    .label_select_previa_datos{
+        position: relative;  
+        left: -144px ;
+          bottom: 9px;
+          } 
+          .label_select_previa_datos_genero{
+            left: -168px;
+            
+            }
+             .label_select_previa_datos_economia{
+            left: -127px;
+            
+            }
+             .label_select_previa_datos_discapacidad{
+            left: -144px;
+            
+            }
+            
+}
+@media screen and (max-width:640px){
+
+    .label_select_previa_datos{
+        position: relative;  
+        left: -132px ;
+          bottom: 9px;
+          } 
+          .label_select_previa_datos_genero{
+            left: -143px;
+            
+            }
+             .label_select_previa_datos_economia{
+            left: -103px;
+            
+            }
+             .label_select_previa_datos_discapacidad{
+            left: -119px;
+            
+            }
+            
+}
+@media screen and (max-width:580px){
+
+    .label_select_previa_datos{
+        position: relative;  
+        left: -103px ;
+          bottom: 9px;
+          } 
+          .label_select_previa_datos_genero{
+            left: -113px;
+            
+            }
+             .label_select_previa_datos_economia{
+            left: -74px;
+            
+            }
+             .label_select_previa_datos_discapacidad{
+            left: -90px;
+            
+            }
+            
+}
+@media screen and (max-width:520px){
+
+    .label_select_previa_datos{
+        position: relative;  
+        left: -87px ;
+          bottom: 9px;
+          } 
+          .label_select_previa_datos_genero{
+            left: -85px;
+            
+            }
+             .label_select_previa_datos_economia{
+            left: -47px;
+            
+            }
+             .label_select_previa_datos_discapacidad{
+            left: -67px;
+            
+            }
+            
+}
+@media screen and (max-width:465px){
+
+    .label_select_previa_datos{
+        position: relative;  
+        left: initial ;
+          bottom: 9px;
+          } 
+        
+            
+}
 
 
 

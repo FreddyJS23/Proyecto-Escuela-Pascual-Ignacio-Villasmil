@@ -91,150 +91,156 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
     
     <fieldset disabled style="border:0">
            
-    
-    <div class="contaier contenedor_estudiante contenedor_estudiante_grid">
+  <div class="container-lg  contenedor_estudiante contenedor_estudiante_grid">
 
-            <div class="titulo_formulario titulo_formulario_grid ">
-                <p><i class="fa-solid fa-children"></i>Datos del estudiante</p>
+    <div class="titulo_formulario titulo_formulario_grid">
+        <p><i class="fa-solid fa-children"></i>Datos del estudiante</p>
+    </div>
+    <div class="container campos_estudiante campos_estudiante_grid" id="estudiante">
+
+
+        <div class="container_campos container container_ci_estu">
+           
+           <input value="${estudiante.ci_estu}" class="input" required type="text" name="ci_estu" id="ci_estu" placeholder=" " autocomplete="off"
+                maxlength="14" autofocus autocomplete="off" title="Ingrese un formato correcto ejem:01020329839077">
+            <label class="label label_input_previa_datos label_input_previa_datos_ci" id="label_ci_estu" for="ci_estu">Cedula estudiante </label>
+        </div>
+
+        <div class="container_campos container">
+            <input  value="${estudiante.nombre_estu}"  class="input" required type="text" name="nombre_estu" id="nombre_estu" placeholder=" "
+                autocomplete="off" maxlength="30">
+            <label class="label label_input_previa_datos" id="label_nombre_estu" for="nombre_estu">Nombre completo </label>
+        </div>
+
+        <div class="container_campos container">
+            <input  value="${estudiante.apellido_estu}"  class="input" required type="text" name="apellido_estu" id="apellido_estu" placeholder=" "
+                autocomplete="off" maxlength="30">
+            <label class="label label_input_previa_datos" id="label_apellido_estu" for="apellido_estu">Apellido completo </label>
+        </div>
+
+        <div class="container_campos container">
+            <input  value="${estudiante.fn_estu}"  class="input" required type="date" name="fn_estu" id="fn_estu">
+            <label class="label label_input_previa_datos" for="fn_estu">Fecha nacimiento</label>
+        </div>
+
+        <div class="container_campos container genero" for="genero">
+            <label for="sx_estu" class="label_select label_select_previa_datos label_select_previa_datos_genero" for="sx_estu">Genero</label>
+            <select class="select" name="sx_estu" id="sx_estu">
+                <option value="0">${genero}</option>
+               
+            </select>
+        </div>
+
+        <div class="container_campos container" for="economia">
+            <label for="economia" class="label_select label_select_previa_datos label_select_previa_datos_economia">Estado economico</label>
+            <select class="select" name="economia" id="economia">
+                <option value="0">${estudiante.estado_econ}</option>
+               
+            </select>
+        </div>
+
+        <div class="container_campos container" for="discapacidad">
+            <label for="discapacidad" class="label_select label_select_previa_datos label_select_previa_datos_discapacidad">Discapacidad</label>
+            <select class="select" name="discapacidad" id="select_discapacidad">
+            <option value="si">${estudiante.discapacidad}</option>
+                
+                <option value="no">No</option>
+            </select>
+        </div>
+
+        <div class="container_campos container">
+            <input  value="${estudiante.enfermedad}"  class="input" required type="text" name="enfermedad" id="enfermedad" placeholder=" "
+                autocomplete="off" maxlength="30">
+            <label class="label label_input_previa_datos" id="label_enfermedad" for="enfermedad">Sufre alguna enfermedad?</label>
+        </div>
+
+        <div class="container_campos container">
+            <input  value="${estudiante.tlf_estu}"  class="input" required type="text" name="tlf_estu" id="tlf_estu" placeholder=" " autocomplete="off"
+                maxlength="12" pattern="[0-9]{4,4}-[0-9]{7,7}" title="Formato 0xxx-xxxxxxx">
+            <label class="label label_input_previa_datos" id="label_tlf_estu" for="tlf_estu">Telefono contacto</label>
+        </div>
+    </div>
+
+
+    <!-- campos ubicacion -->
+    <div class=" container contenedor_ubicacion  contenedor_ubicacion_grid">
+        <div class="contenedor_titulo_ubicacion">
+            <p class="titulo_ubicacion">Donde reside actualemte</p>
+        </div>
+
+        <div class="campos_ubicacion">
+            <div class="container_campos container">
+                <label class="label_select label_select_previa_datos" for="estado_estu">Estado</label>
+                <select class="select" name="estado_estu" id="estado_estu">
+                    
+                <option value="0">${estudiante.estado}</option>
+               
+                </select>
             </div>
 
-            <div class="campos_estudiante campos_estudiante_grid" id="estudiante">
-
-
-                <div class="container_campos container_ci_estu">
-                    <input class="input" required type="text" name="ci_estu" id="ci_estu" placeholder=" " autocomplete="off" maxlength="14" autofocus autocomplete="off" value="${estudiante['ci_estu']}">
-                    <label class="label" id="label_ci_estu" for="ci_estu">Cedula estudiante </label>
-                </div>
-
-                <div class="container_campos">
-                    <input class="input" required type="text" name="nombre_estu" id="nombre_estu" placeholder=" " autocomplete="off" maxlength="30" value="${estudiante['nombre_estu']}">
-                    <label class="label" id="label_nombre_estu" for="nombre_estu">Nombre completo </label>
-                </div>
-
-                <div class="container_campos">
-                    <input class="input" required type="text" name="apellido_estu" id="apellido_estu" placeholder=" " autocomplete="off" maxlength="30" value="${estudiante['apellido_estu']}">
-                    <label class="label" id="label_apellido_estu" for="apellido_estu">Apellido completo </label>
-                </div>
-
-                <div class="container_campos">
-                    <input class="input" required type="date" name="fn_estu" id="fn_estu" value="${estudiante['fn_estu']}">
-                    <label class="label" for="fn_estu">Fecha nacimiento</label>
-                </div>
-
-                <div class="container_campos genero" for="genero">
-                    <label for="sx_estu" class="label_select" for="sx_estu">Genero</label>
-                    <select class="select" name="sx_estu" id="sx_estu" >
-                        <option value="0">${genero}</option>
-                        
-                    </select>
-                </div>
-
-                <div class="container_campos" for="economia">
-                    <label for="economia" class="label_select">Estado economico</label>
-                    <select class="select" name="economia" id="economia" >
-                        <option value="0">${estudiante['estado_econ']}</option>
-                      
-                    </select>
-                </div>
-
-                <div class="container_campos" for="discapacidad">
-                    <label for="discapacidad" class="label_select">Discapacidad</label>
-                    <select class="select" name="discapacidad" id="select_discapacidad" >
-                        <option value="0">${estudiante['discapacidad']}</option>
-                        
-                    </select>
-                </div>
-
-                <div class="container_campos">
-                    <input class="input" required type="text" name="enfermedad" id="enfermedad" placeholder=" " autocomplete="off" maxlength="30" value="${estudiante['enfermedad']}">
-                    <label class="label" id="label_enfermedad" for="enfermedad">Sufre alguna enfermedad?</label>
-                </div>
-
-                <div class="container_campos">
-                    <input class="input" required type="text" name="tlf_estu" id="tlf_estu" placeholder=" " autocomplete="off" maxlength="12" pattern="[0-9]{4,4}-[0-9]{7,7}" title="Formato 0xxx-xxxxxxx" value="${estudiante['tlf_estu']}">
-                    <label class="label" id="label_tlf_estu" for="tlf_estu">Telefono contacto</label>
-                </div>
+            <div class="container_campos container">
+                <label class="label_select label_select_previa_datos" for="municipio_estu">Municipio</label>
+                <select class="select" name="municipio_estu" id="municipio_estu"disabled >
+                    <option value="0">${estudiante.municipio}</option>
+                </select>
             </div>
 
-
-            <!-- campos ubicacion -->
-            <div class="contenedor_ubicacion  contenedor_ubicacion_grid">
-                <div class="contenedor_titulo_ubicacion">
-                    <p class="titulo_ubicacion">Donde reside actualemte</p>
-                </div>
-
-                <div class="campos_ubicacion">
-                    <div class="container_campos">
-                        <label class="label_select" for="estado_estu">Estado</label>
-                        <select class="select" name="estado_estu" id="estado_estu" >
-                            <option value="0">${estudiante['estado']}</option>
-                            
-                        </select>
-                    </div>
-
-                    <div class="container_campos">
-                        <label class="label_select" for="municipio_estu">Municipio</label>
-                        <select class="select" name="municipio_estu" id="municipio_estu"  >
-                            <option value="0">${estudiante['municipio']}</option>
-                            
-                        </select>
-                    </div>
-
-                    <div class="container_campos">
-                        <label class="label_select" for="parroquia">Parroquia</label>
-                        <select class="select" name="parroquia_estu" id="parroquia" value="parroquia">
-                            <option value="0">${estudiante['parroquia']}</option>
-                            
-                        </select>
-                    </div>
-
-                    <div class="container_campos" for="sector">
-                        <input class="input" required type="text" name="sector_estu" placeholder=" " autocomplete="off" id="sector_estu" maxlength="30" value="${estudiante['sector']}">
-                        <label class="label" id="label_sector_estu" for="sector_estu">Sector</label>
-                    </div>
-                </div>
+            <div class="container_campos container">
+                <label class="label_select label_select_previa_datos" for="parroquia">Parrquia</label>
+                <select class="select" name="parroquia_estu" id="parroquia_estu"disabled >
+                    <option value="0">${estudiante.parroquia}</option>
+                </select>
             </div>
 
-
-
-
-            <!-- Lugar de nacimiento -->
-            <div class="contenedor_ubicacion contenedor_ubicacion_grid">
-                <div class="contenedor_titulo_ubicacion">
-                    <p class="titulo_ubicacion">Lugar de nacimiento</p>
-                </div>
-
-                <div class="campos_ubicacion">
-                    <div class="container_campos">
-                        <label class="label_select" for="pais">Pais</label>
-                        <select class="select" name="pais" id="pais">
-                            <option value="0">${estudiante['pais']}</option>
-                           
-                        </select>
-                    </div>
-
-                    <div class="container_campos">
-                        <label class="label_select" for="estado_nacimiento_estu">Estado</label>
-                        <select class="select" name="estado_nacimiento_estu" id="estado_estu">
-                            <option value="0">${estudiante['estado_nacimiento']}</option>
-                            
-                        </select>
-                    </div>
-
-                    <div class="container_campos">
-                        <label class="label_select" for="ciudad">Ciudad</label>
-                        <select class="select" name="ciudad" id="ciudad">
-                            <option value="0">${estudiante['ciudad']}</option>
-                           
-                        </select>
-
-                    </div>
-
-                </div>
+            <div class="container_campos container" for="sector">
+                <input  value="${estudiante.sector}"  class="input" required type="text" name="sector_estu" placeholder=" " autocomplete="off"
+                    id="sector_estu" maxlength="30">
+                <label class="label label_input_previa_datos label_input_previa_datos_sector" id="label_sector_estu" for="sector_estu">Sector</label>
             </div>
-            
+        </div>
+    </div>
+
+    <!-- Lugar de nacimiento -->
+    <div class="container contenedor_ubicacion contenedor_ubicacion_grid">
+        <div class="contenedor_titulo_ubicacion">
+            <p class="titulo_ubicacion">Lugar de nacimiento</p>
+        </div>
+
+        <div class="campos_ubicacion">
+            <div class="container_campos container">
+                <label class="label_select label_select_previa_datos" for="pais">Pais</label>
+                <select class="select" name="pais" id="pais">
+                    
+                    <option value="1">${estudiante.pais}</option>
+                   
+                </select>
+            </div>
+
+            <div class="container_campos container">
+                <label class="label_select label_select_previa_datos" for="estado_nacimiento_estu">Estado</label>
+                <select class="select" name="estado_nacimiento_estu" id="estado_nacimiento_estu" >
+                    <option value="0">${estudiante.estado_nacimiento}</option>
+                 
+                </select>
+            </div>
+
+            <div class="container_campos container">
+                <label class="label_select label_select_previa_datos" for="ciudad">Ciudad</label>
+                <select class="select" name="ciudad" id="ciudad" disabled>
+                    <option value="0">${estudiante.ciudad}</option>
+                   
+                </select>
+
+            </div>
 
         </div>
+    </div>
+
+
+</div>    
+
+
+
         </fieldset>
     
    
@@ -301,7 +307,7 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
                  <label class="label" for="fn_repre">Fecha nacimiento </label>
              </div>
              <div class="container_campos genero">
-                 <label class="label_select" for="sx_repre">Genero</label>
+                 <label class="label_select label_select_previa_datos label_select_previa_datos_genero" for="sx_repre">Genero</label>
                  <select class="select" name="sx_repre"value= id="sx_repre">
                      <option value="0">${genero}</option>
                      <option value="M">Masculino</option>
@@ -324,14 +330,14 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
              </div>
              <div class="campos_ubicacion">
                  <div class="container_campos">
-                     <label class="label_select" for="estado">Estado</label>
+                     <label class="label_select label_select_previa_datos" for="estado">Estado</label>
                      <select class="select" name="estado_repre" id="estado_repre">
                          <option value="0">${representante['estado']}</option>
                        
                      </select>
                  </div>
                  <div class="container_campos">
-                     <label class="label_select" for="estado">Municipio</label>
+                     <label class="label_select label_select_previa_datos" for="estado">Municipio</label>
                      <select class="select" name="municipio_repre" id="municipio_repre">
                          <option value="0">${representante['municipio']}</option>
 
@@ -339,7 +345,7 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
                      </select>
                  </div>
                  <div class="container_campos">
-                     <label class="label_select" for="parroquia">Parroquia</label>
+                     <label class="label_select label_select_previa_datos" for="parroquia">Parroquia</label>
                      <select class="select" name="parroquia_repre" id="parroquia_repre">
                          <option value="0">${representante['parroquia']}</option>
 

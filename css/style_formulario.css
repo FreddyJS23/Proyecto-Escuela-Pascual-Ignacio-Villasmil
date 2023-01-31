@@ -91,6 +91,23 @@
     bottom: 5px;
 }
 
+ .label_select_previa_datos{
+position: absolute;
+    left: 16px;
+bottom: 59px;
+color: var(--color-primario);
+text-shadow: 0px 0px 0px;
+}
+ .label_select_previa_datos_genero{
+left: -53px;
+position: relative;
+bottom: 9px;
+}
+ .label_select_previa_datos_economia{
+left: 15px;
+
+}
+
 
 .input,
 select {

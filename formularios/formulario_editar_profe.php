@@ -219,7 +219,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
 
                         <div class="container_campos">
                             <label class="label_select" for="estado">Municipio</label>
-                            <select class="select" name="municipio" id="municipio" disabled>
+                            <select class="select" name="municipio" id="municipio" >
 
                                 <option value="<?php echo $row['id_municipio'] ?>"><?php echo $row['municipio'] ?></option>
 
@@ -231,7 +231,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
 
                         <div class="container_campos">
                             <label class="label_select" for="parroquia">Parroquia</label>
-                            <select class="select" name="parroquia" id="parroquia" disabled>
+                            <select class="select" name="parroquia" id="parroquia" >
                             <option value="<?php echo $row['id_parroquia'] ?>"><?php echo $row['parroquia'] ?></option>
 
                             </select>

@@ -4,7 +4,7 @@ include("../db.php");
 
 $ci_estu = $_GET['id'];
 
-$consulta = "SELECT ci_estu, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `enfermedad`,`discapacidad`, `estado_econ`, `tlf_estu`, estudiante.id_estado, estudiante.id_municipio, estudiante.id_parroquia,`estado`, `municipio`, `parroquia`, `sector`, `pais`, `ciudad` FROM `estudiante` 
+$consulta = "SELECT ci_estu, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `enfermedad`,`discapacidad`, `estado_econ`, `tlf_estu`, estudiante.id_estado, estudiante.id_municipio, estudiante.id_parroquia,`estado`, `municipio`, `parroquia`, `sector`, `pais`,estudiante.id_ciudad_nacimiento, `ciudad` FROM `estudiante` 
 INNER JOIN salud
 ON estudiante.id_salud=salud.id_salud
 INNER JOIN economia
@@ -203,7 +203,7 @@ if (isset($_SESSION['usuario'])) {
 
                         <div class="container_campos">
                             <label class="label_select" for="municipio_estu">Municipio</label>
-                            <select class="select" name="municipio_estu" id="municipio_estu" disabled>
+                            <select class="select" name="municipio_estu" id="municipio_estu" >
                             <option value="<?php echo $row['id_municipio'] ?>"><?php echo $row['municipio'] ?></option>
 
                             </select>
@@ -211,7 +211,7 @@ if (isset($_SESSION['usuario'])) {
 
                         <div class="container_campos">
                             <label class="label_select" for="parroquia">Parroquia</label>
-                            <select class="select" name="parroquia_estu" id="parroquia_estu" disabled>
+                            <select class="select" name="parroquia_estu" id="parroquia_estu" >
                             <option value="<?php echo $row['id_parroquia'] ?>"><?php echo $row['parroquia'] ?></option>
 
                             </select>
@@ -275,7 +275,7 @@ if (isset($_SESSION['usuario'])) {
 
                         <div class="container_campos">
                             <label class="label_select" for="ciudad">Ciudad</label>
-                            <select class="select" name="ciudad" id="ciudad" disabled>
+                            <select class="select" name="ciudad" id="ciudad" >
                             <option value="<?php echo $row['id_ciudad_nacimiento'] ?>"><?php echo $row['ciudad'] ?></option>
 
                             </select>

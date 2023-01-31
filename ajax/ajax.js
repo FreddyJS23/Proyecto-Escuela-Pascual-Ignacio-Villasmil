@@ -512,7 +512,7 @@ if (activar_secciones != undefined) {
     Swal.fire({
       title: 'Activar secciones',
       html: `
-      <label class="swal2-input-label titulo_select_alerta">Grado</label>
+      <label class="swal2-input-label titulo_select_alerta">Grados con secciones inactivas</label>
      
       <select  class="select_alerta" name="grado" id="gradoConSeccionInactiva" auto>
         <option value="0"></option>

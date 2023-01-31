@@ -419,7 +419,7 @@ let comprobarInputSelect = () => {
     if (formulario_usuario != undefined || formulario_editarUsuario != undefined || formulario_administrador != undefined) {
 
         input.forEach(input => {
-
+          
 
             if (input == 0 || input_error.length >= 1) {
 
@@ -454,6 +454,7 @@ let comprobarInputSelect = () => {
 
             //comprobar inputs
         } else if (input_error.length >= 1) {
+            
             ok = false
             Swal.fire({
                 icon: 'error',
@@ -541,7 +542,7 @@ if (formulario != undefined) {
         e.preventDefault()
         //llamar funcion para comprobar
         comprobarInputSelect()
-
+        
         if (comprobarInputSelect() == true) {
 
 

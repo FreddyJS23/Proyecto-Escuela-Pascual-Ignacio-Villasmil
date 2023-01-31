@@ -48,7 +48,8 @@ let grafico1= new Chart(graficoProfesores, {
               weight:'700',   
           },
           color:'black'
-          }
+          },
+          
         }
       },
 });
@@ -122,11 +123,18 @@ let grafico3 = new Chart(graficoGrados, {
           },
           title: {
             display: true,
-            text: `Existe un promedio de ${Math.round(promedioEstudianteGrado / 6)} estudiantes por grado  `,
+            text: `Estudiantes inscritos por grado`,
             font:{
               weight:'700',   
           },
           color:'black'
+          },
+          subtitle: {
+            display: true,
+            text: `Hay un promedio de ${Math.round(promedioEstudianteGrado / 6)} estudiantes por grado  `,
+            font:{
+              weight:'700',   
+          }
           }
         }
       },

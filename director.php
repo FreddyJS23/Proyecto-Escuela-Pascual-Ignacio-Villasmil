@@ -44,7 +44,7 @@ if (!empty($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
 
             <nav class="navbar navbar-expand-lg  ">
                 <div class="container-fluid">
-                    <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 ">Director <?= $_SESSION['periodo'] ?></p>
+                    <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 "><img src="css/imagenes/logo.png" alt="" class="logo-menu-tlf">Director <?= $_SESSION['periodo'] ?></p>
                     <a href="#" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                         <i class="fa-solid fa-bars icono-navbar navbar-toggler"></i>
                     </a>
@@ -156,7 +156,7 @@ if (!empty($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
 
 
 
-
+        <script src="ajax/ajax.js"></script>
         <script src="chartjs/chart.umd.js"></script>
         <script src="js/axios.js"></script>
         <script src="js/sweetalert2.all.min.js"></script>

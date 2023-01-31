@@ -33,7 +33,7 @@ let tablaUsuario = (diseno, espanol, hover, divUsuarios, url, fondo, color_boton
             })
             return html
           }
-        
+
         }
       }
 
@@ -99,23 +99,34 @@ let eliminarUsuario = (usuario, url, grid, fondo, color_boton, icono_pregunta) =
       }
       ).then(res => {
         if (res.data.resultado == "exito") {
+          Swal.fire({
+            icon: 'success',
+            title: 'Uusuario eliminado',
+            timer: 800,
+            iconColor: icono_confirmar,
+            showConfirmButton: false
+          })
           consultarUsuarios(url, grid);
+        } else {
 
+          Swal.fire({
+            icon: 'error',
+            title: 'Usuario no eliminado',
+            timer: 800,
+            showConfirmButton: false
+
+          })
         }
+
+
+
+
       })
 
     }
-
   })
-
-
-
-
-
 
 }
 
-
-
-
+  
 export { tablaUsuario }

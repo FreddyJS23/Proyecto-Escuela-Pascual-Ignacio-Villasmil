@@ -112,7 +112,7 @@ $row=mysqli_fetch_array($sql_repre);
                     </div>
                     <div class="container_campos">
                         <label class="label_select" for="estado">Municipio</label>
-                        <select class="select" name="municipio_repre" id="municipio_repre" disabled>
+                        <select class="select" name="municipio_repre" id="municipio_repre" >
                         <option value="<?php echo $row['id_municipio'] ?>"><?php echo $row['municipio'] ?></option>
 
                             <option value="460">Sucre</option>
@@ -120,7 +120,7 @@ $row=mysqli_fetch_array($sql_repre);
                     </div>
                     <div class="container_campos">
                         <label class="label_select" for="parroquia">Parroquia</label>
-                        <select class="select" name="parroquia_repre" id="parroquia_repre" disabled>
+                        <select class="select" name="parroquia_repre" id="parroquia_repre" >
                         <option value="<?php echo $row['id_parroquia'] ?>"><?php echo $row['parroquia'] ?></option>
 
                         </select>

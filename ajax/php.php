@@ -76,7 +76,7 @@ $ajax_principioPeriodo = @$_GET['ajax_principioPeriodo'];
 
 /* ------------------------ tabla finales de periodo ------------------------ */
 //solicitar finales de periodo
-$ajax_finalPeriodo = @$_GET['ajax_finalPeriodo'];
+$ajax_finalPeriodoGrado = @$_GET['ajax_finalPeriodoGrado'];
 
 
 
@@ -175,8 +175,13 @@ if (!empty($ajax_notas)) {
         $filtro_estudiante = "SELECT  `id_periodo`, `id_grado`, `id_seccion` FROM `asignacion` WHERE ci_profe_asignacion=$ci_profe && id_periodo=$id_periodo";
         $sql = mysqli_query($conexion, $filtro_estudiante);
         $filtro = mysqli_fetch_array($sql);
-        $id_grado = $filtro['id_grado'];
+        if($filtro){
+         $id_grado = $filtro['id_grado'];
         $id_seccion = $filtro['id_seccion'];
+       }else{
+        exit;
+       }
+      
 
         //si se inicia sesion con un periodo normal tendra un where donde solo traiga los datos del periodo actual
         $select_notas = "SELECT  inscripcion.id_periodo, `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
@@ -484,7 +489,7 @@ if (!empty($ajax_asignaciones)) {
 }
 
 /* ---------------------- datos tabla finales de periodo ---------------------- */
-if (!empty($ajax_finalPeriodo)) {
+if (!empty($ajax_finalPeriodoGrado)) {
     if ($_SESSION['id_periodo'] == "todos") {
 
         $consultar_finalPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
@@ -498,6 +503,7 @@ if (!empty($ajax_finalPeriodo)) {
         ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu  WHERE periodo.status = 'OFF'";
     } else if ($_SESSION['cargo'] == 1) {
 
+        if($ajax_finalPeriodoGrado != "todos"){ 
         $consultar_finalPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
         INNER JOIN periodo
         ON inscripcion.id_periodo=periodo.id_periodo
@@ -507,8 +513,22 @@ if (!empty($ajax_finalPeriodo)) {
         ON inscripcion.id_seccion=seccion.id_seccion
         INNER JOIN estudiante
         ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu 
-        WHERE inscripcion.id_periodo=$id_periodo";
-    } else {
+        WHERE inscripcion.id_periodo=$id_periodo && inscripcion.id_grado=$ajax_finalPeriodoGrado";
+     }else{ 
+        $consultar_finalPerido = "SELECT  `periodo`, `grado`, `seccion`,ci_estu_inscripcion,nombre_estu,apellido_estu,nota FROM `inscripcion` 
+        INNER JOIN periodo
+        ON inscripcion.id_periodo=periodo.id_periodo
+        INNER JOIN grado
+        ON inscripcion.id_grado=grado.id_grado
+        INNER JOIN seccion
+        ON inscripcion.id_seccion=seccion.id_seccion
+        INNER JOIN estudiante
+        ON inscripcion.ci_estu_inscripcion=estudiante.ci_estu 
+        WHERE inscripcion.id_periodo=$id_periodo ";
+     }
+
+
+} else {
 
 
         $filtro_estudiante = "SELECT  `id_periodo`, `id_grado`, `id_seccion` FROM `asignacion` WHERE ci_profe_asignacion=$ci_profe && id_periodo=$id_periodo";

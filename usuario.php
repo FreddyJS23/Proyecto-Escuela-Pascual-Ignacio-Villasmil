@@ -40,10 +40,13 @@ if (isset($_SESSION['usuario'])) {
 
             <nav class="navbar navbar-expand-lg  ">
                 <div class="container-fluid">
-                    <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 "> <?= $_SESSION['usuario'] ?> <?= $_SESSION['periodo'] ?></p>
+               
+          
+                <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 "> <img src="css/imagenes/logo.png" alt=""  class="logo-menu-tlf"> <?= $_SESSION['usuario'] ?> <?= $_SESSION['periodo'] ?></p>
                     <a href="#" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                         <i class="fa-solid fa-bars icono-navbar navbar-toggler"></i>
                     </a>
+                    
 
 
                     <div class="collapse navbar-collapse justify-content-center div-collapse" id="navbarSupportedContent">
