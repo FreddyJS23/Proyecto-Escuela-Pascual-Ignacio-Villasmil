@@ -1,29 +1,34 @@
  <?php
 
+include("../../db.php");
+
 $ci_estu=$_POST['ci_estu'];
-$grado=$_POST['grado'];    
 $causa_retiro=$_POST['causa_retiro'];    
 
+$id_periodo=$_SESSION['id_periodo']; 
 
-if($grado==1){
+$consultar_grado="SELECT  inscripcion.id_grado FROM `inscripcion` INNER JOIN grado ON inscripcion.id_grado=grado.id_grado WHERE ci_estu_inscripcion=$ci_estu && id_periodo=$id_periodo;";
+$consulta_grado=mysqli_query($conexion,$consultar_grado);
+$grado=mysqli_fetch_array($consulta_grado);
+
+if($grado['id_grado']==1){
     $grado="PRIMER";
 }
-elseif($grado==2){
+elseif($grado['id_grado']==2){
     $grado="SEGUNDO";
 }
-elseif($grado==3){
+elseif($grado['id_grado']==3){
     $grado="TERCER";
 }
-elseif($grado==4){
+elseif($grado['id_grado']==4){
     $grado="CUARTO";
 }
-elseif($grado==5){
+elseif($grad['id_grado']==5){
     $grado="QUINTO";
 }
-elseif($grado==6){
+elseif($grado['id_grado']==6){
     $grado="SEXTO";
 }
-
 
 if($causa_retiro==1){
     $causa_retiro="CAMBIO DE RESIDENCIA";
@@ -45,8 +50,6 @@ elseif($causa_retiro==6){
 }
 
 
-
-include("../../db.php");
 
 $select_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `fn_estu`,`estado`,`ciudad` FROM `estudiante` 
     

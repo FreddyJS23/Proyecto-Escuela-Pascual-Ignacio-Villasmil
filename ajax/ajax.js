@@ -86,6 +86,12 @@ let selectSeccionesDisponibles = document.getElementById("seccionDisponible")
 let crearDb = document.getElementById("crearDb")
 let restaurarDb = document.getElementById("restaurarDb")
 
+//selects de formularios reportes
+let input_ciEstu=document.getElementById("ci_estu")
+let select_periodo=document.getElementById("periodo_reporte") 
+let select_grado=document.getElementById("grado_reporte") 
+let select_literal=document.getElementById("literal_reporte") 
+
 /* ------------------ colores de las alertas ----------------- */
 let fondo = 'rgb(240, 240, 240)';
 let color_boton = 'rgb(50, 33, 218)';
@@ -630,6 +636,27 @@ if (selectSeccionesDisponibles != undefined) {
 
 }
 
+if(select_periodo != undefined){
+
+  select_periodo.addEventListener("change",()=>{
+  
+    select_grado.removeAttribute("disabled",false)
+    select_literal.removeAttribute("disabled",false)
+   
+    axios(url,{
+      params:{obtenerGradoLiteralReporte:select_periodo.value,
+              ci_referencia:input_ciEstu.value}
+    }).then(res=>{
+      
+      let grado=`<option value=${res.data.id_grado}>${res.data.grado}</option>`
+      select_grado.innerHTML=grado
+      
+      let literal=`<option value=${res.data.nota}>${res.data.nota}</option>`
+      select_literal.innerHTML=literal
+      
+    })
+  })
+}
 
 /* ----------------------------- estrucura modal ---------------------------- */
 

@@ -1,6 +1,7 @@
  <?php
 
 $ci_estu=$_POST['ci_estu'];
+$periodo=$_POST['periodo'];
 $grado=$_POST['grado'];    
 $nota=$_POST['literal'];
 
@@ -36,6 +37,10 @@ $select_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `fn_estu`,`est
 
     $sql=mysqli_query($conexion,$select_estu);
     $estudiante=mysqli_fetch_array($sql);
+//obtener periodo
+    $select_periodo="SELECT periodo from periodo where id_periodo=$periodo";
+    $sql_periodo=mysqli_query($conexion,$select_periodo);
+    $periodo=mysqli_fetch_array($sql_periodo);
     
 ob_start()
     ?>
@@ -125,7 +130,7 @@ ob_start()
          <p>
              Que el estudiante: <b class="linea_bottom"><?= $estudiante['apellido_estu'] ?></b>,<b class="linea_bottom"><?= $estudiante['nombre_estu'] ?></b> Titular de la Cédula de Identidad o Escolar Nº <b class="linea_bottom"><?= $estudiante['ci_estu'] ?></b>
              natural de <b class="linea_bottom"><?= $estudiante['ciudad'] ?></b><b class="linea_bottom"><?= " – " . $estudiante['estado'] ?></b> de <b class="linea_bottom">Edad</b> años de edad, 
-             cursó el <b class="linea_bottom"><?= $grado ?></b>  grado del Nivel de Educación Primaria, en esta institución, durante el periodo Escolar <b class="linea_bottom">periodo</b> fue estudiante regular obteniendo un literal <b class="linea_bottom"><?= $nota . "."?></b>
+             cursó el <b class="linea_bottom"><?= $grado ?></b>  grado del Nivel de Educación Primaria, en esta institución, durante el periodo Escolar <b class="linea_bottom"><?= $periodo['periodo'] ?></b> fue estudiante regular obteniendo un literal <b class="linea_bottom"><?= $nota . "."?></b>
              
 
 

@@ -118,6 +118,13 @@ $ajax_profeConUsuario = @$_GET['ajax_profeConUsuario'];
 /* ------------- comprobar en el login si hay admin registrado en el sistema en  ------------ */
 $comprobarAdmin = @$_GET['ajax_comprobarAdmin'];
 
+/* ----- ver periodo en sesion para ocultar o motrar en links de reportes ----- */
+$periodoActual=@$_GET['periodoActual'];
+
+/* ----- obtener grado y literal con el que aprobo el grado para reporte ---- */
+$ci_referencia=@$_GET['ci_referencia'];
+$periodoGradoLiteral=@$_GET['obtenerGradoLiteralReporte'];
+
 
 /* -------------------------- solicitar municipios -------------------------- */
 if (!empty($estado)) {
@@ -282,7 +289,7 @@ if (!empty($ci_estu_seccion)) {
         echo json_encode($resultado);
     };
 }
-/* -------------------------- solicitar estudiantes para consulta / constancias  ------------------------- */
+/* -------------------------- solicitar estudiantes para consulta / reportes  ------------------------- */
 if (!empty($ajax_estudiante)) {
     if ($_SESSION['id_periodo'] != "todos") {
         $consultar_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `municipio` FROM `estudiante` INNER JOIN municipios
@@ -294,18 +301,21 @@ if (!empty($ajax_estudiante)) {
         $estudiante = mysqli_fetch_all($sql, MYSQLI_ASSOC);
 
         echo json_encode($estudiante);
+       
     } else {
         $consultar_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `sx_estu`, `fn_estu`, `municipio` FROM `estudiante` INNER JOIN municipios
     ON estudiante.id_municipio=municipios.id_municipio
     LEFT JOIN inscripcion
     ON estudiante.ci_estu=inscripcion.ci_estu_inscripcion 
     INNER JOIN periodo
-    ON inscripcion.id_periodo=periodo.id_periodo WHERE periodo.status='OFF' ";
+    ON inscripcion.id_periodo=periodo.id_periodo WHERE periodo.status='OFF'" ;
+    
 
         $sql = mysqli_query($conexion, $consultar_estu);
         $estudiante = mysqli_fetch_all($sql, MYSQLI_ASSOC);
 
         echo json_encode($estudiante);
+       
     }
 }
 
@@ -666,4 +676,23 @@ if (!empty($comprobarAdmin)) {
         $resultado = ['resultado' => 'adminNoExiste'];
         echo json_encode($resultado);
     }
+}
+
+/* ------- ver periodo actual para ocultar o mostrar links en reportes ------ */
+if(!empty($periodoActual)){
+    $periodoActual=['resultado'=>"$id_periodo"];
+
+    echo json_encode($periodoActual);
+}
+
+/* ------ obtener grado y literal que obtuvo en el periodo para reporte ----- */
+if(!empty($periodoGradoLiteral)){
+
+    $consultarGradoLiteral="SELECT `nota`, inscripcion.id_grado, grado FROM `inscripcion` 
+    INNER JOIN grado ON inscripcion.id_grado=grado.id_grado WHERE id_periodo=$periodoGradoLiteral && ci_estu_inscripcion=$ci_referencia";
+    $consultaGradoLiteral=mysqli_query($conexion,$consultarGradoLiteral);
+    $gradoYliteral=mysqli_fetch_all($consultaGradoLiteral,MYSQLI_ASSOC);
+
+    echo json_encode($gradoYliteral[0]);
+    
 }

@@ -1,6 +1,7 @@
  <?php
 
 $ci_estu=$_POST['ci_estu'];
+
 $grado=$_POST['grado'];    
 $nota=$_POST['literal'];
 
@@ -36,6 +37,15 @@ $select_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `fn_estu`,`est
 
     $sql=mysqli_query($conexion,$select_estu);
     $estudiante=mysqli_fetch_array($sql);
+    
+$consultarGrado="SELECT ci_estu_inscripcion FROM `inscripcion` WHERE id_grado=6 && ci_estu_inscripcion=$ci_estu";
+$consultaGrado=mysqli_query($conexion,$consultarGrado);
+$grado=mysqli_num_rows($consultaGrado);
+if($grado==0){
+    $resultado=["resultado"=>'noCursoGrado'];
+    echo json_encode($resultado);
+    exit;
+}
     
 ob_start()
     ?>
@@ -179,4 +189,3 @@ ob_start()
 
     ?>
 
-   

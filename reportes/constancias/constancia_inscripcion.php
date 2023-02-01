@@ -1,31 +1,31 @@
  <?php
+include("../../db.php");
+$ci_estu=$_GET['ci_estu'];
+$id_periodo=$_SESSION['id_periodo']; 
 
-$ci_estu=$_POST['ci_estu'];
-$grado=$_POST['grado'];    
+$consultar_grado="SELECT  inscripcion.id_grado FROM `inscripcion` INNER JOIN grado ON inscripcion.id_grado=grado.id_grado WHERE ci_estu_inscripcion=$ci_estu && id_periodo=$id_periodo;";
+$consulta_grado=mysqli_query($conexion,$consultar_grado);
+$grado=mysqli_fetch_array($consulta_grado);
 
-
-if($grado==1){
+if($grado['id_grado']==1){
     $grado="PRIMER";
 }
-elseif($grado==2){
+elseif($grado['id_grado']==2){
     $grado="SEGUNDO";
 }
-elseif($grado==3){
+elseif($grado['id_grado']==3){
     $grado="TERCER";
 }
-elseif($grado==4){
+elseif($grado['id_grado']==4){
     $grado="CUARTO";
 }
-elseif($grado==5){
+elseif($grad['id_grado']==5){
     $grado="QUINTO";
 }
-elseif($grado==6){
+elseif($grado['id_grado']==6){
     $grado="SEXTO";
 }
 
-
-
-include("../../db.php");
 
 $select_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `fn_estu`,`estado`,`ciudad` FROM `estudiante` 
     
@@ -125,7 +125,7 @@ ob_start()
          <p>
              Que el estudiante: <b class="linea_bottom"><?= $estudiante['apellido_estu'] ?></b>,<b class="linea_bottom"><?= $estudiante['nombre_estu'] ?></b> Titular de la Cédula de Identidad o Escolar Nº <b class="linea_bottom"><?= $estudiante['ci_estu'] ?></b>
              natural de <b class="linea_bottom"><?= $estudiante['ciudad'] ?></b><b class="linea_bottom"><?= " – " . $estudiante['estado'] ?></b> de <b class="linea_bottom">Edad</b> años de edad
-             cursante del <b class="linea_bottom"><?= $grado ?></b>  grado del Nivel de Educación Primaria, es estudiante regular de esta institución para el periodo Escolar <b class="linea_bottom">periodo</b> 
+             cursante del <b class="linea_bottom"><?= $grado?></b>  grado del Nivel de Educación Primaria, es estudiante regular de esta institución para el periodo Escolar <b class="linea_bottom"><?= $_SESSION['periodo'] ?></b> 
          </p>
      </div>
 
@@ -172,7 +172,7 @@ ob_start()
 
     $dompdf->stream('constancia de inscripcion.pdf');
     
-
+ 
     ?>
 
    

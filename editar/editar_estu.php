@@ -37,6 +37,9 @@ $ejecutar_salud = mysqli_query($conexion, $salud);
 //update al estudiante usan el where que tendra la referencia o el la cedula a la que se le aplicara todos lso cambios
 $update_estu = "UPDATE `estudiante` SET `ci_estu`='$ci_estu',`nombre_estu`='$nombre_estu',`apellido_estu`='$apellido_estu',`sx_estu`='$sx_estu',`fn_estu`='$fn_estu',`id_economia`='$economia',`tlf_estu`='$tlf_estu',`id_pais_nacimiento`='$pais',`id_estado_nacimiento`='$estado_estu',`id_ciudad_nacimiento`='$ciudad' WHERE ci_estu=$referencia";
 $ejecutar_update_estu = mysqli_query($conexion, $update_estu);
+//update al estudiante en inscripcion
+$update_estu_inscripcion="UPDATE `inscripcion` SET `ci_estu_inscripcion` = '$ci_estu' WHERE ci_estu_inscripcion =$referencia";
+$ejecutar_update_estu_inscripcion=mysqli_query($conexion,$update_estu_inscripcion);
 
 //respuesta de la peticion
 if ($ejecutar_update_estu) {

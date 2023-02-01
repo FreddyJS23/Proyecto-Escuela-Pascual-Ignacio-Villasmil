@@ -1043,10 +1043,23 @@ if (formulario != undefined) {
 
             }
             if (certificado_promocion != undefined) {
-                axios.post("../reportes/certificados/certificado_promocion.php", formData)
+                axios.post("../reportes/certificados/certificado_promocion.php", formData).then(res=>{
+                 if(res.data.resultado=="noCursoGrado"){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Este estudiante no es apto para la carta de promocion',
+                        background: fondo,
+                        confirmButtonColor: color_boton,
+                        footer: 'Este estudiante no cumple con el requisito de haber cursado sexto grado'
+                    }).then((res) => {
+                history.back()
+                       
+                    })
+                 }
+                })
 
 
-                modalReporte()
+             
             }
 
 

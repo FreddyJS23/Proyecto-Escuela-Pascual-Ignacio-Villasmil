@@ -1,24 +1,30 @@
  <?php
-$ci_estu=$_POST['ci_estu'];
-$grado=$_POST['grado'];  
-$conducta=$_POST['conducta'];  
+include("../../db.php");
 
-if($grado==1){
+$ci_estu=$_POST['ci_estu'];
+$conducta=$_POST['conducta'];  
+$id_periodo=$_SESSION['id_periodo']; 
+
+$consultar_grado="SELECT  inscripcion.id_grado FROM `inscripcion` INNER JOIN grado ON inscripcion.id_grado=grado.id_grado WHERE ci_estu_inscripcion=$ci_estu && id_periodo=$id_periodo;";
+$consulta_grado=mysqli_query($conexion,$consultar_grado);
+$grado=mysqli_fetch_array($consulta_grado);
+
+if($grado['id_grado']==1){
     $grado="PRIMER";
 }
-elseif($grado==2){
+elseif($grado['id_grado']==2){
     $grado="SEGUNDO";
 }
-elseif($grado==3){
+elseif($grado['id_grado']==3){
     $grado="TERCER";
 }
-elseif($grado==4){
+elseif($grado['id_grado']==4){
     $grado="CUARTO";
 }
-elseif($grado==5){
+elseif($grad['id_grado']==5){
     $grado="QUINTO";
 }
-elseif($grado==6){
+elseif($grado['id_grado']==6){
     $grado="SEXTO";
 }
 
@@ -41,7 +47,7 @@ elseif($conducta==6){
     $conducta="OPCION 6";
 }
 
-include("../../db.php");
+
 
 $select_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `fn_estu`,`estado`,`ciudad` FROM `estudiante` 
     
@@ -142,7 +148,7 @@ $select_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `fn_estu`,`est
         <p>
             Que el estudiante: <b class="linea_bottom"><?= $estudiante['apellido_estu'] ?></b>,<b class="linea_bottom"><?= $estudiante['nombre_estu'] ?></b> Titular de la Cédula de Identidad o Escolar Nº <b class="linea_bottom"><?= $estudiante['ci_estu'] ?></b>
             natural de <b class="linea_bottom"><?= $estudiante['ciudad'] ?></b><b class="linea_bottom"><?= " – " . $estudiante['estado'] ?></b> de <b class="linea_bottom">11</b> años de edad cursante del <b class="linea_bottom"><?= $grado?></b>
-             grado del Nivel de Educación Primaria, en esta institución, demostró un comportamiento: <b class="linea_bottom"><?= $conducta ?></b> durante su permanencia en el año escolar <b class="linea_bottom">periodo</b>.
+             grado del Nivel de Educación Primaria, en esta institución, demostró un comportamiento: <b class="linea_bottom"><?= $conducta ?></b> durante su permanencia en el año escolar <b class="linea_bottom"><?= $_SESSION['periodo']?></b>.
          
 
 

@@ -27,19 +27,7 @@ if (isset($_SESSION['usuario'])) {  ?>
 
                   
                    
-                <div class="container_campos">
-                            <label class="label_select" for="grado">Grado en el que curso</label>
-                            <select class="select" name="grado" id="grado" auto>
-
-                                <option value="0">Seleccione un grado</option>
-                                <option value="1">1°</option>
-                                <option value="2">2°</option>
-                                <option value="3">3°</option>
-                                <option value="4">4°</option>
-                                <option value="5">5°</option>
-                                <option value="6">6°</option>
-                            </select>
-                        </div>
+              
 
                         <div class="container_campos">
                             <label class="label_select" for="causa_retiro">Causa de retiro</label>
