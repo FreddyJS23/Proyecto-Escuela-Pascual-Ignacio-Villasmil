@@ -38,7 +38,7 @@ if ($profesores == 1) {
   } else {
 
     $registro_usuario = "INSERT INTO `usuario`(`usuario`, `pass`, `id_cargo`, `nombre`, `apellido`,`ci_profe`, `pregunta_secreta1`, `pregunta_secreta2`, `pregunta_secreta3`)
-                         VALUES ('$usuario','$password_hash','$cargo','$nombre','$apellido','$ci_profe')";
+                         VALUES ('$usuario','$password_hash','$cargo','$nombre','$apellido','$ci_profe','$pregunta_secreta1', '$pregunta_secreta2', '$pregunta_secreta3')";
     $insertar_usuario = mysqli_query($conexion, $registro_usuario);
 
     if ($insertar_usuario) {
