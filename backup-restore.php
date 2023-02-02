@@ -39,7 +39,7 @@ if ($restoreDb) {
         $crearDb = "CREATE DATABASE sistema automatizado registro control de notas";
         $sql = mysqli_query($db, $crearDb);
     }
-    //doble barra significa una barra "\\"="\"
+    //doble barra significa una barra "\\" = "\"
     $cmd="(mysql -u root  \"sistema automatizado registro control de notas\" <\"C:\Backup sistema automatizado registro control de notas\\$restoreFile\")";
    
     exec($cmd, $output, $result);

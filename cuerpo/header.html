@@ -10,7 +10,7 @@ if($_SESSION['cargo']==1)
 
     <nav class="navbar navbar-expand-lg  ">
         <div class="container-fluid">
-            <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 "> <a href="../director.php"> <img src="../css/imagenes/logo.png" class="logo-menu-tlf"> </a> <?= $_SESSION['periodo'] ?> </p>
+            <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 "> <a href="../director.php"> <img src="../css/imagenes/logo.png" class="logo-menu-tlf"> </a><?php if($_SESSION['id_periodo']=="todos")   echo "Todos los periodos";  ?> <?= $_SESSION['periodo'] ?> </p>
             <a href="#" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <i class="fa-solid fa-bars icono-navbar navbar-toggler"></i>
             </a>
@@ -56,7 +56,7 @@ if($_SESSION['cargo']==1)
                             aria-expanded="false"><i class="fa-solid fa-calendar-days"></i>Periodos</a>
                         <ul class="dropdown-menu menu-nav">
     
-                            
+                            <?php if ($_SESSION['id_periodo'] != "todos" && $_SESSION['cargo'] == 1) { ?> <li class="nav_li" id="activar_secciones"> <a class="opcion">Activar Secciones</a> </li> <?php } ?>
                             <li class="nav_li"> <a class="opcion" href="../consultas/consultar_final_periodo.php">Finales
                                     del periodo</a> </li>
                             <?php if ($_SESSION['id_periodo'] != "todos") { ?>
@@ -138,7 +138,7 @@ if($_SESSION['cargo']==1)
 
     <nav class="navbar navbar-expand-lg  ">
         <div class="container-fluid">
-            <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 "> <a href="../usuario.php"> <img src="../css/imagenes/logo.png" class="logo-menu-tlf">  </a> <?= $_SESSION['usuario'] ?> <?= $_SESSION['periodo'] ?></p>
+            <p class="titulo_principal titulo-nav navbar-brand mt-0 mb-0 "> <a href="../usuario.php"> <img src="../css/imagenes/logo.png" class="logo-menu-tlf">  </a><?php if($_SESSION['id_periodo']=="todos")   echo "Todos los periodos";  ?> <?= $_SESSION['usuario'] ?> <?= $_SESSION['periodo'] ?></p>
             <a href="#" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <i class="fa-solid fa-bars icono-navbar navbar-toggler"></i>
             </a>

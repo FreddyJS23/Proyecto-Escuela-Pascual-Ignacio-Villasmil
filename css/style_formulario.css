@@ -111,7 +111,7 @@ left: 15px;
 
 .input,
 select {
-
+    
     width: 99%;
     padding: 7px 5px;
     font-size: larger ;
@@ -126,7 +126,13 @@ select {
     transition: .3s;
 
 }
-
+/* ------------------- mayuscula cada palabra de un input ------------------- */
+.input{
+    text-transform: capitalize;
+}
+#usuario{
+    text-transform: none;
+}
 
 .input:disabled,
 .select:disabled{

@@ -58,7 +58,7 @@ let divUsuarios = document.querySelector(".container_usuarios");
 
 /* ---------------------- botones y selects especiales ---------------------- */
 //boton en el login para crear periodo
-let crearPeriodo = document.getElementById("crearPeriodo");
+let crearPeriodo_eventosLogin = document.getElementById("crearPeriodo");
 
 //control para evitar inscripciones en caso de vista de todos los periodos
 let fieldset = document.querySelector(".fieldset");
@@ -87,11 +87,13 @@ let crearDb = document.getElementById("crearDb")
 let restaurarDb = document.getElementById("restaurarDb")
 
 //selects de formularios reportes
-let input_ciEstu=document.getElementById("ci_estu")
-let select_periodo=document.getElementById("periodo_reporte") 
-let select_grado=document.getElementById("grado_reporte") 
-let select_literal=document.getElementById("literal_reporte") 
+let input_ciEstu = document.getElementById("ci_estu")
+let select_periodo = document.getElementById("periodo_reporte")
+let select_grado = document.getElementById("grado_reporte")
+let select_literal = document.getElementById("literal_reporte")
 
+//recuperar clave
+let recuperarClave=document.getElementById("recuperar_clave")
 /* ------------------ colores de las alertas ----------------- */
 let fondo = 'rgb(240, 240, 240)';
 let color_boton = 'rgb(50, 33, 218)';
@@ -361,34 +363,49 @@ if (divUsuarios != undefined) {
 
 /* ----------------------- eventos de botones y acciones epeciales ----------------------- */
 
-/* ------------------------ crear periodo en el login y consultar periodos en el login ----------------------- */
+/* ------------------------Eventos del login y crear periodo en el login y consultar periodos en el login ----------------------- */
 //obtener periodos
-if (crearPeriodo != undefined) {
+if (crearPeriodo_eventosLogin != undefined) {
 
-  //comprobar si hay un admin registrado en la base de datos
-  axios("ajax/php.php", {
-    params: {
-      ajax_comprobarAdmin: true
-    }
+  axios("instalarBd/instalarBd.php", {
+    params: { comprobarBd: true }
   }).then(res => {
-    //en caso que no exista ningun admin registrado quiere decir que el sistema esta nuevo y se tendra que registrar un administrador
-    if (res.data['resultado'] == "adminNoExiste") {
-      //se redirecionara al formulario administrador con un indicador true para acceder al formulario
-      location.href = "formularios/formulario_admin.php?id=true"
-    }
 
-    else if (res.data['resultado'] == "adminExiste") {
-
-      import("./modulos/Crear periodo login.js").then(module => {
-
-        module.consultarPeriodo()
-
-        crearPeriodo.addEventListener("click", module.modalCrearPeriodo)
+    if (res.data.resultado == "noExiste") {
+      import("./modulos/instalarBd.js").then(module=>{
+        module.instalarBd()
       })
+     
+    } else {
+      //comprobar si hay un admin registrado en la base de datos
+      axios("ajax/php.php", {
+        params: {
+          ajax_comprobarAdmin: true
+        }
+      }).then(res => {
+        //en caso que no exista ningun admin registrado quiere decir que el sistema esta nuevo y se tendra que registrar un administrador
+        if (res.data['resultado'] == "adminNoExiste") {
+          //se redirecionara al formulario administrador con un indicador true para acceder al formulario
+          location.href = "formularios/formulario_admin.php?id=true"
+        }
+
+        else if (res.data['resultado'] == "adminExiste") {
+
+          import("./modulos/Crear periodo login.js").then(module => {
+
+            module.consultarPeriodo()
+
+            crearPeriodo_eventosLogin.addEventListener("click", module.modalCrearPeriodo)
+          })
 
 
+        }
+      })
     }
+
   })
+
+
 }
 
 
@@ -629,35 +646,42 @@ if (asignar_profe != undefined || divSeccion != undefined) {
 /* ---------------- ver cantidad de secciones activas y disponibles para cada grado en asignacion de profesor --------------- */
 if (selectSeccionesDisponibles != undefined) {
 
-  import("../ajax/modulos/gradosConSeccionesDisponible.js").then(module=>{
-   
-    grado.addEventListener("change",()=>{module.verSeccionesDisponible(url,selectSeccionesDisponibles)})
+  import("../ajax/modulos/gradosConSeccionesDisponible.js").then(module => {
+
+    grado.addEventListener("change", () => { module.verSeccionesDisponible(url, selectSeccionesDisponibles) })
   })
 
 }
 
-if(select_periodo != undefined){
+if (select_periodo != undefined) {
 
-  select_periodo.addEventListener("change",()=>{
-  
-    select_grado.removeAttribute("disabled",false)
-    select_literal.removeAttribute("disabled",false)
-   
-    axios(url,{
-      params:{obtenerGradoLiteralReporte:select_periodo.value,
-              ci_referencia:input_ciEstu.value}
-    }).then(res=>{
-      
-      let grado=`<option value=${res.data.id_grado}>${res.data.grado}</option>`
-      select_grado.innerHTML=grado
-      
-      let literal=`<option value=${res.data.nota}>${res.data.nota}</option>`
-      select_literal.innerHTML=literal
-      
+  select_periodo.addEventListener("change", () => {
+
+    select_grado.removeAttribute("disabled", false)
+    select_literal.removeAttribute("disabled", false)
+
+    axios(url, {
+      params: {
+        obtenerGradoLiteralReporte: select_periodo.value,
+        ci_referencia: input_ciEstu.value
+      }
+    }).then(res => {
+
+      let grado = `<option value=${res.data.id_grado}>${res.data.grado}</option>`
+      select_grado.innerHTML = grado
+
+      let literal = `<option value=${res.data.nota}>${res.data.nota}</option>`
+      select_literal.innerHTML = literal
+
     })
   })
 }
 
+/* ----------------------------- recuperar clave ---------------------------- */
+if(recuperarClave != undefined){
+
+ 
+}
 /* ----------------------------- estrucura modal ---------------------------- */
 
 

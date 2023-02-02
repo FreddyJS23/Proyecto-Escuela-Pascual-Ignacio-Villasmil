@@ -1,4 +1,5 @@
 <?php
+
 include("../db.php");
 
 
@@ -117,6 +118,7 @@ $ajax_profeConUsuario = @$_GET['ajax_profeConUsuario'];
 
 /* ------------- comprobar en el login si hay admin registrado en el sistema en  ------------ */
 $comprobarAdmin = @$_GET['ajax_comprobarAdmin'];
+
 
 /* ----- ver periodo en sesion para ocultar o motrar en links de reportes ----- */
 $periodoActual=@$_GET['periodoActual'];

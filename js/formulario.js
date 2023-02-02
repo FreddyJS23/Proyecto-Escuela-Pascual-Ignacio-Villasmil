@@ -70,7 +70,7 @@ let ci_repreExiste = document.getElementById("check_inscrito")
 
 
 
-/* ---------------------------- formulario index o lign ---------------------------- */
+/* ---------------------------- formulario index o login ---------------------------- */
 if (login != null) {
 
     login.addEventListener("submit", (e) => {
@@ -201,8 +201,8 @@ if (input != undefined) {
 
 /* -------------------------- expresiones regulares ------------------------- */
 const expresiones = {
-
-    nombreApellido: /^[A-Z/\sa-z]{3,30}$/,
+    
+    nombreApellido: /^[a-zA-ZÀ-ÿ\u00f1\u00d1/\sa-zA-ZÀ-ÿ\u00f1\u00d1]{3,30}$/,
     usuario: /^[a-zA-Z0-9-_#$*=?¡!]{3,20}$/,
     pass: /^[a-zA-Z0-9-_#$*=?¡!]{5,15}$/,
     ci_estu: /^\d{8,8}\d{6,6}$/,
@@ -366,7 +366,7 @@ const validarPass = () => {
 }
 
 
-if (formulario != undefined) {
+if (formulario != undefined ) {
 
 
     //por cada input allado ejecutara la siguente funcion
@@ -542,6 +542,7 @@ if (formulario != undefined) {
         e.preventDefault()
         //llamar funcion para comprobar
         comprobarInputSelect()
+        
         
         if (comprobarInputSelect() == true) {
 

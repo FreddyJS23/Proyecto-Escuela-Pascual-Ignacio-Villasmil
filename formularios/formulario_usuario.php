@@ -1,6 +1,6 @@
-<?php 
+<?php
 include("../db.php");
-if (isset($_SESSION['usuario']) && $_SESSION['cargo']==1) {  ?>
+if (isset($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {  ?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -25,7 +25,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo']==1) {  ?>
                 </div>
                 <div class="campos_usuarios">
 
-                
+
                     <div class="container_campos">
                         <input class="input" type="text" name="ci_profe" id="ci_profe" placeholder=" " autocomplete="off" required maxlength="8">
                         <label class="label" id="label_ci_profe" for="ci_profe">Cedula del profesor</label>
@@ -33,7 +33,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo']==1) {  ?>
 
                     </div>
 
-                  
+
 
 
 
@@ -46,35 +46,54 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo']==1) {  ?>
                     </div>
 
                     <div class="container_campos">
-                        <input class="input" type="password" name="password" id="password" placeholder=" " autocomplete="off" required maxlength="15">
-                        <label class="label" id="label_password" for="password">Contraseña </label>
-                        <div><i class="fa-solid fa-eye-slash" id="pass"></i></div>
+
+                        <input class="input" type="text" name="pregunta_secreta1" id="pregunta_secreta1" placeholder=" " autocomplete="off" required maxlength="20">
+                        <label class="label" id="label_pregunta_secreta1" for="pregunta_secreta1">Comida favorita</label>
+
 
                     </div>
-
                     <div class="container_campos">
-                        <input class="input" type="password" name="password2" id="password2" placeholder=" " autocomplete="off" required maxlength="15">
-                        <label class="label" id="label_password2" for="password2">Repetir Contraseña</label>
 
-                        <div class="contenedor_boton">
+                        <input class="input" type="text" name="pregunta_secreta2" id="pregunta_secreta2" placeholder=" " autocomplete="off" required maxlength="20">
+                        <label class="label" id="label_pregunta_secreta2" for="pregunta_secreta2">Animal favorito</label>
 
-                            <input class="boton" type="submit" value="Registrar">
+
+                    </div>
+                    <div class="container_campos">
+
+                        <input class="input" type="text" name="pregunta_secreta3" id="pregunta_secreta3" placeholder=" " autocomplete="off" required maxlength="20">
+                        <label class="label" id="label_pregunta_secreta3" for="pregunta_secreta3">Color favorito</label>
+
+                        <div class="container_campos">
+                            <input class="input" type="password" name="password" id="password" placeholder=" " autocomplete="off" required maxlength="15">
+                            <label class="label" id="label_password" for="password">Contraseña </label>
+                            <div><i class="fa-solid fa-eye-slash" id="pass"></i></div>
+
                         </div>
 
+                        <div class="container_campos">
+                            <input class="input" type="password" name="password2" id="password2" placeholder=" " autocomplete="off" required maxlength="15">
+                            <label class="label" id="label_password2" for="password2">Repetir Contraseña</label>
+
+                            <div class="contenedor_boton">
+
+                                <input class="boton" type="submit" value="Registrar">
+                            </div>
+
+                        </div>
+
+
+
+
+
+
                     </div>
-
-
-
-
-
 
                 </div>
 
-            </div>
-
-            <input type="hidden" id="formulario_usuario">
+                <input type="hidden" id="formulario_usuario">
         </form>
-       
+
         <div class="ayuda_profe usuario">
 
 
