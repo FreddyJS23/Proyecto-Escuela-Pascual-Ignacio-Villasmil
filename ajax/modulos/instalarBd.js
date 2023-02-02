@@ -29,6 +29,7 @@ Swal.fire({
         showLoaderOnConfirm: true,
         showCancelButton: false,
         background: fondo,
+        footer: '<b>Porfavor reinicie el servidor</b>',
         confirmButtonColor: color_boton,
         iconColor: icono_confirmar,
         cancelButtonColor: color_botonCancelar,

@@ -459,7 +459,11 @@ margin-top: -10px;
 margin-bottom: 10px;
 }
 
-
+/* ayuda usuario */
+.usuario{
+    bottom: 615px;
+    }
+    
 
 /*-----------------  formulario de asignacion  --------------------------*/
 .contenedor_asignacion {
@@ -492,9 +496,6 @@ margin-bottom: 10px;
     text-shadow: var(--sombra);
 }
 
-.usuario{
-bottom: 470px;
-}
 
 
 .fieldset{

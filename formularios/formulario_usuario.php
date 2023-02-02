@@ -63,35 +63,35 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {  ?>
 
                         <input class="input" type="text" name="pregunta_secreta3" id="pregunta_secreta3" placeholder=" " autocomplete="off" required maxlength="20">
                         <label class="label" id="label_pregunta_secreta3" for="pregunta_secreta3">Color favorito</label>
-
-                        <div class="container_campos">
-                            <input class="input" type="password" name="password" id="password" placeholder=" " autocomplete="off" required maxlength="15">
-                            <label class="label" id="label_password" for="password">Contraseña </label>
-                            <div><i class="fa-solid fa-eye-slash" id="pass"></i></div>
-
-                        </div>
-
-                        <div class="container_campos">
-                            <input class="input" type="password" name="password2" id="password2" placeholder=" " autocomplete="off" required maxlength="15">
-                            <label class="label" id="label_password2" for="password2">Repetir Contraseña</label>
-
-                            <div class="contenedor_boton">
-
-                                <input class="boton" type="submit" value="Registrar">
-                            </div>
-
-                        </div>
-
-
-
-
-
+                    </div>
+                    <div class="container_campos">
+                        <input class="input" type="password" name="password" id="password" placeholder=" " autocomplete="off" required maxlength="15">
+                        <label class="label" id="label_password" for="password">Contraseña </label>
+                        <div><i class="fa-solid fa-eye-slash" id="pass"></i></div>
 
                     </div>
 
+                    <div class="container_campos">
+                        <input class="input" type="password" name="password2" id="password2" placeholder=" " autocomplete="off" required maxlength="15">
+                        <label class="label" id="label_password2" for="password2">Repetir Contraseña</label>
+
+                        <div class="contenedor_boton">
+
+                            <input class="boton" type="submit" value="Registrar">
+                        </div>
+
+                    </div>
+
+
+
+
+
+
                 </div>
 
-                <input type="hidden" id="formulario_usuario">
+            </div>
+
+            <input type="hidden" id="formulario_usuario">
         </form>
 
         <div class="ayuda_profe usuario">

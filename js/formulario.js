@@ -211,7 +211,7 @@ const expresiones = {
     enfermedad: /^[A-Z\s?a-z]{2,30}$/,
     parentesco: /^[A-Z\s?a-z]{2,15}$/,
     tlf: /^\d{4}-\d{7,7}$/,
-    sector: /^[A-Za-z0-9\s?]+$/,
+    sector: /^[a-zA-ZÀ-ÿ\u00f1\u00d1/\sa-zA-ZÀ-ÿ\u00f1\u00d1]+$/,
     periodo: /^\d{4}\/\d{4}$/,
 
 };
