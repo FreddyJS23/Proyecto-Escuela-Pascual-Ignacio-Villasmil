@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 02-02-2023 a las 14:30:37
+-- Tiempo de generación: 02-02-2023 a las 22:47:43
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 7.4.26
 
@@ -40,6 +40,18 @@ CREATE TABLE IF NOT EXISTS `asignacion` (
   KEY `ci_profe` (`ci_profe_asignacion`,`id_periodo`,`id_grado`,`id_seccion`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- RELACIONES PARA LA TABLA `asignacion`:
+--   `ci_profe_asignacion`
+--       `profesor` -> `ci_profe`
+--   `id_grado`
+--       `grado` -> `id_grado`
+--   `id_periodo`
+--       `periodo` -> `id_periodo`
+--   `id_seccion`
+--       `seccion` -> `id_seccion`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -52,6 +64,10 @@ CREATE TABLE IF NOT EXISTS `cargo` (
   `cargo` varchar(36) NOT NULL,
   PRIMARY KEY (`id_cargo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- RELACIONES PARA LA TABLA `cargo`:
+--
 
 --
 -- Volcado de datos para la tabla `cargo`
@@ -76,6 +92,12 @@ CREATE TABLE IF NOT EXISTS `ciudades` (
   PRIMARY KEY (`id_ciudad`),
   KEY `id_estado` (`id_estado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=523 DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `ciudades`:
+--   `id_estado`
+--       `estados` -> `id_estado`
+--
 
 --
 -- Volcado de datos para la tabla `ciudades`
@@ -595,6 +617,10 @@ CREATE TABLE IF NOT EXISTS `economia` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
+-- RELACIONES PARA LA TABLA `economia`:
+--
+
+--
 -- Volcado de datos para la tabla `economia`
 --
 
@@ -617,6 +643,10 @@ CREATE TABLE IF NOT EXISTS `estados` (
   `iso_3166-2` varchar(4) NOT NULL,
   PRIMARY KEY (`id_estado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `estados`:
+--
 
 --
 -- Volcado de datos para la tabla `estados`
@@ -678,6 +708,24 @@ CREATE TABLE IF NOT EXISTS `estudiante` (
   KEY `id_estado` (`id_estado`,`id_municipio`,`id_parroquia`,`id_pais_nacimiento`,`id_estado_nacimiento`,`id_ciudad_nacimiento`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- RELACIONES PARA LA TABLA `estudiante`:
+--   `id_ciudad_nacimiento`
+--       `ciudades` -> `id_ciudad`
+--   `id_economia`
+--       `economia` -> `id_economia`
+--   `id_estado`
+--       `estados` -> `id_estado`
+--   `id_estado_nacimiento`
+--       `estados` -> `id_estado`
+--   `id_municipio`
+--       `municipios` -> `id_municipio`
+--   `id_pais_nacimiento`
+--       `pais` -> `id_pais`
+--   `id_parroquia`
+--       `parroquias` -> `id_parroquia`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -690,6 +738,10 @@ CREATE TABLE IF NOT EXISTS `grado` (
   `grado` varchar(5) NOT NULL,
   PRIMARY KEY (`id_grado`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- RELACIONES PARA LA TABLA `grado`:
+--
 
 --
 -- Volcado de datos para la tabla `grado`
@@ -724,6 +776,18 @@ CREATE TABLE IF NOT EXISTS `inscripcion` (
   KEY `ci_estu` (`ci_estu_inscripcion`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- RELACIONES PARA LA TABLA `inscripcion`:
+--   `ci_estu_inscripcion`
+--       `estudiante` -> `ci_estu`
+--   `id_grado`
+--       `grado` -> `id_grado`
+--   `id_periodo`
+--       `periodo` -> `id_periodo`
+--   `id_seccion`
+--       `seccion` -> `id_seccion`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -738,6 +802,12 @@ CREATE TABLE IF NOT EXISTS `municipios` (
   PRIMARY KEY (`id_municipio`),
   KEY `id_estado` (`id_estado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=463 DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `municipios`:
+--   `id_estado`
+--       `estados` -> `id_estado`
+--
 
 --
 -- Volcado de datos para la tabla `municipios`
@@ -1095,6 +1165,10 @@ CREATE TABLE IF NOT EXISTS `nota` (
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
+-- RELACIONES PARA LA TABLA `nota`:
+--
+
+--
 -- Volcado de datos para la tabla `nota`
 --
 
@@ -1120,6 +1194,10 @@ CREATE TABLE IF NOT EXISTS `pais` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
+-- RELACIONES PARA LA TABLA `pais`:
+--
+
+--
 -- Volcado de datos para la tabla `pais`
 --
 
@@ -1143,6 +1221,16 @@ CREATE TABLE IF NOT EXISTS `parentesco` (
   PRIMARY KEY (`id_parentesco`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- RELACIONES PARA LA TABLA `parentesco`:
+--   `ci_estu`
+--       `estudiante` -> `ci_estu`
+--   `ci_repre`
+--       `representante` -> `ci_repre`
+--   `id_periodo`
+--       `periodo` -> `id_periodo`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -1157,6 +1245,10 @@ CREATE TABLE IF NOT EXISTS `parroquias` (
   PRIMARY KEY (`id_parroquia`),
   KEY `id_municipio` (`id_municipio`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1139 DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `parroquias`:
+--
 
 --
 -- Volcado de datos para la tabla `parroquias`
@@ -2314,7 +2406,18 @@ CREATE TABLE IF NOT EXISTS `periodo` (
   `periodo` varchar(10) NOT NULL,
   `status` varchar(5) NOT NULL,
   PRIMARY KEY (`id_periodo`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- RELACIONES PARA LA TABLA `periodo`:
+--
+
+--
+-- Volcado de datos para la tabla `periodo`
+--
+
+INSERT INTO `periodo` (`id_periodo`, `periodo`, `status`) VALUES
+(1, '2021/2022', 'ON');
 
 -- --------------------------------------------------------
 
@@ -2341,6 +2444,16 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   PRIMARY KEY (`ci_profe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- RELACIONES PARA LA TABLA `profesor`:
+--   `id_estado`
+--       `estados` -> `id_estado`
+--   `id_municipio`
+--       `municipios` -> `id_municipio`
+--   `id_parroquia`
+--       `parroquias` -> `id_parroquia`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -2363,6 +2476,10 @@ CREATE TABLE IF NOT EXISTS `representante` (
   KEY `id_estado` (`id_estado`,`id_municipio`,`id_parroquia`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- RELACIONES PARA LA TABLA `representante`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -2377,6 +2494,10 @@ CREATE TABLE IF NOT EXISTS `salud` (
   PRIMARY KEY (`id_salud`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- RELACIONES PARA LA TABLA `salud`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -2389,6 +2510,10 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `seccion` varchar(1) NOT NULL,
   PRIMARY KEY (`id_seccion`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- RELACIONES PARA LA TABLA `seccion`:
+--
 
 --
 -- Volcado de datos para la tabla `seccion`
@@ -2417,6 +2542,14 @@ CREATE TABLE IF NOT EXISTS `secciones_activas` (
   PRIMARY KEY (`id_secciones_activas`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- RELACIONES PARA LA TABLA `secciones_activas`:
+--   `id_grado`
+--       `grado` -> `id_grado`
+--   `id_periodo`
+--       `periodo` -> `id_periodo`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -2439,6 +2572,14 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   KEY `id_cargo` (`id_cargo`),
   KEY `ci_profe` (`ci_profe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- RELACIONES PARA LA TABLA `usuario`:
+--   `ci_profe`
+--       `profesor` -> `ci_profe`
+--   `id_cargo`
+--       `cargo` -> `id_cargo`
+--
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

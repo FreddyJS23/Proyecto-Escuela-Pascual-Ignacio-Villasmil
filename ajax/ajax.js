@@ -451,16 +451,27 @@ if (cerrarPeriodo != undefined) {
 if (profeNoUsuario != undefined) {
   import("./modulos/profesor_con-sin_usuario.js").then(module => {
 
-    module.consultarProfeConUsuario(url)
-    module.consultarProfeNoUsuario(url)
+    module.consultarProfeConUsuario(url,profeConUsuario)
+    module.consultarProfeNoUsuario(url,profeNoUsuario)
 
     //evento al boton para llamar a la funcion y actualizar el select
-    let submit = document.querySelector(".boton")
-    submit.addEventListener("click", () => {
-      module.consultarProfeNoUsuario(url);
-      module.consultarProfeConUsuario(url);
+    let submit = document.getElementById("formulario")
+    
+    submit.addEventListener("submit", () => {
+      
+      
+       for (let i = profeNoUsuario.options.length; i >= 0; i--) {
+    profeNoUsuario.remove(i);
+  }
+      
+      
+      setTimeout( module.consultarProfeConUsuario(url,profeConUsuario),800)
+      setTimeout( module.consultarProfeNoUsuario(url,profeNoUsuario),800)
+     
 
     })
+
+    
 
 
   })

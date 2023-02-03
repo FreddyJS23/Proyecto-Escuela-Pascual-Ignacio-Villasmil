@@ -45,7 +45,6 @@ Swal.fire({
         showCancelButton: false,
         background: fondo,
         confirmButtonColor: color_boton,
-        iconColor: icono_error,
         cancelButtonColor: color_botonCancelar,
       }).then(res => {
         location.reload()

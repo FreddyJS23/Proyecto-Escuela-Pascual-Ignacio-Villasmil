@@ -27,6 +27,7 @@ if(!empty($crearBd)){
     //concadenar la ruta del archivo php con el nombre de la bd 
     //ya que en la misma ruta que se ejecute este archivo debe estar la base de datos
    $ruta=$ruta . "\sistema_automatizado_registro_control_de_notas.sql";
+             
 
    //quedaria = C:\wamp64\www\Proyecto\instalarBd\sistema_automatizado_registro_control_de_notas.sql
    

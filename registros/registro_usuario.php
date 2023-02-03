@@ -28,6 +28,10 @@ if ($profesores == 1) {
   $consulta_usuario = "SELECT  `usuario` FROM `usuario` WHERE usuario='$usuario' ";
   $ejecutar_consulta = mysqli_query($conexion, $consulta_usuario);
   $filas = mysqli_num_rows($ejecutar_consulta);
+  
+  $consulta_usuarioProfe = "SELECT  `usuario` FROM `usuario` WHERE ci_profe=$ci_profe ";
+  $ejecutar_consultaProfe = mysqli_query($conexion, $consulta_usuarioProfe);
+  $filasProfe = mysqli_num_rows($ejecutar_consultaProfe);
 
 
   if ($filas >= 1) {
@@ -35,7 +39,10 @@ if ($profesores == 1) {
     $resultado = ["resultado" => "usuarioExiste"];
     echo json_encode($resultado);
     exit;
-  } else {
+  }else if($filasProfe >= 1){
+    $resultado = ["resultado" => "profeTieneUsuario"];
+    echo json_encode($resultado);
+  }else {
 
     $registro_usuario = "INSERT INTO `usuario`(`usuario`, `pass`, `id_cargo`, `nombre`, `apellido`,`ci_profe`, `pregunta_secreta1`, `pregunta_secreta2`, `pregunta_secreta3`)
                          VALUES ('$usuario','$password_hash','$cargo','$nombre','$apellido','$ci_profe','$pregunta_secreta1', '$pregunta_secreta2', '$pregunta_secreta3')";

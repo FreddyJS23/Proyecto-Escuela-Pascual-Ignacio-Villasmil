@@ -925,7 +925,17 @@ if (formulario != undefined) {
 
 
                         })
-                    } else if (res.data['resultado'] == "noExisteProfe") {
+                    }else if (res.data['resultado'] == "profeTieneUsuario") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Este profesor ya tiene un usuario',
+                            background: fondo,
+                            confirmButtonColor: color_boton,
+
+
+                        })
+                    } 
+                    else if (res.data['resultado'] == "noExisteProfe") {
                         Swal.fire({
                             icon: 'error',
                             title: 'Este profesor no esta registrado',
