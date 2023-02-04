@@ -360,11 +360,12 @@ if (!empty($ci_estu_editar)) {
 
 if (!empty($ci_estu_repre)) {
 
-    $select_parentesco = "SELECT   `ci_repre` FROM `parentesco` WHERE ci_estu=$ci_estu_repre  GROUP BY ci_estu=$ci_estu_repre";
+    $select_parentesco = "SELECT   `ci_repre`,parentesco FROM `parentesco` WHERE ci_estu=$ci_estu_repre  GROUP BY ci_estu=$ci_estu_repre";
     $consultar_parentesco = mysqli_query($conexion, $select_parentesco);
-    $parentesco = mysqli_fetch_array($consultar_parentesco);
-    $ci_repre = $parentesco['ci_repre'];
+    $parentesco = mysqli_fetch_all($consultar_parentesco,MYSQLI_ASSOC);
+    $ci_repre = $parentesco[0]['ci_repre'];
 
+   
     $select_repre = "SELECT `ci_repre`, `nombre_repre`, `apellido_repre`, `fn_repre`, `sx_repre`, `tlf_repre`, `estado`, `municipio`, `parroquia`, `sector` FROM `representante`
     INNER JOIN estados
      ON representante.id_estado=estados.id_estado
@@ -376,7 +377,7 @@ if (!empty($ci_estu_repre)) {
     $consultar_repre = mysqli_query($conexion, $select_repre);
     $repre = mysqli_fetch_all($consultar_repre, MYSQLI_ASSOC);
 
-
+    $repre=array_merge($repre,$parentesco);
 
     echo json_encode($repre);
 }

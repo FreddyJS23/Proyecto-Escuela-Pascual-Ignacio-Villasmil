@@ -459,7 +459,7 @@ if (profeNoUsuario != undefined) {
     
     submit.addEventListener("submit", () => {
       
-      
+        //limpiar selects de profesores sin usuario
        for (let i = profeNoUsuario.options.length; i >= 0; i--) {
     profeNoUsuario.remove(i);
   }

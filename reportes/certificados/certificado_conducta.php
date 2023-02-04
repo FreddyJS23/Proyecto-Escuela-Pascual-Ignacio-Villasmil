@@ -9,6 +9,29 @@ $consultar_grado="SELECT  inscripcion.id_grado FROM `inscripcion` INNER JOIN gra
 $consulta_grado=mysqli_query($conexion,$consultar_grado);
 $grado=mysqli_fetch_array($consulta_grado);
 
+$consultar_fecha_nacimiento="SELECT  fn_estu FROM `estudiante` WHERE ci_estu=$ci_estu";
+$consulta_fecha_nacimiento=mysqli_query($conexion,$consultar_fecha_nacimiento);
+$consulta_fecha_nacimiento=mysqli_fetch_array($consulta_fecha_nacimiento);
+
+$fecha_nacimiento=$consulta_fecha_nacimiento['fn_estu'];
+
+//date time para obtener la fecha ya que esta funcion se trabajara con objetos
+//se incializa un dateTime con la fecha de la bd
+$fecha_nacimiento=new DateTime($fecha_nacimiento);
+//se inicializa otro con la fecha actual
+$fecha_actual=new DateTime();
+//date diff saca la diferencia de años
+$edad=date_diff($fecha_actual,$fecha_nacimiento);
+//ya que se trabaja con objetos se accede al objeto year de $edad
+$edad=$edad->y;
+
+//obtener año mes y dia actual 
+$año=date("Y");
+$mes=date("m");
+$dia=date("d");
+
+
+
 if($grado['id_grado']==1){
     $grado="PRIMER";
 }
@@ -147,7 +170,7 @@ $select_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `fn_estu`,`est
     <div class="linea_6">
         <p>
             Que el estudiante: <b class="linea_bottom"><?= $estudiante['apellido_estu'] ?></b>,<b class="linea_bottom"><?= $estudiante['nombre_estu'] ?></b> Titular de la Cédula de Identidad o Escolar Nº <b class="linea_bottom"><?= $estudiante['ci_estu'] ?></b>
-            natural de <b class="linea_bottom"><?= $estudiante['ciudad'] ?></b><b class="linea_bottom"><?= " – " . $estudiante['estado'] ?></b> de <b class="linea_bottom">11</b> años de edad cursante del <b class="linea_bottom"><?= $grado?></b>
+            natural de <b class="linea_bottom"><?= $estudiante['ciudad'] ?></b><b class="linea_bottom"><?= " – " . $estudiante['estado'] ?></b> de <b class="linea_bottom"><?=$edad ?></b> años de edad cursante del <b class="linea_bottom"><?= $grado?></b>
              grado del Nivel de Educación Primaria, en esta institución, demostró un comportamiento: <b class="linea_bottom"><?= $conducta ?></b> durante su permanencia en el año escolar <b class="linea_bottom"><?= $_SESSION['periodo']?></b>.
          
 
@@ -157,8 +180,8 @@ $select_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `fn_estu`,`est
 
     <div class="linea_7">
         <p>
-            Constancia que se expide de parte interesada en Tucaní, a los <b class="linea_bottom">dia</b> días del mes de <b class="linea_bottom">mes</b> de
-            <b class="linea_bottom">año</b>.
+            Constancia que se expide de parte interesada en Tucaní, a los <b class="linea_bottom"><?=$dia ?></b> días del mes de <b class="linea_bottom"><?=$mes ?></b> de
+            <b class="linea_bottom"><?= $año?></b>.
         </p>
     </div>
 
@@ -179,7 +202,7 @@ $select_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `fn_estu`,`est
 
 <?php 
 
-$html=ob_get_clean();
+ $html=ob_get_clean();
 
 require_once("../../dompdf/autoload.inc.php");
 
@@ -196,5 +219,5 @@ $dompdf->setPaper('letter');
 
 $dompdf->render();
 
-$dompdf->stream('carta de aceptacion.pdf');
+$dompdf->stream('carta de aceptacion.pdf'); 
 ?>

@@ -3,7 +3,7 @@ include("../db.php");
 
 $referencia = $_GET['id'];
 
-$consulta_usuario = "SELECT `usuario`, `nombre`, `apellido`,pass FROM `usuario` where usuario='$referencia' ";
+$consulta_usuario = "SELECT `usuario`, `nombre`, `apellido`,pregunta_secreta1,pregunta_secreta2,pregunta_secreta3 FROM `usuario` where usuario='$referencia' ";
 $ejecutar_consulta_usuario = mysqli_query($conexion, $consulta_usuario);
 
 $row = mysqli_fetch_array($ejecutar_consulta_usuario);
@@ -64,23 +64,23 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] == $referencia || $_SESS
                     </div>
                     <div class="container_campos">
 
-                        <input class="input" type="text" name="pregunta_secreta1" id="pregunta_secreta1" placeholder=" " autocomplete="off" required maxlength="20">
+                        <input class="input" type="text" name="pregunta_secreta1" id="pregunta_secreta1" value="<?= $row['pregunta_secreta1']?>" placeholder=" " autocomplete="off" required maxlength="20">
                         <label class="label" id="label_pregunta_secreta1" for="pregunta_secreta1">Comida favorita</label>
 
 
                     </div>
                     <div class="container_campos">
 
-                        <input class="input" type="text" name="pregunta_secreta2" id="pregunta_secreta2" placeholder=" " autocomplete="off" required maxlength="20">
+                        <input class="input" type="text" name="pregunta_secreta2" id="pregunta_secreta2"value="<?= $row['pregunta_secreta2']?>"  placeholder=" " autocomplete="off" required maxlength="20">
                         <label class="label" id="label_pregunta_secreta2" for="pregunta_secreta2">Animal favorito</label>
 
 
                     </div>
                     <div class="container_campos">
 
-                        <input class="input" type="text" name="pregunta_secreta3" id="pregunta_secreta3" placeholder=" " autocomplete="off" required maxlength="20">
+                        <input class="input" type="text" name="pregunta_secreta3" id="pregunta_secreta3"value="<?= $row['pregunta_secreta3']?>"  placeholder=" " autocomplete="off" required maxlength="20">
                         <label class="label" id="label_pregunta_secreta3" for="pregunta_secreta3">Color favorito</label>
-
+                    </div>
 
                         <div class="container_campos">
                             <input class="input" type="password" name="password" id="password" placeholder=" " autocomplete="off" required maxlength="15">
@@ -100,10 +100,6 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] == $referencia || $_SESS
                             </div>
 
                         </div>
-
-
-
-
 
 
                     </div>

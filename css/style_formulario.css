@@ -334,7 +334,7 @@ grid-column: span 2;
 }
 
 .checked-repre{
-    margin-left: 20%;
+    margin-left: 24%;
     font-size: 14px;
 }
 
@@ -459,11 +459,7 @@ margin-top: -10px;
 margin-bottom: 10px;
 }
 
-/* ayuda usuario */
-.usuario{
-    bottom: 615px;
-    }
-    
+
 
 /*-----------------  formulario de asignacion  --------------------------*/
 .contenedor_asignacion {
@@ -496,7 +492,11 @@ margin-bottom: 10px;
     text-shadow: var(--sombra);
 }
 
-
+/* ayuda usuario */
+.usuario{
+    bottom: 615px ;
+    }
+    
 
 .fieldset{
     border: none;

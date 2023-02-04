@@ -1,4 +1,4 @@
-let tablaEstudiante=(diseno,espanol,hover,divEstudiante,url,  color_boton,color_botonCancelar)=>{
+let tablaEstudiante = (diseno, espanol, hover, divEstudiante, url, color_boton, color_botonCancelar) => {
   let grid = new gridjs.Grid({
     columns: [
       {
@@ -7,7 +7,7 @@ let tablaEstudiante=(diseno,espanol,hover,divEstudiante,url,  color_boton,color_
           let html = []
           html[0] = gridjs.h('i', {
             className: 'fa-solid fa-pen-to-square editar-estu',
-            onClick: () => modalEditarEstu(`${row.cells[0].data}`,  url,color_boton,color_botonCancelar)
+            onClick: () => modalEditarEstu(`${row.cells[0].data}`, url, color_boton, color_botonCancelar)
           })
           html[1] = gridjs.html(`${row.cells[0].data}`)
 
@@ -24,7 +24,7 @@ let tablaEstudiante=(diseno,espanol,hover,divEstudiante,url,  color_boton,color_
         formatter: (cell, row) => {
           return gridjs.h('i', {
             className: 'fa-solid fa-person-breastfeeding editar-repre',
-            onClick: () => modalVerRepre(`${row.cells[0].data}`,    url,color_boton,color_botonCancelar)
+            onClick: () => modalVerRepre(`${row.cells[0].data}`, url, color_boton, color_botonCancelar)
 
           })
         }
@@ -43,51 +43,51 @@ let tablaEstudiante=(diseno,espanol,hover,divEstudiante,url,  color_boton,color_
     fixedHeader: true,
     search: true,
   }).render(divEstudiante)
-consultarEstudiante(url,grid)
- }
+  consultarEstudiante(url, grid)
+}
 
 
-  //obtener estudiante
-  let consultarEstudiante = (url,grid) => {
-    axios(url, {
-      params: { ajax_estudiante: true }
-    }).then(res => {
-      grid.updateConfig({
-        data: () => {
-          return new Promise(resolve => {
+//obtener estudiante
+let consultarEstudiante = (url, grid) => {
+  axios(url, {
+    params: { ajax_estudiante: true }
+  }).then(res => {
+    grid.updateConfig({
+      data: () => {
+        return new Promise(resolve => {
 
-            setTimeout(() => resolve(res.data), 1000)
-          })
-        }
-      }).forceRender()
-    })
-  }
-  
+          setTimeout(() => resolve(res.data), 1000)
+        })
+      }
+    }).forceRender()
+  })
+}
+
 
 //ventana modal para ver datos completos del estudiante
 
-let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
-    axios(url, {
-      params: {
-        ci_estu_editar: ci_estu
-      }
-    }).then(res => {
-      //data estudiante
-      let data1=res.data[0]
-      //data lugar de nacimiento estudiante
-      let data2=res.data[1]
-      //juntar informacion
-      let estudiante=Object.assign(data1,data2)
-        
-        let genero;
-        if (estudiante['sx_repre'] == "F") {
-          genero = "Femenino"
-        } else {
-          genero = "Masculino"
-        }
-        Swal.fire({
-          //insertar html en el modal
-          html: `
+let modalEditarEstu = (ci_estu, url, color_boton, color_botonCancelar) => {
+  axios(url, {
+    params: {
+      ci_estu_editar: ci_estu
+    }
+  }).then(res => {
+    //data estudiante
+    let data1 = res.data[0]
+    //data lugar de nacimiento estudiante
+    let data2 = res.data[1]
+    //juntar informacion
+    let estudiante = Object.assign(data1, data2)
+
+    let genero;
+    if (estudiante['sx_repre'] == "F") {
+      genero = "Femenino"
+    } else {
+      genero = "Masculino"
+    }
+    Swal.fire({
+      //insertar html en el modal
+      html: `
     
     <fieldset disabled style="border:0">
            
@@ -245,45 +245,50 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
     
    
     `,
-          width: "86%",
-          background: "transparent",
+      width: "86%",
+      background: "transparent",
 
-          confirmButtonColor: color_boton,
-          confirmButtonText: "Editar",
-          showCancelButton: true,
-          cancelButtonColor: color_botonCancelar,
-          cancelButtonText: "Cancelar"
+      confirmButtonColor: color_boton,
+      confirmButtonText: "Editar",
+      showCancelButton: true,
+      cancelButtonColor: color_botonCancelar,
+      cancelButtonText: "Cancelar"
 
-        }).then(res => {
-          //si dan click en confirmar los reedirecionara al formulario editar con el id de la cedula
-          if (res.isConfirmed) {
-            location.href = `../formularios/formulario_editar_estu.php?id=${estudiante['ci_estu']}`
-          }
-        })
-      
-
+    }).then(res => {
+      //si dan click en confirmar los reedirecionara al formulario editar con el id de la cedula
+      if (res.isConfirmed) {
+        location.href = `../formularios/formulario_editar_estu.php?id=${estudiante['ci_estu']}`
+      }
     })
 
-  }
 
-  let modalVerRepre = (ci_estu_repre,url,color_boton,color_botonCancelar) => {
+  })
 
-    axios(url, {
-      params: {
-        ci_estu_repre: ci_estu_repre
-      }
-    }).then(res => {
+}
 
-      res.data.forEach(representante => {
-        let genero;
-        if (representante['sx_repre'] == "F") {
-          genero = "Femenino"
-        } else {
-          genero = "Masculino"
-        }
-        Swal.fire({
+let modalVerRepre = (ci_estu_repre, url, color_boton, color_botonCancelar) => {
 
-          html: `
+  axios(url, {
+    params: {
+      ci_estu_repre: ci_estu_repre
+    }
+  }).then(res => {
+    //data representante
+    let data1 = res.data[0]
+    //data del parentesco
+    let data2 = res.data[1]
+    //juntar informacion
+    let representante = Object.assign(data1, data2)
+
+    let genero;
+    if (representante['sx_repre'] == "F") {
+      genero = "Femenino"
+    } else {
+      genero = "Masculino"
+    }
+    Swal.fire({
+
+      html: `
          <fieldset disabled style="border:0">
          <div class="contenedor_representante contenedor_representante_grid">
          <div class="titulo_formulario titulo_formulario_grid">
@@ -361,28 +366,28 @@ let modalEditarEstu = (ci_estu,url,color_boton,color_botonCancelar) => {
      </fieldset>    
          `,
 
-          width: "83%",
-          background: "transparent",
-          
-          confirmButtonColor: color_boton,
-          confirmButtonText: "Editar",
-          showCancelButton: true,
-          cancelButtonColor: color_botonCancelar,
-          cancelButtonText: "Cancelar"
+      width: "83%",
+      background: "transparent",
 
-        }).then(res => {
-          if (res.isConfirmed) {
-            location.href = `../formularios/formulario_editar_repre.php?id=${representante['ci_repre']}`
-          }
-        })
+      confirmButtonColor: color_boton,
+      confirmButtonText: "Editar",
+      showCancelButton: true,
+      cancelButtonColor: color_botonCancelar,
+      cancelButtonText: "Cancelar"
 
-
-
-      })
-
-
+    }).then(res => {
+      if (res.isConfirmed) {
+        location.href = `../formularios/formulario_editar_repre.php?id=${representante['ci_repre']}`
+      }
     })
 
-  }
 
-  export{tablaEstudiante}
+
+
+
+
+  })
+
+}
+
+export { tablaEstudiante }

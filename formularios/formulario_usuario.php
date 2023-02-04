@@ -64,6 +64,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {  ?>
                         <input class="input" type="text" name="pregunta_secreta3" id="pregunta_secreta3" placeholder=" " autocomplete="off" required maxlength="20">
                         <label class="label" id="label_pregunta_secreta3" for="pregunta_secreta3">Color favorito</label>
                     </div>
+                    
                     <div class="container_campos">
                         <input class="input" type="password" name="password" id="password" placeholder=" " autocomplete="off" required maxlength="15">
                         <label class="label" id="label_password" for="password">Contraseña </label>
@@ -81,10 +82,6 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {  ?>
                         </div>
 
                     </div>
-
-
-
-
 
 
                 </div>

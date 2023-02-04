@@ -22,6 +22,12 @@ $consultar_estu = mysqli_query($conexion, $verificar_estu);
 
 $total_estu = mysqli_num_rows($consultar_estu);
 
+/* -------------------------- verificar estudiante que no este inscriito en el periodo -------------------------- */
+$verificar_estuMismoPeriodo = "SELECT * FROM `inscripcion` WHERE ci_estu_inscripcion=$ci_estu && id_periodo=$id_periodo";
+$consultar_estuMismoPeriodo = mysqli_query($conexion, $verificar_estuMismoPeriodo);
+
+$total_estuMismoPeriodo = mysqli_num_rows($consultar_estuMismoPeriodo);
+
 
 if ($total_estu == 0) {
 
@@ -34,7 +40,12 @@ if ($total_estu == 0) {
    $resultado = ["resultado" => "noRepre"];
    echo json_encode($resultado);
    exit;
-} 
+}else if ($total_estuMismoPeriodo == 1) {
+
+   $resultado = ["resultado" => "existeEstu"];
+   echo json_encode($resultado);
+   exit;
+}  
 
 /* --------------------------- inscripcion regular -------------------------- */
 

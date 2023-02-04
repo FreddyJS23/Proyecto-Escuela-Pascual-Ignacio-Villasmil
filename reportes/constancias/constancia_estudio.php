@@ -41,7 +41,29 @@ $select_estu = "SELECT `ci_estu`, `nombre_estu`, `apellido_estu`, `fn_estu`,`est
     $select_periodo="SELECT periodo from periodo where id_periodo=$periodo";
     $sql_periodo=mysqli_query($conexion,$select_periodo);
     $periodo=mysqli_fetch_array($sql_periodo);
+  
+$consultar_fecha_nacimiento="SELECT  fn_estu FROM `estudiante` WHERE ci_estu=$ci_estu";
+$consulta_fecha_nacimiento=mysqli_query($conexion,$consultar_fecha_nacimiento);
+$consulta_fecha_nacimiento=mysqli_fetch_array($consulta_fecha_nacimiento);
+
+$fecha_nacimiento=$consulta_fecha_nacimiento['fn_estu'];
+
+//date time para obtener la fecha ya que esta funcion se trabajara con objetos
+//se incializa un dateTime con la fecha de la bd
+$fecha_nacimiento=new DateTime($fecha_nacimiento);
+//se inicializa otro con la fecha actual
+$fecha_actual=new DateTime();
+//date diff saca la diferencia de años
+$edad=date_diff($fecha_actual,$fecha_nacimiento);
+//ya que se trabaja con objetos se accede al objeto year de $edad
+$edad=$edad->y;
+
+//obtener año mes y dia actual 
+$año=date("Y");
+$mes=date("m");
+$dia=date("d");
     
+
 ob_start()
     ?>
 
@@ -129,7 +151,7 @@ ob_start()
      <div class="linea_6">
          <p>
              Que el estudiante: <b class="linea_bottom"><?= $estudiante['apellido_estu'] ?></b>,<b class="linea_bottom"><?= $estudiante['nombre_estu'] ?></b> Titular de la Cédula de Identidad o Escolar Nº <b class="linea_bottom"><?= $estudiante['ci_estu'] ?></b>
-             natural de <b class="linea_bottom"><?= $estudiante['ciudad'] ?></b><b class="linea_bottom"><?= " – " . $estudiante['estado'] ?></b> de <b class="linea_bottom">Edad</b> años de edad, 
+             natural de <b class="linea_bottom"><?= $estudiante['ciudad'] ?></b><b class="linea_bottom"><?= " – " . $estudiante['estado'] ?></b> de <b class="linea_bottom"><?=$edad ?></b> años de edad, 
              cursó el <b class="linea_bottom"><?= $grado ?></b>  grado del Nivel de Educación Primaria, en esta institución, durante el periodo Escolar <b class="linea_bottom"><?= $periodo['periodo'] ?></b> fue estudiante regular obteniendo un literal <b class="linea_bottom"><?= $nota . "."?></b>
              
 
@@ -139,8 +161,8 @@ ob_start()
 
      <div class="linea_7">
          <p>
-             Constancia que se expide de parte interesada en Tucaní, a los <b class="linea_bottom">dia</b> días del mes de <b class="linea_bottom">mes</b> de
-             <b class="linea_bottom">año</b>.
+             Constancia que se expide de parte interesada en Tucaní, a los <b class="linea_bottom"><?=$dia ?></b> días del mes de <b class="linea_bottom"><?=$mes ?></b> de
+             <b class="linea_bottom"><?= $año?></b>.
          </p>
      </div>
 

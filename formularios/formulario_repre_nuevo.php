@@ -63,7 +63,7 @@ $ci_repre = $_GET['ci_repre'];
 
             <div class="contenedor_ubicacion">
                 <div class="contenedor_titulo_ubicacion">
-                    <p class="titulo_ubicacion">Donde reside actualemte</p>
+                    <p class="titulo_ubicacion">Donde reside actualmente</p>
                 </div>
                 <div class="campos_ubicacion">
                     <div class="container_campos">

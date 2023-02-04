@@ -674,6 +674,15 @@ if (formulario != undefined) {
                             confirmButtonColor: color_boton,
                             footer: 'Asegurese de que el estudiante este registrado'
                         })
+                    } else if (res.data['resultado'] == "existeEstu") {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Estudiante ya inscrito',
+                            background: fondo,
+                            confirmButtonColor: color_boton,
+                            footer: 'Este estudiante ya se inscribio previamente en el periodo actual'
+                        })
                     }
                     else if (res.data['resultado'] == "errorParentesco") {
 
@@ -890,7 +899,16 @@ if (formulario != undefined) {
                         }).then(res => {
                             formulario.reset()
                         })
-                    } else {
+                    }else if(res.data['resultado'] == "profesorAsignado") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Este profesor ya fue asignado',
+                            background: fondo,
+                            confirmButtonColor: color_boton,
+                            footer: 'Asegurese de que el profesor no este asignado en este periodo'
+                        })
+                    } 
+                    else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Este profesor no esta inscrito',

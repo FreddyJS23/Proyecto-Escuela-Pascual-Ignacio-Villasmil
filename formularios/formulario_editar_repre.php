@@ -76,7 +76,7 @@ $row=mysqli_fetch_array($sql_repre);
             <!-- ubicacion -->
             <div class="contenedor_ubicacion">
                 <div class="contenedor_titulo_ubicacion">
-                    <p class="titulo_ubicacion">Donde reside actualemte</p>
+                    <p class="titulo_ubicacion">Donde reside actualmente</p>
                 </div>
                 <div class="campos_ubicacion">
                     <div class="container_campos">

@@ -165,7 +165,7 @@ if (isset($_SESSION['usuario'])) {
                 <!-- campos ubicacion -->
                 <div class="contenedor_ubicacion  contenedor_ubicacion_grid">
                     <div class="contenedor_titulo_ubicacion">
-                        <p class="titulo_ubicacion">Donde reside actualemte</p>
+                        <p class="titulo_ubicacion">Donde reside actualmente</p>
                     </div>
 
                     <div class="campos_ubicacion">

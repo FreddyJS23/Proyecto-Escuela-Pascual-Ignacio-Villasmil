@@ -173,7 +173,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
                     <div class="campos_ubicacion">
                         <div class="contenedor_ubicacion">
 
-                            <p class="titulo_ubicacion">Donde reside actualemte</p>
+                            <p class="titulo_ubicacion">Donde reside actualmente</p>
                         </div>
 
 

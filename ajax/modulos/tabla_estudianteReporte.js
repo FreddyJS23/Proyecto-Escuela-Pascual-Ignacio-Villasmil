@@ -146,7 +146,7 @@ axios("../ajax/php.php",{
   
       html:
         `
-              <a class="link_reporte" href="../formularios/formulario_cartaAceptacion.php?id=${ci_estu}">Carta de aceptacion</a> <br>
+             
               
               <a class="link_reporte" href="../formularios/formulario_certificadoPromocion.php?id=${ci_estu}">Certificado de promoción</a> <br>
              
