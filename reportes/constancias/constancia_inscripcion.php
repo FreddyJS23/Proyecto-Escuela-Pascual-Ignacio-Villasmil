@@ -7,6 +7,8 @@ $consultar_grado="SELECT  inscripcion.id_grado FROM `inscripcion` INNER JOIN gra
 $consulta_grado=mysqli_query($conexion,$consultar_grado);
 $grado=mysqli_fetch_array($consulta_grado);
 
+echo $grado['id_grado'];
+print_r($grado);
 if($grado['id_grado']==1){
     $grado="PRIMER";
 }
@@ -19,7 +21,7 @@ elseif($grado['id_grado']==3){
 elseif($grado['id_grado']==4){
     $grado="CUARTO";
 }
-elseif($grad['id_grado']==5){
+elseif($grado['id_grado']==5){
     $grado="QUINTO";
 }
 elseif($grado['id_grado']==6){

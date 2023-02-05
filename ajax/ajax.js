@@ -542,7 +542,7 @@ if (restaurarDb != undefined) {
 if (activar_secciones != undefined) {
 
 
-  let modalActivarSecciones = () => {
+  let modalActivarSecciones = (urlRelativa) => {
     Swal.fire({
       title: 'Activar secciones',
       html: `
@@ -566,10 +566,13 @@ if (activar_secciones != undefined) {
 
       icon: 'info',
       didOpen: () => {
-
+      
+       
         import("../ajax/modulos/gradosSinSeccionesActivas.js").then(module => {
+          
+          
           let gradoConSeccionInactiva = Swal.getHtmlContainer().querySelector('#gradoConSeccionInactiva')
-          module.solicitarGradoSinSecciones(gradoConSeccionInactiva)
+          module.solicitarGradoSinSecciones(gradoConSeccionInactiva,urlRelativa)
         })
 
       },
@@ -625,7 +628,15 @@ if (activar_secciones != undefined) {
     })
   }
 
-  activar_secciones.addEventListener("click", modalActivarSecciones)
+  activar_secciones.addEventListener("click",()=>{
+    //identificar desde donde se despliega el modal ya que la ruta de la peticion no es la misma
+    let identificarMenuPrincipal=document.querySelector(".contenedor_estadistica1");
+    let urlRelativa;
+    if(identificarMenuPrincipal == undefined) urlRelativa="../ajax/php.php"
+    else urlRelativa="ajax/php.php"
+    modalActivarSecciones(urlRelativa)
+    
+  })
 
 }
 

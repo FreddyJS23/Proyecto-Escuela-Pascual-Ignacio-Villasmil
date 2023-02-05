@@ -1,6 +1,7 @@
-let solicitarGradoSinSecciones=(gradoConSeccionInactiva)=>{ 
-//solicitar grados
-axios("ajax/php.php",{
+let solicitarGradoSinSecciones=(gradoConSeccionInactiva,urlRelativa)=>{ 
+
+  //solicitar grados
+axios(urlRelativa,{
     params:{gradoDisponible:true}
   }).then(res=>{
     //convertir formato json del servidor a un objeto

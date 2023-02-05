@@ -44,7 +44,7 @@ elseif($grado['id_grado']==3){
 elseif($grado['id_grado']==4){
     $grado="CUARTO";
 }
-elseif($grad['id_grado']==5){
+elseif($grado['id_grado']==5){
     $grado="QUINTO";
 }
 elseif($grado['id_grado']==6){
