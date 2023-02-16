@@ -1,7 +1,6 @@
 //sin usuarios
 let consultarProfeNoUsuario = (url,profeNoUsuario) => {
   
-
     axios(url, {
       params: { ajax_profeNoUsuario: true }
     }).then(res => {
