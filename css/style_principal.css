@@ -53,6 +53,9 @@ nav {
 .nav-usuario{
     margin-left: -170px;
 }
+.nav-admin{
+    margin-left: -150px;
+}
 
 /*----------------- pestañas  --------------------------*/
 .pestaña {
@@ -143,6 +146,16 @@ nav {
 }
 /*-----------------  estadisticas  --------------------------*/
 
+.container-estadistica{
+    display: flex;
+    flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   gap: 50px;
+   flex-wrap: wrap;
+   margin-top: 40px;
+}
+
 
 .contenedor_estadistica1,
 .contenedor_estadistica2, 
@@ -156,19 +169,6 @@ nav {
    width: 500px;
 
 }
-.contenedor_estadistica1,
-.contenedor_estadistica2{
-    margin-top: 25px;
-}
-.contenedor_estadistica1{
-    margin-right: 56px;
-}
-
-.contenedor_estadistica3{
-    margin-top: 30px;
-    margin-bottom: 10px;
-}
-
 
 
 

@@ -52,7 +52,7 @@ if (!empty($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
 
                     <div class="collapse navbar-collapse justify-content-center div-collapse" id="navbarSupportedContent">
 
-                        <ul class="navbar-nav">
+                        <ul class="navbar-nav nav-admin">
 
                             <li class="nav-item dropdown  ">
                                 <a class=" dropdown-toggle pestaña" id="toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-user"></i>Estudiantes</a>
@@ -130,24 +130,24 @@ if (!empty($_SESSION['usuario']) && $_SESSION['cargo'] == 1) {
 
 
 
-        <div class="container ">
-            <div class="row ">
-                <div class="col-6 contenedor_estadistica1">
+        <div class="container-estadistica">
+            
+                <div class="contenedor_estadistica1">
                     <canvas id="graficoProfesor"></canvas>
                 </div>
 
 
-                <div class="col-6 contenedor_estadistica2">
+                <div class="contenedor_estadistica2">
                     <canvas id="graficoEstudiante"></canvas>
                 </div>
                 
 
-            </div>
-            <div class="row justify-content-center ">
-                    <div class=" col-12 contenedor_estadistica3">
+            
+           
+                    <div class="contenedor_estadistica3">
                         <canvas id="graficoGrado"></canvas>
                     </div>
-                </div>
+               
         </div>
 
 

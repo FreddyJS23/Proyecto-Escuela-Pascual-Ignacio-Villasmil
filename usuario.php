@@ -123,27 +123,27 @@ if (isset($_SESSION['usuario'])) {
 
         </header>
 
-      
-        <div class="container contenedor_estadisticas">
-            <div class="row">
-                <div class="col-6 contenedor_estadistica1">
-                    <canvas id="graficoProfesor"></canvas>
-                </div>
-
-
-                <div class="col-6 contenedor_estadistica2">
-                    <canvas id="graficoEstudiante"></canvas>
-                </div>
-                <div class="row justify-content-center">
-                    <div class=" col-12 contenedor_estadistica3">
-                        <canvas id="graficoGrado"></canvas>
-                    </div>
-                </div>
-
+        <div class="container-estadistica">
+            
+            <div class="contenedor_estadistica1">
+                <canvas id="graficoProfesor"></canvas>
             </div>
-        </div>
 
-        <script src="chartjs/chart.umd.js"></script>
+
+            <div class="contenedor_estadistica2">
+                <canvas id="graficoEstudiante"></canvas>
+            </div>
+            
+
+        
+       
+                <div class="contenedor_estadistica3">
+                    <canvas id="graficoGrado"></canvas>
+                </div>
+           
+    </div>
+       
+    <script src="chartjs/chart.umd.js"></script>
         <script src="js/axios.js"></script>
         <script src="js/sweetalert2.all.min.js"></script>
          <script src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
