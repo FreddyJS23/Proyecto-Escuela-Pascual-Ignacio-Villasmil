@@ -333,7 +333,7 @@ select,
   
       font-size: 20px;
   }
-  .nav-usuario{
+  .nav-usuario,.nav-admin{
     margin-left: initial;
   }
 }

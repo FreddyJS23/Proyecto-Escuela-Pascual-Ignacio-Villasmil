@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 22-02-2023 a las 00:12:02
+-- Tiempo de generación: 22-02-2023 a las 13:58:48
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sistema automatizado registro control de notas`
 --
-CREATE DATABASE IF NOT EXISTS `sistema automatizado registro control de notas` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `sistema automatizado registro control de notas` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `sistema automatizado registro control de notas`;
 
 -- --------------------------------------------------------
@@ -43,26 +43,6 @@ CREATE TABLE IF NOT EXISTS `asignacion` (
   KEY `id_seccion` (`id_seccion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- RELACIONES PARA LA TABLA `asignacion`:
---   `ci_profe_asignacion`
---       `profesor` -> `ci_profe`
---   `id_grado`
---       `grado` -> `id_grado`
---   `id_periodo`
---       `periodo` -> `id_periodo`
---   `id_seccion`
---       `seccion` -> `id_seccion`
---   `id_grado`
---       `grado` -> `id_grado`
---   `id_periodo`
---       `periodo` -> `id_periodo`
---   `id_seccion`
---       `seccion` -> `id_seccion`
---   `ci_profe_asignacion`
---       `profesor` -> `ci_profe`
---
-
 -- --------------------------------------------------------
 
 --
@@ -75,10 +55,6 @@ CREATE TABLE IF NOT EXISTS `cargo` (
   `cargo` varchar(36) NOT NULL,
   PRIMARY KEY (`id_cargo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- RELACIONES PARA LA TABLA `cargo`:
---
 
 --
 -- Volcado de datos para la tabla `cargo`
@@ -103,14 +79,6 @@ CREATE TABLE IF NOT EXISTS `ciudades` (
   PRIMARY KEY (`id_ciudad`),
   KEY `id_estado` (`id_estado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=523 DEFAULT CHARSET=utf8mb3;
-
---
--- RELACIONES PARA LA TABLA `ciudades`:
---   `id_estado`
---       `estados` -> `id_estado`
---   `id_estado`
---       `estados` -> `id_estado`
---
 
 --
 -- Volcado de datos para la tabla `ciudades`
@@ -630,10 +598,6 @@ CREATE TABLE IF NOT EXISTS `economia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- RELACIONES PARA LA TABLA `economia`:
---
-
---
 -- Volcado de datos para la tabla `economia`
 --
 
@@ -656,10 +620,6 @@ CREATE TABLE IF NOT EXISTS `estados` (
   `iso_3166-2` varchar(4) NOT NULL,
   PRIMARY KEY (`id_estado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
-
---
--- RELACIONES PARA LA TABLA `estados`:
---
 
 --
 -- Volcado de datos para la tabla `estados`
@@ -726,42 +686,6 @@ CREATE TABLE IF NOT EXISTS `estudiante` (
   KEY `id_parroquia` (`id_parroquia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- RELACIONES PARA LA TABLA `estudiante`:
---   `id_ciudad_nacimiento`
---       `ciudades` -> `id_ciudad`
---   `id_economia`
---       `economia` -> `id_economia`
---   `id_estado`
---       `estados` -> `id_estado`
---   `id_estado_nacimiento`
---       `estados` -> `id_estado`
---   `id_municipio`
---       `municipios` -> `id_municipio`
---   `id_pais_nacimiento`
---       `pais` -> `id_pais`
---   `id_parroquia`
---       `parroquias` -> `id_parroquia`
---   `id_salud`
---       `salud` -> `id_salud`
---   `id_ciudad_nacimiento`
---       `ciudades` -> `id_ciudad`
---   `id_economia`
---       `economia` -> `id_economia`
---   `id_estado`
---       `estados` -> `id_estado`
---   `id_estado_nacimiento`
---       `estados` -> `id_estado`
---   `id_municipio`
---       `municipios` -> `id_municipio`
---   `id_pais_nacimiento`
---       `pais` -> `id_pais`
---   `id_parroquia`
---       `parroquias` -> `id_parroquia`
---   `id_salud`
---       `salud` -> `id_salud`
---
-
 -- --------------------------------------------------------
 
 --
@@ -774,10 +698,6 @@ CREATE TABLE IF NOT EXISTS `grado` (
   `grado` varchar(5) NOT NULL,
   PRIMARY KEY (`id_grado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- RELACIONES PARA LA TABLA `grado`:
---
 
 --
 -- Volcado de datos para la tabla `grado`
@@ -812,26 +732,6 @@ CREATE TABLE IF NOT EXISTS `inscripcion` (
   KEY `ci_estu` (`ci_estu_inscripcion`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- RELACIONES PARA LA TABLA `inscripcion`:
---   `ci_estu_inscripcion`
---       `estudiante` -> `ci_estu`
---   `id_grado`
---       `grado` -> `id_grado`
---   `id_periodo`
---       `periodo` -> `id_periodo`
---   `id_seccion`
---       `seccion` -> `id_seccion`
---   `id_grado`
---       `grado` -> `id_grado`
---   `id_periodo`
---       `periodo` -> `id_periodo`
---   `id_seccion`
---       `seccion` -> `id_seccion`
---   `ci_estu_inscripcion`
---       `estudiante` -> `ci_estu`
---
-
 -- --------------------------------------------------------
 
 --
@@ -846,14 +746,6 @@ CREATE TABLE IF NOT EXISTS `municipios` (
   PRIMARY KEY (`id_municipio`),
   KEY `id_estado` (`id_estado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=463 DEFAULT CHARSET=utf8mb3;
-
---
--- RELACIONES PARA LA TABLA `municipios`:
---   `id_estado`
---       `estados` -> `id_estado`
---   `id_estado`
---       `estados` -> `id_estado`
---
 
 --
 -- Volcado de datos para la tabla `municipios`
@@ -1211,10 +1103,6 @@ CREATE TABLE IF NOT EXISTS `nota` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- RELACIONES PARA LA TABLA `nota`:
---
-
---
 -- Volcado de datos para la tabla `nota`
 --
 
@@ -1238,10 +1126,6 @@ CREATE TABLE IF NOT EXISTS `pais` (
   PRIMARY KEY (`id_pais`),
   KEY `pais` (`pais`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- RELACIONES PARA LA TABLA `pais`:
---
 
 --
 -- Volcado de datos para la tabla `pais`
@@ -1270,22 +1154,6 @@ CREATE TABLE IF NOT EXISTS `parentesco` (
   KEY `id_periodo` (`id_periodo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- RELACIONES PARA LA TABLA `parentesco`:
---   `ci_estu`
---       `estudiante` -> `ci_estu`
---   `ci_repre`
---       `representante` -> `ci_repre`
---   `id_periodo`
---       `periodo` -> `id_periodo`
---   `ci_repre`
---       `representante` -> `ci_repre`
---   `ci_estu`
---       `estudiante` -> `ci_estu`
---   `id_periodo`
---       `periodo` -> `id_periodo`
---
-
 -- --------------------------------------------------------
 
 --
@@ -1300,14 +1168,6 @@ CREATE TABLE IF NOT EXISTS `parroquias` (
   PRIMARY KEY (`id_parroquia`),
   KEY `id_municipio` (`id_municipio`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1139 DEFAULT CHARSET=utf8mb3;
-
---
--- RELACIONES PARA LA TABLA `parroquias`:
---   `id_municipio`
---       `municipios` -> `id_municipio`
---   `id_municipio`
---       `municipios` -> `id_municipio`
---
 
 --
 -- Volcado de datos para la tabla `parroquias`
@@ -2468,10 +2328,6 @@ CREATE TABLE IF NOT EXISTS `periodo` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
--- RELACIONES PARA LA TABLA `periodo`:
---
-
---
 -- Volcado de datos para la tabla `periodo`
 --
 
@@ -2506,29 +2362,6 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   KEY `id_parroquia` (`id_parroquia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- RELACIONES PARA LA TABLA `profesor`:
---   `id_estado`
---       `estados` -> `id_estado`
---   `id_municipio`
---       `municipios` -> `id_municipio`
---   `id_parroquia`
---       `parroquias` -> `id_parroquia`
---   `id_estado`
---       `estados` -> `id_estado`
---   `id_municipio`
---       `municipios` -> `id_municipio`
---   `id_parroquia`
---       `parroquias` -> `id_parroquia`
---
-
---
--- Volcado de datos para la tabla `profesor`
---
-
-INSERT INTO `profesor` (`ci_profe`, `nombre_profe`, `apellido_profe`, `fn_profe`, `sx_profe`, `tlf_profe`, `correo_profe`, `grado_instruccion`, `condicion_laboral`, `status`, `id_estado`, `id_municipio`, `id_parroquia`, `sector`) VALUES
-(10401311, 'Francisco', 'Navarro', '2023-03-03', 'M', '3232-2322322', 'Fran@gmail.com', 'alto', 'fijo', 'ON', 15, 267, 693, 'Inrrevis');
-
 -- --------------------------------------------------------
 
 --
@@ -2554,22 +2387,6 @@ CREATE TABLE IF NOT EXISTS `representante` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- RELACIONES PARA LA TABLA `representante`:
---   `id_estado`
---       `estados` -> `id_estado`
---   `id_municipio`
---       `municipios` -> `id_municipio`
---   `id_parroquia`
---       `parroquias` -> `id_parroquia`
---   `id_estado`
---       `estados` -> `id_estado`
---   `id_municipio`
---       `municipios` -> `id_municipio`
---   `id_parroquia`
---       `parroquias` -> `id_parroquia`
---
-
---
 -- Volcado de datos para la tabla `representante`
 --
 
@@ -2591,10 +2408,6 @@ CREATE TABLE IF NOT EXISTS `salud` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
--- RELACIONES PARA LA TABLA `salud`:
---
-
---
 -- Volcado de datos para la tabla `salud`
 --
 
@@ -2613,10 +2426,6 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `seccion` varchar(1) NOT NULL,
   PRIMARY KEY (`id_seccion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- RELACIONES PARA LA TABLA `seccion`:
---
 
 --
 -- Volcado de datos para la tabla `seccion`
@@ -2647,18 +2456,6 @@ CREATE TABLE IF NOT EXISTS `secciones_activas` (
   KEY `id_periodo` (`id_periodo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- RELACIONES PARA LA TABLA `secciones_activas`:
---   `id_grado`
---       `grado` -> `id_grado`
---   `id_periodo`
---       `periodo` -> `id_periodo`
---   `id_grado`
---       `grado` -> `id_grado`
---   `id_periodo`
---       `periodo` -> `id_periodo`
---
-
 -- --------------------------------------------------------
 
 --
@@ -2680,19 +2477,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`id_usuario`),
   KEY `id_cargo` (`id_cargo`),
   KEY `ci_profe` (`ci_profe`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- RELACIONES PARA LA TABLA `usuario`:
---   `ci_profe`
---       `profesor` -> `ci_profe`
---   `id_cargo`
---       `cargo` -> `id_cargo`
---   `id_cargo`
---       `cargo` -> `id_cargo`
---   `ci_profe`
---       `profesor` -> `ci_profe`
---
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Restricciones para tablas volcadas
@@ -2782,8 +2567,7 @@ ALTER TABLE `secciones_activas`
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id_cargo`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`ci_profe`) REFERENCES `profesor` (`ci_profe`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id_cargo`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
