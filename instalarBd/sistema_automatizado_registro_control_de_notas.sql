@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 02-02-2023 a las 22:47:43
--- Versión del servidor: 5.7.36
--- Versión de PHP: 7.4.26
+-- Tiempo de generación: 22-02-2023 a las 00:12:02
+-- Versión del servidor: 8.0.31
+-- Versión de PHP: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,14 +31,17 @@ USE `sistema automatizado registro control de notas`;
 
 DROP TABLE IF EXISTS `asignacion`;
 CREATE TABLE IF NOT EXISTS `asignacion` (
-  `id_asignacion` int(5) NOT NULL AUTO_INCREMENT,
-  `ci_profe_asignacion` int(11) NOT NULL,
-  `id_periodo` int(5) NOT NULL,
-  `id_grado` int(5) NOT NULL,
-  `id_seccion` int(5) NOT NULL,
+  `id_asignacion` int NOT NULL AUTO_INCREMENT,
+  `ci_profe_asignacion` int NOT NULL,
+  `id_periodo` int NOT NULL,
+  `id_grado` int NOT NULL,
+  `id_seccion` int NOT NULL,
   PRIMARY KEY (`id_asignacion`),
-  KEY `ci_profe` (`ci_profe_asignacion`,`id_periodo`,`id_grado`,`id_seccion`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `ci_profe` (`ci_profe_asignacion`,`id_periodo`,`id_grado`,`id_seccion`),
+  KEY `id_grado` (`id_grado`),
+  KEY `id_periodo` (`id_periodo`),
+  KEY `id_seccion` (`id_seccion`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `asignacion`:
@@ -50,6 +53,14 @@ CREATE TABLE IF NOT EXISTS `asignacion` (
 --       `periodo` -> `id_periodo`
 --   `id_seccion`
 --       `seccion` -> `id_seccion`
+--   `id_grado`
+--       `grado` -> `id_grado`
+--   `id_periodo`
+--       `periodo` -> `id_periodo`
+--   `id_seccion`
+--       `seccion` -> `id_seccion`
+--   `ci_profe_asignacion`
+--       `profesor` -> `ci_profe`
 --
 
 -- --------------------------------------------------------
@@ -60,10 +71,10 @@ CREATE TABLE IF NOT EXISTS `asignacion` (
 
 DROP TABLE IF EXISTS `cargo`;
 CREATE TABLE IF NOT EXISTS `cargo` (
-  `id_cargo` int(5) NOT NULL,
+  `id_cargo` int NOT NULL,
   `cargo` varchar(36) NOT NULL,
   PRIMARY KEY (`id_cargo`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `cargo`:
@@ -85,16 +96,18 @@ INSERT INTO `cargo` (`id_cargo`, `cargo`) VALUES
 
 DROP TABLE IF EXISTS `ciudades`;
 CREATE TABLE IF NOT EXISTS `ciudades` (
-  `id_ciudad` int(11) NOT NULL AUTO_INCREMENT,
-  `id_estado` int(11) NOT NULL,
+  `id_ciudad` int NOT NULL AUTO_INCREMENT,
+  `id_estado` int NOT NULL,
   `ciudad` varchar(200) NOT NULL,
   `capital` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_ciudad`),
   KEY `id_estado` (`id_estado`)
-) ENGINE=InnoDB AUTO_INCREMENT=523 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=523 DEFAULT CHARSET=utf8mb3;
 
 --
 -- RELACIONES PARA LA TABLA `ciudades`:
+--   `id_estado`
+--       `estados` -> `id_estado`
 --   `id_estado`
 --       `estados` -> `id_estado`
 --
@@ -611,10 +624,10 @@ INSERT INTO `ciudades` (`id_ciudad`, `id_estado`, `ciudad`, `capital`) VALUES
 
 DROP TABLE IF EXISTS `economia`;
 CREATE TABLE IF NOT EXISTS `economia` (
-  `id_economia` int(5) NOT NULL,
+  `id_economia` int NOT NULL,
   `estado_econ` varchar(50) NOT NULL,
   PRIMARY KEY (`id_economia`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `economia`:
@@ -638,11 +651,11 @@ INSERT INTO `economia` (`id_economia`, `estado_econ`) VALUES
 
 DROP TABLE IF EXISTS `estados`;
 CREATE TABLE IF NOT EXISTS `estados` (
-  `id_estado` int(11) NOT NULL AUTO_INCREMENT,
+  `id_estado` int NOT NULL AUTO_INCREMENT,
   `estado` varchar(250) NOT NULL,
   `iso_3166-2` varchar(4) NOT NULL,
   PRIMARY KEY (`id_estado`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
 
 --
 -- RELACIONES PARA LA TABLA `estados`:
@@ -687,26 +700,31 @@ INSERT INTO `estados` (`id_estado`, `estado`, `iso_3166-2`) VALUES
 
 DROP TABLE IF EXISTS `estudiante`;
 CREATE TABLE IF NOT EXISTS `estudiante` (
-  `ci_estu` bigint(15) NOT NULL,
+  `ci_estu` bigint NOT NULL,
   `nombre_estu` varchar(30) NOT NULL,
   `apellido_estu` varchar(30) NOT NULL,
   `sx_estu` varchar(1) NOT NULL,
   `fn_estu` date DEFAULT NULL,
-  `id_salud` int(5) DEFAULT NULL,
-  `id_economia` int(5) DEFAULT NULL,
+  `id_salud` int DEFAULT NULL,
+  `id_economia` int DEFAULT NULL,
   `tlf_estu` varchar(35) DEFAULT NULL,
-  `id_estado` int(5) DEFAULT NULL,
-  `id_municipio` int(5) DEFAULT NULL,
-  `id_parroquia` int(5) DEFAULT NULL,
+  `id_estado` int DEFAULT NULL,
+  `id_municipio` int DEFAULT NULL,
+  `id_parroquia` int DEFAULT NULL,
   `sector` varchar(30) DEFAULT NULL,
-  `id_pais_nacimiento` int(5) NOT NULL,
-  `id_estado_nacimiento` int(5) NOT NULL,
-  `id_ciudad_nacimiento` int(5) NOT NULL,
+  `id_pais_nacimiento` int NOT NULL,
+  `id_estado_nacimiento` int NOT NULL,
+  `id_ciudad_nacimiento` int NOT NULL,
   PRIMARY KEY (`ci_estu`),
   KEY `id_salud` (`id_salud`),
   KEY `id_economia` (`id_economia`),
-  KEY `id_estado` (`id_estado`,`id_municipio`,`id_parroquia`,`id_pais_nacimiento`,`id_estado_nacimiento`,`id_ciudad_nacimiento`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `id_estado` (`id_estado`,`id_municipio`,`id_parroquia`,`id_pais_nacimiento`,`id_estado_nacimiento`,`id_ciudad_nacimiento`),
+  KEY `id_ciudad_nacimiento` (`id_ciudad_nacimiento`),
+  KEY `id_estado_nacimiento` (`id_estado_nacimiento`),
+  KEY `id_municipio` (`id_municipio`),
+  KEY `id_pais_nacimiento` (`id_pais_nacimiento`),
+  KEY `id_parroquia` (`id_parroquia`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `estudiante`:
@@ -724,6 +742,24 @@ CREATE TABLE IF NOT EXISTS `estudiante` (
 --       `pais` -> `id_pais`
 --   `id_parroquia`
 --       `parroquias` -> `id_parroquia`
+--   `id_salud`
+--       `salud` -> `id_salud`
+--   `id_ciudad_nacimiento`
+--       `ciudades` -> `id_ciudad`
+--   `id_economia`
+--       `economia` -> `id_economia`
+--   `id_estado`
+--       `estados` -> `id_estado`
+--   `id_estado_nacimiento`
+--       `estados` -> `id_estado`
+--   `id_municipio`
+--       `municipios` -> `id_municipio`
+--   `id_pais_nacimiento`
+--       `pais` -> `id_pais`
+--   `id_parroquia`
+--       `parroquias` -> `id_parroquia`
+--   `id_salud`
+--       `salud` -> `id_salud`
 --
 
 -- --------------------------------------------------------
@@ -734,10 +770,10 @@ CREATE TABLE IF NOT EXISTS `estudiante` (
 
 DROP TABLE IF EXISTS `grado`;
 CREATE TABLE IF NOT EXISTS `grado` (
-  `id_grado` int(5) NOT NULL,
+  `id_grado` int NOT NULL,
   `grado` varchar(5) NOT NULL,
   PRIMARY KEY (`id_grado`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `grado`:
@@ -748,12 +784,12 @@ CREATE TABLE IF NOT EXISTS `grado` (
 --
 
 INSERT INTO `grado` (`id_grado`, `grado`) VALUES
-(6, '6°'),
-(5, '5°'),
-(4, '4°'),
-(3, '3°'),
+(1, '1°'),
 (2, '2°'),
-(1, '1°');
+(3, '3°'),
+(4, '4°'),
+(5, '5°'),
+(6, '6°');
 
 -- --------------------------------------------------------
 
@@ -763,18 +799,18 @@ INSERT INTO `grado` (`id_grado`, `grado`) VALUES
 
 DROP TABLE IF EXISTS `inscripcion`;
 CREATE TABLE IF NOT EXISTS `inscripcion` (
-  `id_inscripcion` int(5) NOT NULL AUTO_INCREMENT,
+  `id_inscripcion` int NOT NULL AUTO_INCREMENT,
   `nota` varchar(1) DEFAULT NULL,
-  `id_grado` int(5) NOT NULL,
-  `id_periodo` int(5) NOT NULL,
-  `id_seccion` int(5) DEFAULT NULL,
-  `ci_estu_inscripcion` bigint(20) NOT NULL,
+  `id_grado` int NOT NULL,
+  `id_periodo` int NOT NULL,
+  `id_seccion` int DEFAULT NULL,
+  `ci_estu_inscripcion` bigint NOT NULL,
   PRIMARY KEY (`id_inscripcion`),
   KEY `id_grado` (`id_grado`),
   KEY `id_periodo` (`id_periodo`),
   KEY `id_seccion` (`id_seccion`),
   KEY `ci_estu` (`ci_estu_inscripcion`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `inscripcion`:
@@ -786,6 +822,14 @@ CREATE TABLE IF NOT EXISTS `inscripcion` (
 --       `periodo` -> `id_periodo`
 --   `id_seccion`
 --       `seccion` -> `id_seccion`
+--   `id_grado`
+--       `grado` -> `id_grado`
+--   `id_periodo`
+--       `periodo` -> `id_periodo`
+--   `id_seccion`
+--       `seccion` -> `id_seccion`
+--   `ci_estu_inscripcion`
+--       `estudiante` -> `ci_estu`
 --
 
 -- --------------------------------------------------------
@@ -796,15 +840,17 @@ CREATE TABLE IF NOT EXISTS `inscripcion` (
 
 DROP TABLE IF EXISTS `municipios`;
 CREATE TABLE IF NOT EXISTS `municipios` (
-  `id_municipio` int(11) NOT NULL AUTO_INCREMENT,
-  `id_estado` int(11) NOT NULL,
+  `id_municipio` int NOT NULL AUTO_INCREMENT,
+  `id_estado` int NOT NULL,
   `municipio` varchar(100) NOT NULL,
   PRIMARY KEY (`id_municipio`),
   KEY `id_estado` (`id_estado`)
-) ENGINE=InnoDB AUTO_INCREMENT=463 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=463 DEFAULT CHARSET=utf8mb3;
 
 --
 -- RELACIONES PARA LA TABLA `municipios`:
+--   `id_estado`
+--       `estados` -> `id_estado`
 --   `id_estado`
 --       `estados` -> `id_estado`
 --
@@ -1158,11 +1204,11 @@ INSERT INTO `municipios` (`id_municipio`, `id_estado`, `municipio`) VALUES
 
 DROP TABLE IF EXISTS `nota`;
 CREATE TABLE IF NOT EXISTS `nota` (
-  `id_nota` int(5) NOT NULL,
+  `id_nota` int NOT NULL,
   `nota_cualitativa` varchar(5) NOT NULL,
   `descripcion` varchar(250) NOT NULL,
   PRIMARY KEY (`id_nota`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `nota`:
@@ -1173,11 +1219,11 @@ CREATE TABLE IF NOT EXISTS `nota` (
 --
 
 INSERT INTO `nota` (`id_nota`, `nota_cualitativa`, `descripcion`) VALUES
-(5, 'E', 'El alumno no logró adquirir las competencias mínimas requeridas para ser promovido al grado inmediato superior'),
-(4, 'D', 'El alumno alcanzó algunas de las competencias previstas para el grado, pero requiere de un proceso de nivelación al inicio del nuevo año escolar para alcanzar las restantes'),
-(3, 'C', 'El alumno alcanzó la mayoria de la compentencias previstas para el grado'),
+(1, 'A', 'El alumno alcanzó todas las competencias y en algunos casos superó las exprectativas previstas para el grado'),
 (2, 'B', 'El alumno alcanzó todas las competencias previstas para el grado'),
-(1, 'A', 'El alumno alcanzó todas las competencias y en algunos casos superó las exprectativas previstas para el grado');
+(3, 'C', 'El alumno alcanzó la mayoria de la compentencias previstas para el grado'),
+(4, 'D', 'El alumno alcanzó algunas de las competencias previstas para el grado, pero requiere de un proceso de nivelación al inicio del nuevo año escolar para alcanzar las restantes'),
+(5, 'E', 'El alumno no logró adquirir las competencias mínimas requeridas para ser promovido al grado inmediato superior');
 
 -- --------------------------------------------------------
 
@@ -1187,11 +1233,11 @@ INSERT INTO `nota` (`id_nota`, `nota_cualitativa`, `descripcion`) VALUES
 
 DROP TABLE IF EXISTS `pais`;
 CREATE TABLE IF NOT EXISTS `pais` (
-  `id_pais` int(5) NOT NULL AUTO_INCREMENT,
+  `id_pais` int NOT NULL AUTO_INCREMENT,
   `pais` varchar(50) NOT NULL,
   PRIMARY KEY (`id_pais`),
   KEY `pais` (`pais`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `pais`:
@@ -1202,8 +1248,8 @@ CREATE TABLE IF NOT EXISTS `pais` (
 --
 
 INSERT INTO `pais` (`id_pais`, `pais`) VALUES
-(1, 'venezuela'),
-(2, 'colombia');
+(2, 'colombia'),
+(1, 'venezuela');
 
 -- --------------------------------------------------------
 
@@ -1213,13 +1259,16 @@ INSERT INTO `pais` (`id_pais`, `pais`) VALUES
 
 DROP TABLE IF EXISTS `parentesco`;
 CREATE TABLE IF NOT EXISTS `parentesco` (
-  `id_parentesco` int(5) NOT NULL AUTO_INCREMENT,
+  `id_parentesco` int NOT NULL AUTO_INCREMENT,
   `parentesco` varchar(15) NOT NULL,
-  `ci_repre` int(10) NOT NULL,
-  `ci_estu` bigint(15) NOT NULL,
-  `id_periodo` int(5) NOT NULL,
-  PRIMARY KEY (`id_parentesco`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `ci_repre` int NOT NULL,
+  `ci_estu` bigint NOT NULL,
+  `id_periodo` int NOT NULL,
+  PRIMARY KEY (`id_parentesco`),
+  KEY `ci_repre` (`ci_repre`),
+  KEY `ci_estu` (`ci_estu`),
+  KEY `id_periodo` (`id_periodo`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `parentesco`:
@@ -1227,6 +1276,12 @@ CREATE TABLE IF NOT EXISTS `parentesco` (
 --       `estudiante` -> `ci_estu`
 --   `ci_repre`
 --       `representante` -> `ci_repre`
+--   `id_periodo`
+--       `periodo` -> `id_periodo`
+--   `ci_repre`
+--       `representante` -> `ci_repre`
+--   `ci_estu`
+--       `estudiante` -> `ci_estu`
 --   `id_periodo`
 --       `periodo` -> `id_periodo`
 --
@@ -1239,15 +1294,19 @@ CREATE TABLE IF NOT EXISTS `parentesco` (
 
 DROP TABLE IF EXISTS `parroquias`;
 CREATE TABLE IF NOT EXISTS `parroquias` (
-  `id_parroquia` int(11) NOT NULL AUTO_INCREMENT,
-  `id_municipio` int(11) NOT NULL,
+  `id_parroquia` int NOT NULL AUTO_INCREMENT,
+  `id_municipio` int NOT NULL,
   `parroquia` varchar(250) NOT NULL,
   PRIMARY KEY (`id_parroquia`),
   KEY `id_municipio` (`id_municipio`)
-) ENGINE=InnoDB AUTO_INCREMENT=1139 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1139 DEFAULT CHARSET=utf8mb3;
 
 --
 -- RELACIONES PARA LA TABLA `parroquias`:
+--   `id_municipio`
+--       `municipios` -> `id_municipio`
+--   `id_municipio`
+--       `municipios` -> `id_municipio`
 --
 
 --
@@ -2402,11 +2461,11 @@ INSERT INTO `parroquias` (`id_parroquia`, `id_municipio`, `parroquia`) VALUES
 
 DROP TABLE IF EXISTS `periodo`;
 CREATE TABLE IF NOT EXISTS `periodo` (
-  `id_periodo` int(5) NOT NULL AUTO_INCREMENT,
+  `id_periodo` int NOT NULL AUTO_INCREMENT,
   `periodo` varchar(10) NOT NULL,
   `status` varchar(5) NOT NULL,
   PRIMARY KEY (`id_periodo`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `periodo`:
@@ -2427,7 +2486,7 @@ INSERT INTO `periodo` (`id_periodo`, `periodo`, `status`) VALUES
 
 DROP TABLE IF EXISTS `profesor`;
 CREATE TABLE IF NOT EXISTS `profesor` (
-  `ci_profe` int(10) NOT NULL,
+  `ci_profe` int NOT NULL,
   `nombre_profe` varchar(30) NOT NULL,
   `apellido_profe` varchar(30) NOT NULL,
   `fn_profe` date DEFAULT NULL,
@@ -2437,12 +2496,15 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   `grado_instruccion` varchar(20) NOT NULL,
   `condicion_laboral` varchar(20) NOT NULL,
   `status` varchar(5) NOT NULL,
-  `id_estado` int(5) NOT NULL,
-  `id_municipio` int(5) NOT NULL,
-  `id_parroquia` int(5) NOT NULL,
+  `id_estado` int NOT NULL,
+  `id_municipio` int NOT NULL,
+  `id_parroquia` int NOT NULL,
   `sector` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`ci_profe`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`ci_profe`),
+  KEY `id_estado` (`id_estado`),
+  KEY `id_municipio` (`id_municipio`),
+  KEY `id_parroquia` (`id_parroquia`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `profesor`:
@@ -2452,7 +2514,20 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 --       `municipios` -> `id_municipio`
 --   `id_parroquia`
 --       `parroquias` -> `id_parroquia`
+--   `id_estado`
+--       `estados` -> `id_estado`
+--   `id_municipio`
+--       `municipios` -> `id_municipio`
+--   `id_parroquia`
+--       `parroquias` -> `id_parroquia`
 --
+
+--
+-- Volcado de datos para la tabla `profesor`
+--
+
+INSERT INTO `profesor` (`ci_profe`, `nombre_profe`, `apellido_profe`, `fn_profe`, `sx_profe`, `tlf_profe`, `correo_profe`, `grado_instruccion`, `condicion_laboral`, `status`, `id_estado`, `id_municipio`, `id_parroquia`, `sector`) VALUES
+(10401311, 'Francisco', 'Navarro', '2023-03-03', 'M', '3232-2322322', 'Fran@gmail.com', 'alto', 'fijo', 'ON', 15, 267, 693, 'Inrrevis');
 
 -- --------------------------------------------------------
 
@@ -2462,23 +2537,44 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 
 DROP TABLE IF EXISTS `representante`;
 CREATE TABLE IF NOT EXISTS `representante` (
-  `ci_repre` int(10) NOT NULL,
+  `ci_repre` int NOT NULL,
   `nombre_repre` varchar(30) NOT NULL,
   `apellido_repre` varchar(30) NOT NULL,
   `fn_repre` date DEFAULT NULL,
   `sx_repre` varchar(1) NOT NULL,
   `tlf_repre` varchar(12) NOT NULL,
-  `id_estado` int(5) NOT NULL,
-  `id_municipio` int(5) NOT NULL,
-  `id_parroquia` int(5) NOT NULL,
+  `id_estado` int NOT NULL,
+  `id_municipio` int NOT NULL,
+  `id_parroquia` int NOT NULL,
   `sector` varchar(30) NOT NULL,
   PRIMARY KEY (`ci_repre`),
-  KEY `id_estado` (`id_estado`,`id_municipio`,`id_parroquia`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `id_estado` (`id_estado`,`id_municipio`,`id_parroquia`),
+  KEY `id_municipio` (`id_municipio`),
+  KEY `id_parroquia` (`id_parroquia`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `representante`:
+--   `id_estado`
+--       `estados` -> `id_estado`
+--   `id_municipio`
+--       `municipios` -> `id_municipio`
+--   `id_parroquia`
+--       `parroquias` -> `id_parroquia`
+--   `id_estado`
+--       `estados` -> `id_estado`
+--   `id_municipio`
+--       `municipios` -> `id_municipio`
+--   `id_parroquia`
+--       `parroquias` -> `id_parroquia`
 --
+
+--
+-- Volcado de datos para la tabla `representante`
+--
+
+INSERT INTO `representante` (`ci_repre`, `nombre_repre`, `apellido_repre`, `fn_repre`, `sx_repre`, `tlf_repre`, `id_estado`, `id_municipio`, `id_parroquia`, `sector`) VALUES
+(34566766, 'Pedro', 'Castillo', '2023-02-16', 'M', '4334-3423232', 15, 268, 695, 'Caño zancudo');
 
 -- --------------------------------------------------------
 
@@ -2488,15 +2584,22 @@ CREATE TABLE IF NOT EXISTS `representante` (
 
 DROP TABLE IF EXISTS `salud`;
 CREATE TABLE IF NOT EXISTS `salud` (
-  `id_salud` int(11) NOT NULL AUTO_INCREMENT,
+  `id_salud` int NOT NULL AUTO_INCREMENT,
   `enfermedad` varchar(15) NOT NULL,
   `discapacidad` varchar(2) NOT NULL,
   PRIMARY KEY (`id_salud`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `salud`:
 --
+
+--
+-- Volcado de datos para la tabla `salud`
+--
+
+INSERT INTO `salud` (`id_salud`, `enfermedad`, `discapacidad`) VALUES
+(1, 'Ninguna', 'no');
 
 -- --------------------------------------------------------
 
@@ -2506,10 +2609,10 @@ CREATE TABLE IF NOT EXISTS `salud` (
 
 DROP TABLE IF EXISTS `seccion`;
 CREATE TABLE IF NOT EXISTS `seccion` (
-  `id_seccion` int(5) NOT NULL,
+  `id_seccion` int NOT NULL,
   `seccion` varchar(1) NOT NULL,
   PRIMARY KEY (`id_seccion`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `seccion`:
@@ -2535,15 +2638,21 @@ INSERT INTO `seccion` (`id_seccion`, `seccion`) VALUES
 
 DROP TABLE IF EXISTS `secciones_activas`;
 CREATE TABLE IF NOT EXISTS `secciones_activas` (
-  `id_secciones_activas` int(5) NOT NULL AUTO_INCREMENT,
-  `id_grado` int(5) NOT NULL,
-  `id_periodo` int(5) NOT NULL,
-  `secciones_activas` int(5) NOT NULL,
-  PRIMARY KEY (`id_secciones_activas`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `id_secciones_activas` int NOT NULL AUTO_INCREMENT,
+  `id_grado` int NOT NULL,
+  `id_periodo` int NOT NULL,
+  `secciones_activas` int NOT NULL,
+  PRIMARY KEY (`id_secciones_activas`),
+  KEY `id_grado` (`id_grado`),
+  KEY `id_periodo` (`id_periodo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `secciones_activas`:
+--   `id_grado`
+--       `grado` -> `id_grado`
+--   `id_periodo`
+--       `periodo` -> `id_periodo`
 --   `id_grado`
 --       `grado` -> `id_grado`
 --   `id_periodo`
@@ -2558,20 +2667,20 @@ CREATE TABLE IF NOT EXISTS `secciones_activas` (
 
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `id_usuario` int(5) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL AUTO_INCREMENT,
   `usuario` varchar(20) NOT NULL,
   `pass` varchar(100) DEFAULT NULL,
-  `id_cargo` int(5) NOT NULL,
+  `id_cargo` int NOT NULL,
   `nombre` varchar(15) DEFAULT NULL,
   `apellido` varchar(15) DEFAULT NULL,
-  `ci_profe` int(10) NOT NULL,
+  `ci_profe` int NOT NULL,
   `pregunta_secreta1` varchar(254) NOT NULL,
   `pregunta_secreta2` varchar(254) NOT NULL,
   `pregunta_secreta3` varchar(254) NOT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `id_cargo` (`id_cargo`),
   KEY `ci_profe` (`ci_profe`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- RELACIONES PARA LA TABLA `usuario`:
@@ -2579,7 +2688,102 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --       `profesor` -> `ci_profe`
 --   `id_cargo`
 --       `cargo` -> `id_cargo`
+--   `id_cargo`
+--       `cargo` -> `id_cargo`
+--   `ci_profe`
+--       `profesor` -> `ci_profe`
 --
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `asignacion`
+--
+ALTER TABLE `asignacion`
+  ADD CONSTRAINT `asignacion_ibfk_1` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `asignacion_ibfk_2` FOREIGN KEY (`id_periodo`) REFERENCES `periodo` (`id_periodo`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `asignacion_ibfk_3` FOREIGN KEY (`id_seccion`) REFERENCES `seccion` (`id_seccion`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `asignacion_ibfk_4` FOREIGN KEY (`ci_profe_asignacion`) REFERENCES `profesor` (`ci_profe`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `ciudades`
+--
+ALTER TABLE `ciudades`
+  ADD CONSTRAINT `ciudades_ibfk_1` FOREIGN KEY (`id_estado`) REFERENCES `estados` (`id_estado`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `estudiante`
+--
+ALTER TABLE `estudiante`
+  ADD CONSTRAINT `estudiante_ibfk_1` FOREIGN KEY (`id_ciudad_nacimiento`) REFERENCES `ciudades` (`id_ciudad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `estudiante_ibfk_2` FOREIGN KEY (`id_economia`) REFERENCES `economia` (`id_economia`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `estudiante_ibfk_3` FOREIGN KEY (`id_estado`) REFERENCES `estados` (`id_estado`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `estudiante_ibfk_4` FOREIGN KEY (`id_estado_nacimiento`) REFERENCES `estados` (`id_estado`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `estudiante_ibfk_5` FOREIGN KEY (`id_municipio`) REFERENCES `municipios` (`id_municipio`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `estudiante_ibfk_6` FOREIGN KEY (`id_pais_nacimiento`) REFERENCES `pais` (`id_pais`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `estudiante_ibfk_7` FOREIGN KEY (`id_parroquia`) REFERENCES `parroquias` (`id_parroquia`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `estudiante_ibfk_8` FOREIGN KEY (`id_salud`) REFERENCES `salud` (`id_salud`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `inscripcion`
+--
+ALTER TABLE `inscripcion`
+  ADD CONSTRAINT `inscripcion_ibfk_1` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `inscripcion_ibfk_2` FOREIGN KEY (`id_periodo`) REFERENCES `periodo` (`id_periodo`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `inscripcion_ibfk_3` FOREIGN KEY (`id_seccion`) REFERENCES `seccion` (`id_seccion`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `inscripcion_ibfk_4` FOREIGN KEY (`ci_estu_inscripcion`) REFERENCES `estudiante` (`ci_estu`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `municipios`
+--
+ALTER TABLE `municipios`
+  ADD CONSTRAINT `municipios_ibfk_1` FOREIGN KEY (`id_estado`) REFERENCES `estados` (`id_estado`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `parentesco`
+--
+ALTER TABLE `parentesco`
+  ADD CONSTRAINT `parentesco_ibfk_1` FOREIGN KEY (`ci_repre`) REFERENCES `representante` (`ci_repre`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `parentesco_ibfk_2` FOREIGN KEY (`ci_estu`) REFERENCES `estudiante` (`ci_estu`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `parentesco_ibfk_3` FOREIGN KEY (`id_periodo`) REFERENCES `periodo` (`id_periodo`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `parroquias`
+--
+ALTER TABLE `parroquias`
+  ADD CONSTRAINT `parroquias_ibfk_1` FOREIGN KEY (`id_municipio`) REFERENCES `municipios` (`id_municipio`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `profesor`
+--
+ALTER TABLE `profesor`
+  ADD CONSTRAINT `profesor_ibfk_1` FOREIGN KEY (`id_estado`) REFERENCES `estados` (`id_estado`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `profesor_ibfk_2` FOREIGN KEY (`id_municipio`) REFERENCES `municipios` (`id_municipio`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `profesor_ibfk_3` FOREIGN KEY (`id_parroquia`) REFERENCES `parroquias` (`id_parroquia`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `representante`
+--
+ALTER TABLE `representante`
+  ADD CONSTRAINT `representante_ibfk_1` FOREIGN KEY (`id_estado`) REFERENCES `estados` (`id_estado`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `representante_ibfk_2` FOREIGN KEY (`id_municipio`) REFERENCES `municipios` (`id_municipio`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `representante_ibfk_3` FOREIGN KEY (`id_parroquia`) REFERENCES `parroquias` (`id_parroquia`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `secciones_activas`
+--
+ALTER TABLE `secciones_activas`
+  ADD CONSTRAINT `secciones_activas_ibfk_1` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`id_grado`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `secciones_activas_ibfk_2` FOREIGN KEY (`id_periodo`) REFERENCES `periodo` (`id_periodo`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id_cargo`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`ci_profe`) REFERENCES `profesor` (`ci_profe`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
